@@ -6,19 +6,26 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%#= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
     <header>
+      <!--ユーザーログインの場合の表示-->
       <% if user_signed_in? %>
         <li>
           <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
         </li>
+        <li>
+          <%= link_to "マイページ", users_show_path %>
+        </li>
+      <!--管理者ログインの場合の表示-->
       <% elsif admin_signed_in?%> 
         <li>
           <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
         </li>
+      <!--ログアウトしている場合の表示-->
       <% else %>
         <li>
           <%= link_to "新規登録", new_user_registration_path %>
@@ -32,7 +39,7 @@
     <%= yield %>
     
     <footer>
-    
+      <small>&copy;park_review All Right Reserved</small>
     </footer>
   </body>
 </html>

@@ -1,0 +1,53 @@
+//---------------
+// 定義
+//---------------
+@charset "UTF-8";
+
+// レスポンシブ 
+$tab: 960px;
+$sp: 600px;
+
+@mixin tab{
+  @media(max-width:($tab)){
+    @content;
+  }  
+}
+@mixin sp{
+  @media(max-width:($sp)){
+    @content;  
+  }  
+}
+
+//---------------
+// 共通
+//---------------
+body{
+  margin: 0;  
+}
+
+
+//---------------
+// ヘッダー
+//---------------
+header{
+  width: 100%;
+  height: 65px;
+  background: lightgreen;
+  li{
+    padding-left: 100px;
+  }
+}
+
+
+//----------------
+// フッター
+//----------------
+footer{
+  width: 100%;
+  background: lightgreen;
+  small{
+    display: block;
+    padding: 10px 0;
+    text-align: center;  
+  }
+}
