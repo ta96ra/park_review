@@ -12,7 +12,11 @@
   </head>
   <body>
     <header>
+      <div class="logo">
+        <%= image_tag('logo.png')%>
+      </div>
       <!--ユーザーログインの場合の表示-->
+      <ul>
       <% if user_signed_in? %>
         <li>
           <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
@@ -34,11 +38,16 @@
           <%= link_to "ログイン", new_user_session_path %>
         </li>
       <% end %>
+      </ul>
     </header>
-    
-    <%= yield %>
-    
+    <!--後で消す-->
+    <div class="top"></div>
+    <main>
+      <%= yield %>
+    </main>
+    <div class="bottom"></div>
     <footer>
+      <nav></nav>
       <small>&copy;park_review All Right Reserved</small>
     </footer>
   </body>
