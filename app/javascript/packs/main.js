@@ -1,0 +1,5 @@
+'usestrict';
+{
+  console.log('あ');
+  
+}
