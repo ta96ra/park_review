@@ -1,5 +1,16 @@
 Rails.application.routes.draw do
 
+  # namespace :public do
+  #   get 'parks/index'
+  #   get 'parks/show'
+  #   get 'parks/edit'
+  # end
+  # namespace :admin do
+  #   get 'parks/index'
+  #   get 'parks/show'
+  #   get 'parks/edit'
+  # end
+  
   #------------------
   # 会員用
   #------------------
@@ -15,8 +26,17 @@ Rails.application.routes.draw do
   #会員用サイト
   scope module: :public do
     root to:'homes#top'
-    get 'users/show'
-    get 'users/edit'
+    ##User 
+    get "users/my_page"=>"users#show",as:"user"
+    get "users/information/edit"=>"users#edit",as:"info_edit"
+    patch "users/information"=>"users#update",as:"info"
+    get "users/confirm"=>"users#confirm"
+    patch "users/withdraw"=>"users#withdraw" 
+    
+    
+    resources :parks,only: [:index, :create, :show, :edit]do
+      resources :reviews,only:[:create]
+    end  
     # resources :users,only: [:show, :edit, :update]
   end  
   
@@ -33,10 +53,16 @@ Rails.application.routes.draw do
   
   #管理者用サイト
   namespace :admin do
-    root to:'users#index'
+    root to:'parks#index'
     # get 'users/index'
-    get 'users/show'
-    get 'users/edit'
+    # get 'users/show'
+    # get 'users/edit'
+    resources :users,only: [:index,:show, :update]
+    
+    resources :parks,only: [:index, :create, :show, :edit] do
+      resources :reviews,only:[:create]
+    end
+    
   end  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
 end

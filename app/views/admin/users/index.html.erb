@@ -1,3 +1,46 @@
-<h1>Admin::Users#index</h1>
-<h2>会員一覧画面</h2>
+<h1>会員一覧</h1>
+<h2>Admin::Users#index</h2>
+
+<section id="admin-index">
+    <div class="admin-index">
+        <table>
+            <thead>
+                <tr>
+                    <th>会員ID</th>
+                    <th>写真</th>
+                    <th>ニックネーム</th>
+                    <th>Email</th>
+                    <th>ステータス</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% @users.each do |user|%>
+                <tr>
+                    <td><%= user.id %></td>
+                    <td>
+                        <% if user.user_image.attached? %>
+                            <%= image_tag user.user_image %>
+                        <% else %>
+                            <%= image_tag 'no_image' %>
+                        <% end %>
+                    </td>
+                    <td><%= link_to user.nickname,admin_user_path(user)  %></td>
+                    <td><%= user.email %></td>
+                    <td>
+                        <% if user.is_deleted %>
+                            <p>退会</p>
+                        <% else %>
+                            <P>有効</P>
+                        <% end %>
+                    </td>
+                </tr>
+                <% end %>                 
+            </tbody>    
+        </table>
+        <ul>
+        
+        </ul>
+    
+    </div>
+</section>
 

@@ -9,9 +9,13 @@
     <%#= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    
   </head>
   <body>
     <header>
+      <div class="sun">
+        <%= image_tag('headersun.png')%>
+      </div>
       <div class="logo">
         <%= image_tag('logo.png')%>
       </div>
@@ -19,18 +23,33 @@
       <ul>
       <% if user_signed_in? %>
         <li>
+          <%= link_to "ホーム", root_path %>
+        </li>
+        <li>
+          <%= link_to "公園一覧", parks_path %>
+        </li>
+        <li>
           <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
         </li>
         <li>
-          <%= link_to "マイページ", users_show_path %>
+          <%= link_to "マイページ", user_path(current_user) %>
         </li>
       <!--管理者ログインの場合の表示-->
-      <% elsif admin_signed_in?%> 
+      <% elsif admin_signed_in?%>
+        <li>
+          <%= link_to "会員一覧", admin_users_path %>
+        </li>
+        <li>
+          <%= link_to "公園一覧", admin_parks_path %>
+        </li>
         <li>
           <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
         </li>
       <!--ログアウトしている場合の表示-->
       <% else %>
+        <li>
+          <%= link_to "公園一覧", parks_path %>
+        </li>
         <li>
           <%= link_to "新規登録", new_user_registration_path %>
         </li>
@@ -40,15 +59,22 @@
       <% end %>
       </ul>
     </header>
-    <!--後で消す-->
-    <div class="top"></div>
     <main>
-      <%= yield %>
+      <div class="title">
+        <%= image_tag('title.png')%>
+      </div>
+      <div class="contents">
+        <div class="wrapper">
+          <%= yield %>
+        </div>
+      </div>
     </main>
-    <div class="bottom"></div>
     <footer>
-      <nav></nav>
-      <small>&copy;park_review All Right Reserved</small>
+      <div class="bottom"></div>
+      <div class="footer-contents">
+        <nav></nav>
+        <small>&copy;park_review All Right Reserved</small>
+      </div>
     </footer>
   </body>
 </html>

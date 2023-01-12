@@ -7,4 +7,31 @@ class User < ApplicationRecord
         :recoverable, #パスワードのリセット
         :rememberable, #ログイン情報を保存
         :validatable #emailのフォーマットなどのバリデーション
+  
+  #アソシエーション
+  has_many:parks
+  has_many:reviews,dependent: :destroy
+  
+  #ActiveStorage
+  has_one_attached :user_image
+  
+   # 会員画像に関する処理---会員画像がない場合no_image.jpgを使用
+  def get_user_image(width, height)
+    unless user_image.attached?
+      file_path = Rails.root.join('app/assets/images/no_image.jpg')
+      user_image.attach(io: File.open(file_path), filename: 'no_image.jpg', content_type: 'image/jpeg')
+    end
+    user_image.variant(resize_to_limit: [width, height]).processed
+  end
+  
+  #バリデーション 
+  validates :nickname, presence: true
+  validates :email, presence: true
+  
+  # 退会処理
+  ## is_deletedがfalseならtrueを返すようにしている
+  def active_for_authentication?
+    super && (is_deleted == false)
+  end
+  
 end

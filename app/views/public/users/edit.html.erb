@@ -1,2 +1,41 @@
-<h1>Public::Users#edit</h1>
-<p>Find me in app/views/public/users/edit.html.erb</p>
+<h1>会員編集画面</h1>
+
+<h2>Public::Users#edit</h2>
+<section id="user-edit">
+  <div class="user-edit">
+    <!--バリデーションのエラーメッセージ-->
+    <% if @user.errors.any? %>
+    <%= @user.errors.count %>件のエラーが発生しました
+    <ul>
+      <% @user.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+    <% end %>
+    <%= form_with model: @user,url:info_path(@user), local:true, method: :patch do |f| %>
+    <ul>
+      <li>
+        <%= f.label 'ユーザー画像' %>
+        <%= f.file_field :user_image %>
+      </li>
+      <li>
+        <%= f.label 'ニックネーム' %>
+        <%= f.text_field :nickname %>
+      </li>
+      <li>
+        <%= f.label 'Eメール' %>
+        <%= f.text_area :email %>
+      </li>
+      <li>
+        <%#= f.label 'パスワード' %>
+        <%#= f.text_area :password %>
+      </li>
+    </ul>
+    <div class="buttons">
+      <%= f.submit "編集内容を保存" %>
+      <%= link_to '退会する', users_confirm_path %>
+    </div>
+    <% end %>
+  </div>
+</section>
+
