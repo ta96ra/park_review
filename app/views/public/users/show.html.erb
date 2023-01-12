@@ -1,6 +1,5 @@
 <h1>マイページ（会員詳細画面）</h1>
 
-<h2>Public::Users#show</h2>
 <section id="user-show">
     <div class="user-show">
         <!--フラッシュ目セージ-->
@@ -17,5 +16,8 @@
         <h3>Email</h3>
         <%= @user.email%>
     </div>
-    <%= link_to "編集する", info_edit_path %>
+    <!--ゲストユーザーの場合は表示させない-->
+    <% if @user.nickname != "guestuser" %>
+        <%= link_to "編集する", info_edit_path %>
+    <% end%>    
 </section>

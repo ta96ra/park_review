@@ -1,5 +1,4 @@
 <h1>公園一覧</h1>
-<h2>Public::Parks#index</h2>
 <section id="user-park-index">
   <div class="user-park-index">
     <!--新規登録のフラッシュメッセージ-->
@@ -27,14 +26,22 @@
     </div>
     <!--公園一覧-->
     <div class="parks-list">
-      <p>(全<%#= @parks.count %>件)</p>
+      <p>(全<%= @parks.count %>件)</p>
       <ul>
         <% @parks.each do |park| %>
         <li>
           <%= link_to park_path(park.id) do %>
-            <%#= image_tag %>
-            <%= park.park %>
-            <%= park.address %>
+            <div class="left">
+              <% if park.park_image.attached? %>
+                <%= image_tag park.park_image %>
+              <% else %>
+                <%= image_tag 'no_park_image' %>
+              <% end %>
+            </div>
+            <div class="right">
+              <h3><%= park.park %></h3>
+              <p><%= park.address %></p>
+            </div>
           <% end %>
         </li>
         <% end %>

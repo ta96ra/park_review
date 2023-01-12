@@ -1,15 +1,12 @@
 Rails.application.routes.draw do
 
-  # namespace :public do
-  #   get 'parks/index'
-  #   get 'parks/show'
-  #   get 'parks/edit'
-  # end
-  # namespace :admin do
-  #   get 'parks/index'
-  #   get 'parks/show'
-  #   get 'parks/edit'
-  # end
+  #------------------
+  # ゲスト用
+  #------------------
+  #ゲストログイン
+  devise_scope :user do
+    post 'users/guest_sign_in', to: 'guests/sessions#guest_sign_in'
+  end
   
   #------------------
   # 会員用
@@ -21,13 +18,7 @@ Rails.application.routes.draw do
     registrations: "public/registrations",
     sessions: 'public/sessions'  
   }
-   ##skip:[:不要なルーティング]
-   
-  #ゲストログイン 
-  devise_scope :user do
-    post 'users/guest_sign_in', to: 'users/sessions#guest_sign_in'
-  end
- 
+   ##skip:[:不要なルーティング] 
   
   #会員用サイト
   scope module: :public do
@@ -37,11 +28,10 @@ Rails.application.routes.draw do
     get "users/information/edit"=>"users#edit",as:"info_edit"
     patch "users/information"=>"users#update",as:"info"
     get "users/confirm"=>"users#confirm"
-    patch "users/withdraw"=>"users#withdraw" 
     
     
     resources :parks,only: [:index, :create, :show, :edit]do
-      resources :reviews,only:[:create]
+      resources :reviews,only:[:create, :destroy]
     end  
     # resources :users,only: [:show, :edit, :update]
   end  
@@ -60,13 +50,10 @@ Rails.application.routes.draw do
   #管理者用サイト
   namespace :admin do
     root to:'parks#index'
-    # get 'users/index'
-    # get 'users/show'
-    # get 'users/edit'
     resources :users,only: [:index,:show, :update]
     
     resources :parks,only: [:index, :create, :show, :edit] do
-      resources :reviews,only:[:create]
+      resources :reviews,only:[:create, :destroy]
     end
     
   end  

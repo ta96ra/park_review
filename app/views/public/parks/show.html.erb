@@ -1,8 +1,31 @@
-<h1>公園詳細</h1>
-<section id="user-park-show">
+<h1><%= @park.park %></h1>
+<section class="user-park">
   <div class="user-park-show">
-    <h2><%= @park.park %></h2>
-    <p><%= @park.address %></p>
     <%= link_to '編集する', edit_park_path  %>
+    <div class="top-image">
+      <% if @park.park_image.attached? %>
+        <%= image_tag park.park_image %>
+      <% else %>
+        <%= image_tag 'no_park_image' %>
+      <% end %>
+    </div>
+    <p><%= @park.address %></p>
+    
+    <!--レビュー一覧-->
+    <div class="reviews">
+      <p>レビュー件数：<%= @park.reviews.count %></p>
+      <% @park.reviews.each do |review| %>
+        <!--<p><%#= image_tag review.user.get_user_image(100,100) %></p>-->
+        <div>
+          <% if review.user.user_image.attached? %>
+            <%= image_tag review.user.user_image %>
+          <% else %>
+            <%= image_tag 'no_image' %>
+          <% end %>
+        </div>
+        <%= review.user.nickname %>
+        <%= review.created_at.strftime('%Y/%m/%d') %><%= review.review %>     
+      <% end %>
+    </div>
   </div>
 </section>

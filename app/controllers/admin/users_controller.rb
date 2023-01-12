@@ -11,22 +11,21 @@ class Admin::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      redirect_to admin_users_path(@user)
+      # 会員ステータスによりファラッシュメッセージを変える
+      if params[:user][:is_deleted] == "true"
+        flash[:notice] = "退会処理を実行いたしました"
+        redirect_to admin_users_path(@user)
+      else
+        flash[:notice] = "会員を有効にしました"
+        redirect_to admin_users_path(@user)
+      end
+      
     else
       redirect_to request.referer
-      # render :edit
     end
   end
   
-  # 退会フラグ
-  def withdraw
-    @user = User.find(params[:id])
-    @user.update(is_deleted: true)
-    reset_session
-    flash[:notice] = "退会処理を実行いたしました"
-    redirect_to admin_users_path 
-  end  
-  
+  private
   #ストロングパラメーター
   def user_params
     params.require(:user).permit(:nickname, :email, :password, :user_image,:is_deleted)  

@@ -38,6 +38,13 @@ h1{
   text-align: center;
   transform: translateY(-180px);
 }
+ul,ol{
+  margin: 0;
+  padding-left: 0;
+  li{
+    list-style-position: inside;  
+  }  
+}
 li{
   list-style: none;
 }
@@ -64,13 +71,25 @@ header{
   .sun{
     width: 120px;  
     transform: translate(calc(25vw + 40px),180px);
+    img{
+      transition: .3s;
+      &:hover{
+        transform: rotate(15deg);
+        transition: .3s;
+      }
+    }
   }
   .logo{
     width: 160px;
     transform: translate(calc(75vw - 50%),50px);
     img{
       border-radius: 50%;
+      transition: .3s;
       // outline: 5px solid black;
+      &:hover{
+        transform: scale(1.1);
+       transition: .3s;
+      }
     }
   }
   li{
@@ -108,10 +127,73 @@ main{
       max-width: 1080px;  
       margin: 0 auto;
       outline: 2px solid red;
-      
+      section{
+        border: 2px solid black;
+        border-radius: 20px;
+        margin-top: -50px;
+      }
     //-----------
     // 会員側
-    //-----------  
+    //-----------
+      //新規会員登録,ログイン
+      .login{
+        .login-content{
+          width: 100%;
+          max-width: 480px;
+          margin: 0 auto;
+          padding: 40px;
+          outline: 2px solid green;
+          form{
+            .field{
+              width: 200px;
+              margin: 0 auto 10px;
+              label{
+                font-size: 1.25rem;
+              }
+              input{
+                width: 200px;
+                font-size: 1.25rem;
+              }
+              // outline: 2px solid blue;
+            }
+            .rule{
+              // outline: 2px solid green;
+              p{
+                font-size: 1.25rem;  
+              }
+              ol{
+                width: 480px;
+                height: 120px;
+                padding: 5px;
+                border: 2px solid black;
+                border-radius: 5px;
+                overflow: scroll;
+                li{
+                  list-style-type: decimal;
+                }    
+              }
+            }
+            .actions{
+              outline: 2px solid orange;
+              input{
+                display: block;
+                width: 200px;
+                padding: 5px 0;
+                margin: 20px auto; 
+                cursor: pointer;
+                outline: 2px solid skyblue;  
+              }
+            }
+          }
+          .login-bottom{
+            outline: 2px solid purple;
+            .page-link{
+              float: right;
+              outline: 2px solid brown;;
+            }
+          }
+        }  
+      }
       //マイページ
       #user-show{
         .user-show{
@@ -135,16 +217,49 @@ main{
           outline: 2px solid orange;
           ul{
             li{
+              margin-bottom: 10px;
               border: 2px solid black;
               border-radius: 10px;
+              a{
+                display: flex;
+                .left{
+                  img{
+                  width: 150px;
+                  }       
+                }
+                .right{
+                  width: calc(100% - 150px);
+                  padding-left: 20px;
+                  outline: 2px solid green;
+                }
+              }       
             }  
           }
         }
       }
-      // 公園詳細
-      #user-park-show{
+      // 公園詳細・編集
+      .user-park{
         .user-park-show{
-          outline: 2px solid blue;
+          outline: 4px solid purple;
+          .top-image{
+            display: flex;
+            justify-content: center;
+            outline: 4px solid green;
+            img{
+              width: 100%;
+              max-width: 400px;
+              @include sp{
+                max-width: 300px;
+              }
+            }
+          }
+          .reviews{
+            outline: 2px solid green;
+            img{
+              width: 100px;  
+            }
+          }
+          
         }  
       }
     //-----------

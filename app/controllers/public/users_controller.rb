@@ -1,5 +1,7 @@
 class Public::UsersController < ApplicationController
-  
+  # アクセス制限
+  # before_action :authenticate_user!
+  before_action :ensure_guest_user, only: [:edit]
   def show
     @user = current_user
   end
@@ -31,6 +33,9 @@ class Public::UsersController < ApplicationController
     redirect_to root_path
   end  
   
+  
+  private
+  #ストロングパラメーター
   def user_params
     params.require(:user).permit(:nickname, :email, :password, :user_image, :is_deleted)  
   end  
