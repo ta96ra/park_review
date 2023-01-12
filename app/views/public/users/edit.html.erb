@@ -12,6 +12,8 @@
       <% end %>
     </ul>
     <% end %>
+    
+    <!--編集フォーム-->
     <%= form_with model: @user,url:info_path(@user), local:true, method: :patch do |f| %>
     <ul>
       <li>

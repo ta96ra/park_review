@@ -7,6 +7,17 @@ class User < ApplicationRecord
         :recoverable, #パスワードのリセット
         :rememberable, #ログイン情報を保存
         :validatable #emailのフォーマットなどのバリデーション
+        
+  #ゲストログイン
+  def self.guest
+    find_or_create_by!(nickname: 'guestuser' ,email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.password_confirmation = user.password
+      user.nickname = "guestuser"
+      user.email = "guest@example.com"
+    end
+  end
+        
   
   #アソシエーション
   has_many:parks

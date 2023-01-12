@@ -109,8 +109,9 @@ main{
       margin: 0 auto;
       outline: 2px solid red;
       
-      // 会員側
-      
+    //-----------
+    // 会員側
+    //-----------  
       //マイページ
       #user-show{
         .user-show{
@@ -125,15 +126,37 @@ main{
           }  
         }
       }
-      // 管理者側
-      
+      // 公園一覧
+      #user-park-index{
+        .new-park{
+          outline: 2px solid green;
+        }
+        .parks-list{
+          outline: 2px solid orange;
+          ul{
+            li{
+              border: 2px solid black;
+              border-radius: 10px;
+            }  
+          }
+        }
+      }
+      // 公園詳細
+      #user-park-show{
+        .user-park-show{
+          outline: 2px solid blue;
+        }  
+      }
+    //-----------
+    // 管理者側
+    //-----------  
       // 会員一覧
       #admin-index{
         .admin-index{
           table{
-            border-collapse: collapse;
-            border-color: black;
             width: 100%;
+            border-collapse: collapse;
+            border-color: black; 
             th{
               border: 2px solid black;
             }

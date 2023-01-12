@@ -3,6 +3,9 @@
 <h2>Public::Users#show</h2>
 <section id="user-show">
     <div class="user-show">
+        <!--フラッシュ目セージ-->
+        <%= flash[:user_notice] %>
+        <!--会員詳細情報-->
         <h3>画像</h3>
         <% if @user.user_image.attached? %>
             <%= image_tag @user.user_image %>
