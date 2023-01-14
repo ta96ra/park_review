@@ -2,6 +2,7 @@ class Public::UsersController < ApplicationController
   # アクセス制限
   # before_action :authenticate_user!
   before_action :ensure_guest_user, only: [:edit]
+  
   def show
     @user = current_user
   end
@@ -38,5 +39,13 @@ class Public::UsersController < ApplicationController
   #ストロングパラメーター
   def user_params
     params.require(:user).permit(:nickname, :email, :password, :user_image, :is_deleted)  
+  end  
+  
+  def ensure_guest_user
+    @user = current_user
+    if @user.nickname == "guestuser"
+      flash[:notice] = 'ゲストユーザーはプロフィール編集画面へ遷移できません。'
+      redirect_to user_path(current_user) 
+    end
   end  
 end

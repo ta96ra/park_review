@@ -2,6 +2,7 @@
 <section class="user-park">
   <div class="user-park-show">
     <%= link_to '編集する', edit_park_path  %>
+    
     <div class="top-image">
       <% if @park.park_image.attached? %>
         <%= image_tag park.park_image %>
@@ -10,6 +11,16 @@
       <% end %>
     </div>
     <p><%= @park.address %></p>
+    
+    <!--ActionTextによる公園詳細-->
+    <div class="field">
+      <%= @park.detail %>
+    </div>
+    
+    <!--タグの表示-->
+    <% @park.tags.each do |tag| %>
+      <span><%= tag.tag %></span>
+    <% end %>
     
     <!--レビュー一覧-->
     <div class="reviews">

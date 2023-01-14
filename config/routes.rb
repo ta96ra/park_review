@@ -28,9 +28,10 @@ Rails.application.routes.draw do
     get "users/information/edit"=>"users#edit",as:"info_edit"
     patch "users/information"=>"users#update",as:"info"
     get "users/confirm"=>"users#confirm"
+    patch "users/withdraw"=>"users#withdraw"
     
     
-    resources :parks,only: [:index, :create, :show, :edit]do
+    resources :parks,only: [:index, :create, :show, :edit, :update]do
       resources :reviews,only:[:create, :destroy]
     end  
     # resources :users,only: [:show, :edit, :update]
@@ -52,7 +53,7 @@ Rails.application.routes.draw do
     root to:'parks#index'
     resources :users,only: [:index,:show, :update]
     
-    resources :parks,only: [:index, :create, :show, :edit] do
+    resources :parks,only: [:index, :create, :show, :edit, :update] do
       resources :reviews,only:[:create, :destroy]
     end
     

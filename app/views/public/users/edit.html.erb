@@ -1,6 +1,6 @@
 <h1>会員編集画面</h1>
-<section id="user-edit">
-  <div class="user-edit">
+<section class="user">
+  <div class="user-show">
     <!--バリデーションのエラーメッセージ-->
     <% if @user.errors.any? %>
     <%= @user.errors.count %>件のエラーが発生しました
@@ -15,16 +15,21 @@
     <%= form_with model: @user,url:info_path(@user), local:true, method: :patch do |f| %>
     <ul>
       <li>
-        <%= f.label 'ユーザー画像' %>
+        <%= f.label '画像' %>
+        <% if @user.user_image.attached? %>
+          <%= image_tag @user.user_image %>
+        <% else %>
+          <%= image_tag 'no_image' %>
+        <% end %>
         <%= f.file_field :user_image %>
       </li>
       <li>
         <%= f.label 'ニックネーム' %>
-        <%= f.text_field :nickname %>
+        <%= f.text_field :nickname,class:"text" %>
       </li>
       <li>
         <%= f.label 'Eメール' %>
-        <%= f.text_area :email %>
+        <%= f.text_field :email,class:"text" %>
       </li>
       <li>
         <%#= f.label 'パスワード' %>

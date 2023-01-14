@@ -14,7 +14,7 @@
     </ul>
     <% end %>
     
-    <!--新規登録・絞り込み（ドロープダウン）-->
+    <!--新規登録-->
     <div class="new-park">
       <%= form_with model: @park, url: parks_path, local:true do |f| %>
         <%= f.label '公園名' %>
@@ -24,6 +24,16 @@
         <%= f.submit '新規登録' %>
       <% end %>
     </div>
+    
+    <!--複数タグ検索-->
+    <%#= form_tag({controller:"parks",action:"index"}, method: :get) do %>
+    <%= form_with model: @park, method: :get do %>
+      <% Tag.all.each do |t| %>
+        <li><%= check_box :tag_ids, t.tag %><%= t.tag %></li>
+      <% end %>
+      <%= submit_tag '絞り込み' %>
+    <% end %>
+    
     <!--公園一覧-->
     <div class="parks-list">
       <p>(全<%= @parks.count %>件)</p>

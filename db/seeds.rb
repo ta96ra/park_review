@@ -9,3 +9,16 @@
 
 # 管理者のアカウント
 # Admin.create!( email: "qwerty@gmail.com", password: "qwerty")
+
+#タグの初期値
+# Tag.create([
+#   {tag: 'おむつ替えスペース'},
+#   {tag: 'ローラー滑り台'},
+#   {tag: '猫じゃらし'},
+#   {tag: 'どんぐり'},
+#   {tag: 'グランド'},
+#   {tag: 'ボルダリング'},
+#   {tag: '水遊び'},
+#   {tag: '恐竜'}
+
+# ])

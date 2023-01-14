@@ -3,7 +3,19 @@ class Public::ParksController < ApplicationController
     @park = Park.new
     @parks = Park.all
     # @parks_part = @parks.page(params[:page])  #ページネーション導入のため
+    
+    # タグのAND検索
+    if params[:tag_ids]
+      @parks = []
+      params[:tag_ids].each do |key, value|
+        if value == "1"
+          tag_parks = Tag.find_by(tag: key).parks
+          @parks = @parks.empty? ? tag_parks : @tweets & tag_parks
+        end
+      end
+    end 
   end
+  
   def create
     @park = Park.new(park_params)
     @park.user_id = current_user.id
@@ -26,10 +38,16 @@ class Public::ParksController < ApplicationController
     @review = Review.new
   end
   
+  def update
+    @park = Park.find(params[:id])
+    @park.update(park_params)
+    redirect_to park_path
+  end
+  
   private
   #ストロングパラメーター
   def park_params
-    params.require(:park).permit(:user_id, :prefecture_id, :park, :address, :longitude, :latitude, :detail, :status, :average_evaluation, :park_image)  
+    params.require(:park).permit(:user_id, :prefecture_id, :park, :address, :longitude, :latitude, :detail, :status, :average_evaluation, :park_image, tag_ids: [])  
   end
   
   def ensure_guest_user

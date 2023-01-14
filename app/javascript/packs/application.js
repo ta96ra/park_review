@@ -9,7 +9,17 @@ import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import './main'
 import '../stylesheets/application.scss'
+// import '../stylesheets/actiontext.scss'
+// import '../stylesheets/scaffolds.scss'
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
+
+// Raty追加のため(viewからjQueryを読み込めるようにするため)
+window.$ = window.jQuery = require('jQuery');
+require('./jquery.raty')
+
+require("jquery")
+require("trix")
+require("@rails/actiontext")

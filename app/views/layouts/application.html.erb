@@ -9,7 +9,6 @@
     <%#= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
-    
   </head>
   <body>
     <header>
@@ -65,6 +64,7 @@
       </ul>
     </header>
     <main>
+      <div id="index"></div>
       <div class="title">
         <%= image_tag('title.png')%>
       </div>
@@ -74,6 +74,12 @@
         </div>
       </div>
     </main>
+    <div id="to-top">
+      <div class="to-top-content">
+        <%= image_tag('to-top1.png')%>
+        <span>Topへ戻る</span>
+      </div>
+    </div>
     <footer>
       <div class="bottom"></div>
       <div class="footer-contents">

@@ -2,7 +2,7 @@
 
 <section class="user-park">
   <div class="user-park-show">
-    <%= link_to '戻る', park_path  %>
+    <%= link_to '戻る', park_path(@park.id)  %>
     <h2><%= @park.park %></h2>
     
     <div class="top-image">
@@ -14,6 +14,35 @@
     </div>
     
     <p><%= @park.address %></p>
+    
+    <!--ActionTextによる公園詳細の編集-->
+    <div class="field">
+    <%= form_with model: @park do |f| %>
+      <div class="trix-content">
+        <%= f.label :detail %>
+        <%= f.rich_text_area :detail %>  
+        <%= f.submit '更新する' %>
+      </div> 
+    <% end %>  
+    </div>
+    
+    <!--タグの編集-->
+    <div class="tags">
+      <%= form_with model: @park do |f| %>
+        <div class='form-group'>
+            <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :tag) do |tag| %>
+            <!--tag:ids : タグIDのリストを渡し、複数のタグをtweetに紐づける-->
+                <div class='form-check'>
+                    <%= tag.label class: 'form-check-label' do %>
+                        <%= tag.check_box class: 'form-check-input' %>
+                        <%= tag.text %>
+                    <% end %>
+                </div>
+            <% end %>
+        </div>
+        <%= f.submit '更新' %>
+      <% end %>
+    </div>
     
     <!--レビュー一覧-->
     <div class="reviews">

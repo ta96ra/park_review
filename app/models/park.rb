@@ -3,12 +3,18 @@ class Park < ApplicationRecord
   #アソシエーション
   belongs_to :user
   has_many :reviews, dependent: :destroy
+  has_many :park_tag_relations, dependent: :destroy
+  has_many :tags, through: :park_tag_relations, dependent: :destroy 
+  ##parksテーブルから中間テーブルを介してtagsテーブルへの関連付け
   
   
   #ActiveStorage
   has_one_attached :park_image
-   # has_many_attached :park_image
+  # has_many_attached :park_image
   
+  #ActionText
+  has_rich_text :detail
+    
    # 公園画像に関する処理---公園画像がない場合no_park_image.pngを使用
   def get_park_image(width, height)
     unless park_image.attached?
