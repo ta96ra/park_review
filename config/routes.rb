@@ -33,8 +33,8 @@ Rails.application.routes.draw do
     
     resources :parks,only: [:index, :create, :show, :edit, :update]do
       resources :reviews,only:[:create, :destroy]
-    end  
-    # resources :users,only: [:show, :edit, :update]
+    end
+    get 'search'=>'parks#search'
   end  
   
   
@@ -54,8 +54,9 @@ Rails.application.routes.draw do
     resources :users,only: [:index,:show, :update]
     
     resources :parks,only: [:index, :create, :show, :edit, :update] do
-      resources :reviews,only:[:create, :destroy]
+      resources :reviews,only:[:create, :destroy] 
     end
+    get 'search'=>'parks#search'
     
   end  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

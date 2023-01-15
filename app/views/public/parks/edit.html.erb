@@ -5,11 +5,20 @@
     <%= link_to '戻る', park_path(@park.id)  %>
     <h2><%= @park.park %></h2>
     
+    <!--5段階評価平均-->
+    <div id="average-raty"></div>
+    
+    
+    <!--TopImage-->
     <div class="top-image">
       <% if @park.park_image.attached? %>
-        <%= image_tag park.park_image %>
+        <%= image_tag @park.park_image %>
       <% else %>
         <%= image_tag 'no_park_image' %>
+      <% end %>
+      <%= form_with model: @park do |f| %>
+        <%= f.file_field :park_image %>
+        <%= f.submit '更新する' %>
       <% end %>
     </div>
     
@@ -69,6 +78,8 @@
         </div>
         <%= review.user.nickname %>
         <%= review.created_at.strftime('%Y/%m/%d') %><%= review.review %>
+        <!--５段階評価表示-->
+        <div class="raty" id="post_raty<%= review.id %>"></div>
         
         <% if review.user == current_user %>
           <%= link_to "削除", park_review_path(review.park, review), method: :delete %>
@@ -79,8 +90,56 @@
     <div>
       <%= form_with model: [@park, @review] do |f| %>
         <%= f.text_area :review, rows: '5', placeholder: "コメントをここに" %>
+        <div id="post_raty"></div>
         <%= f.submit "送信する" %>
       <% end %>
     </div>
   </div>
 </section>
+
+<script>
+  // コメント投稿フォームの５段階評価
+  {
+    let opt = {  
+    //星画像の指定などのオプションをここに記述,
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    scoreName: 'review[evaluation]'
+    };
+    let elem = document.querySelector('#post_raty');
+    raty(elem,opt);
+  }
+  
+  // コメントの５段階評価表示
+  <% @park.reviews.each do |review| %>
+  {
+    let elem = document.querySelector('#post_raty<%= review.id %>');
+    let opt = {  
+    //星画像の指定などのオプションをここに記述,
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      readOnly: true,
+      score: <%= review.evaluation || 0 %>
+    };
+    raty(elem,opt);
+  }
+  // scriptファイルをどのidの部分に配置するかを指定
+  <% end %>
+  
+  
+  // 公園の５段階評価平均
+  {
+    let opt = {  
+      //星画像の指定などのオプションをここに記述,
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      scoreName: 'park[average_evaluation]'
+    };
+    let elem = document.querySelector('#average-raty');
+    raty(elem,opt);
+  }
+
+</script>

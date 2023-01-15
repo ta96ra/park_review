@@ -25,6 +25,14 @@
       <% end %>
     </div>
     
+    <!--キーワード検索-->
+    <div class="search-form">
+      <%= form_with url: search_path, method: :get, local: true do |f| %>
+      <%= f.text_field :keyword, value: @keyword %>
+      <%= f.submit "検索" %>
+      <% end %>
+    </div>
+    
     <!--複数タグ検索-->
     <%#= form_tag({controller:"parks",action:"index"}, method: :get) do %>
     <%= form_with model: @park, method: :get do %>
@@ -51,6 +59,11 @@
             <div class="right">
               <h3><%= park.park %></h3>
               <p><%= park.address %></p>
+              
+              <!--タグ表示-->
+              <% park.tags.each do |tag| %>
+                <span><%= tag.tag %></span>
+              <% end %>
             </div>
           <% end %>
         </li>

@@ -6,14 +6,16 @@
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%#= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'scaffolds', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'actiontext', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%#= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
   <body>
     <header>
       <div class="sun">
-        <%= image_tag('headersun.png')%>
+        <%= image_tag('headersun1.png')%>
       </div>
       <div class="logo">
         <a href="/">
@@ -81,7 +83,8 @@
       </div>
     </div>
     <footer>
-      <div class="bottom"></div>
+      <!--<div class="bottom"></div>-->
+      <%= image_tag('footer-image1.png',class:"bottom") %>
       <div class="footer-contents">
         <nav></nav>
         <small>&copy;park_review All Right Reserved</small>

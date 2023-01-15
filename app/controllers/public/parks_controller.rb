@@ -31,11 +31,13 @@ class Public::ParksController < ApplicationController
   def show
     @park = Park.find(params[:id])
     # @reviews = Review.all
+    
   end
 
   def edit
     @park = Park.find(params[:id])
     @review = Review.new
+    @average_evaluastion = Review.group(:park_id).average(:evaluation)
   end
   
   def update
@@ -43,6 +45,15 @@ class Public::ParksController < ApplicationController
     @park.update(park_params)
     redirect_to park_path
   end
+  
+  #キーワード検索
+  def search
+    @parks = Park.search(params[:keyword])
+    @keyword = params[:keyword]
+    @park = Park.new
+    render "index"
+    
+end
   
   private
   #ストロングパラメーター

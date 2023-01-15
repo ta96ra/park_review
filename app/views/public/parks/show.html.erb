@@ -5,7 +5,7 @@
     
     <div class="top-image">
       <% if @park.park_image.attached? %>
-        <%= image_tag park.park_image %>
+        <%= image_tag @park.park_image %>
       <% else %>
         <%= image_tag 'no_park_image' %>
       <% end %>
@@ -35,8 +35,30 @@
           <% end %>
         </div>
         <%= review.user.nickname %>
-        <%= review.created_at.strftime('%Y/%m/%d') %><%= review.review %>     
+        <%= review.created_at.strftime('%Y/%m/%d') %><%= review.review %>
+        
+        <!--５段階評価表示-->
+        <div class="raty" id="post_raty<%= review.id %>"></div>
+        
       <% end %>
     </div>
   </div>
 </section>
+
+<script>
+  <% @park.reviews.each do |review| %>
+  {
+    let elem = document.querySelector('#post_raty<%= review.id %>');
+    let opt = {  
+    //星画像の指定などのオプションをここに記述,
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      readOnly: true,
+      score: <%= review.evaluation || 0 %>
+    };
+    raty(elem,opt);
+  }
+  // scriptファイルをどのidの部分に配置するかを指定
+  <% end %>
+</script>

@@ -8,17 +8,17 @@ import Turbolinks from "turbolinks"
 import * as ActiveStorage from "@rails/activestorage"
 import "channels"
 import './main'
-import '../stylesheets/application.scss'
-// import '../stylesheets/actiontext.scss'
-// import '../stylesheets/scaffolds.scss'
 
 Rails.start()
 Turbolinks.start()
 ActiveStorage.start()
-
-// Raty追加のため(viewからjQueryを読み込めるようにするため)
-window.$ = window.jQuery = require('jQuery');
-require('./jquery.raty')
+// // Raty追加のため
+import Raty from "raty.js"
+window.raty = function(elem, opt) {
+  let raty = new Raty(elem, opt)
+  raty.init();
+  return raty;
+}
 
 require("jquery")
 require("trix")

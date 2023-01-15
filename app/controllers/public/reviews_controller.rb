@@ -20,6 +20,6 @@ class Public::ReviewsController < ApplicationController
   private
   #ストロングパラメーター
   def review_params
-    params.require(:review).permit(:review)
+    params.require(:review).permit(:review, :evaluation)
   end
 end

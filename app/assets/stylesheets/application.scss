@@ -1,3 +1,20 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *= require_tree .
+ *= require_self
+ */
+
+
+
 //---------------
 // 定義
 //---------------
@@ -20,7 +37,7 @@ $sp: 600px;
 
 // 色
 $white: rgb(255,255,255);
-$footerColor: rgb(51,23,0);
+$footerColor: #7c4d25;
 
 //---------------
 // 共通
@@ -28,6 +45,7 @@ $footerColor: rgb(51,23,0);
 body{
   margin: 0;
   font-size: 100%;
+  overflow-x: hidden;
 
 }
 h1,h2,h3,p,ul{
@@ -50,10 +68,8 @@ li{
 }
 img{
   width: 100%;
-  vartical-align: bottom;
+  vertical-align: bottom;
 }
-
-
 //---------------
 // ヘッダー
 //---------------
@@ -99,12 +115,11 @@ header{
   }
 }
 
-
 //------------------
 // メイン
 //------------------
 main{
-  overflow: hidden;
+  // overflow: hidden;
   .title{
     position: relative;
     top: 0;
@@ -244,7 +259,11 @@ main{
                 display: flex;
                 .left{
                   img{
-                  width: 150px;
+                  width: 160px;
+                  height: 120px;
+                  object-fit: contain;
+                  object-position: center;
+                  vertical-align: bottom;
                   }       
                 }
                 .right{
@@ -261,6 +280,12 @@ main{
       .user-park{
         .user-park-show{
           outline: 4px solid purple;
+          #average-raty{
+            img{
+              width: 40px;
+              height: 40px;
+            }
+          }
           .top-image{
             display: flex;
             justify-content: center;
@@ -278,8 +303,18 @@ main{
             img{
               width: 100px;  
             }
+            // ５段階評価
+            .raty{
+              img{
+                width: 20px;  
+              }
+            }
           }
-          
+          #post_raty{
+            img{
+              width: 20px;
+            }  
+          }
         }  
       }
     //-----------
@@ -358,32 +393,47 @@ main{
 //----------------
 footer{
   position: relative;
-  overflow: hidden;
+  margin-top: 180px;
+  // overflow: hidden;
   // outline: 4px solid blue;
+  @include tab{
+    margin-top: 155px;  
+  }
   .bottom{
     position: absolute;
     top: -50%;
     left: -25%;
     width: 150vw;
-    height: 300px;
-    background: $white;
+    height: 400px;
+    // object-fit: cover;
+    object-position: center;
     border-radius: 50%;
     // transform: translate(-16.7%,150px);
     // outline: 2px solid red;
+    @include tab{
+      height: 300px;  
+    }
   }
   .footer-contents{
     width: 100%;
-    height: 325px;
+    height: 425px;
     background: $footerColor;
+    @include tab{
+      height: 325px;
+    }
     nav{
       width: 100%;
-      height: 275px;
+      height: 320px;
+      @include tab{
+        height: 275px;  
+      }
     }
     small{
       display: block;
       padding: 10px 0;
       color: $white;
-      text-align: center;  
+      text-align: center;
+      // outline: 2px solid yellow;
     }
   }
 }

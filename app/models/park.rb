@@ -8,14 +8,23 @@ class Park < ApplicationRecord
   ##parksテーブルから中間テーブルを介してtagsテーブルへの関連付け
   
   
+  #バリデーション 
+  validates :park, presence: true
+  validates :address, presence: true
+  
+  #キーワード検索機能(部分一致)
+  def self.search(keyword)
+    where(["park like? OR detail like?", "%#{keyword}%", "%#{keyword}%"])
+  end
+  
+  #ActionText
+  has_rich_text :detail
+  
   #ActiveStorage
   has_one_attached :park_image
   # has_many_attached :park_image
   
-  #ActionText
-  has_rich_text :detail
-    
-   # 公園画像に関する処理---公園画像がない場合no_park_image.pngを使用
+  # 公園画像に関する処理---公園画像がない場合no_park_image.pngを使用
   def get_park_image(width, height)
     unless park_image.attached?
       file_path = Rails.root.join('app/assets/images/no_park_image.png')
@@ -23,9 +32,5 @@ class Park < ApplicationRecord
     end
     park_image.variant(resize_to_limit: [width, height]).processed
   end
-  
-  #バリデーション 
-  validates :park, presence: true
-  validates :address, presence: true
   
 end
