@@ -1,0 +1,126 @@
+<header>
+  <div class="header-content">
+    <div class="sun">
+      <%= image_tag('headersun1.png')%>
+    </div>
+    <div class="logo">
+      <a href="/">
+        <%= image_tag('logo.png')%> 
+      </a>
+    </div>
+    <div class="bird">
+      <%= image_tag('bird.png')%>
+    </div>
+    
+    <!--PC,Tabの時の表示-->
+    
+    <nav class="pc">
+      <ul>
+      <!--ユーザーログインの場合の表示-->
+      <% if user_signed_in? %>
+        <li>
+          <div class="circle-btn"></div>
+          <%= link_to "ホーム", root_path %>
+        </li>
+        <li>
+          <div class="circle-btn"></div>
+          <%= link_to "公園一覧", parks_path %>
+        </li>
+        <li>
+          <div class="circle-btn"></div>
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+        </li>
+        <li>
+          <div class="circle-btn"></div>
+          <%= link_to "マイページ", user_path(current_user) %>
+        </li>
+      <!--管理者ログインの場合の表示-->
+      <% elsif admin_signed_in?%>
+        <li>
+          <div class="circle-btn"></div>
+          <%= link_to "会員一覧", admin_users_path %>
+        </li>
+        <li>
+          <div class="circle-btn"></div>
+          <%= link_to "公園一覧", admin_parks_path %>
+        </li>
+        <li>
+          <div class="circle-btn"></div>
+          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+        </li>
+      <!--ログアウトしている場合の表示-->
+      <% else %>
+        <li>
+          <div class="circle-btn"></div>
+          <%= link_to "公園一覧", parks_path %>
+        </li>
+        <li>
+          <div class="circle-btn"></div>
+          <%= link_to "新規登録", new_user_registration_path %>
+        </li>
+        <li>
+          <div class="circle-btn"></div>
+          <%= link_to 'ゲスト', users_guest_sign_in_path, method: :post %>
+        </li>
+        <li>
+          <div class="circle-btn"></div>
+          <%= link_to "ログイン", new_user_session_path %>
+        </li>
+      <% end %>
+      </ul>
+    </nav>
+    <!--ハンバーガー-->
+    <div id="hamburger">
+      <div class="hamburger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>  
+    <!--SPの時の表示-->
+    <nav class="sp">
+      <ul>
+      <!--ユーザーログインの場合の表示-->
+      <% if user_signed_in? %>
+        <li>
+          <%= link_to "ホーム", root_path %>
+        </li>
+        <li>
+          <%= link_to "公園一覧", parks_path %>
+        </li>
+        <li>
+          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+        </li>
+        <li>
+          <%= link_to "マイページ", user_path(current_user) %>
+        </li>
+      <!--管理者ログインの場合の表示-->
+      <% elsif admin_signed_in?%>
+        <li>
+          <%= link_to "会員一覧", admin_users_path %>
+        </li>
+        <li>
+          <%= link_to "公園一覧", admin_parks_path %>
+        </li>
+        <li>
+          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+        </li>
+      <!--ログアウトしている場合の表示-->
+      <% else %>
+        <li>
+          <%= link_to "公園一覧", parks_path %>
+        </li>
+        <li>
+          <%= link_to "新規登録", new_user_registration_path %>
+        </li>
+        <li>
+          <%= link_to 'ゲスト', users_guest_sign_in_path, method: :post %>
+        </li>
+        <li>
+          <%= link_to "ログイン", new_user_session_path %>
+        </li>
+      <% end %>
+      </ul>
+    </nav>
+  </div>
+</header>

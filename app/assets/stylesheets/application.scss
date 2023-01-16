@@ -22,7 +22,7 @@
 
 // レスポンシブ 
 $tab: 960px;
-$sp: 600px;
+$sp: 660px;
 
 @mixin tab{
   @media(max-width:($tab)){
@@ -36,8 +36,13 @@ $sp: 600px;
 }
 
 // 色
-$white: rgb(255,255,255);
-$footerColor: #7c4d25;
+$white: #fff;
+$brown: #7c4d25;
+$lightgreen: #c9d439;
+// $green: #9eb11e;
+// $brown: #7c4d25;
+$skyblue: #d6f4ff;
+$orange: #faa61a;
 
 //---------------
 // 共通
@@ -55,6 +60,10 @@ h1{
   font-size: 3rem;
   text-align: center;
   transform: translateY(-180px);
+  @include sp{
+    font-size: 2.25rem;
+    transform: translateY(-130px);
+  }
 }
 ul,ol{
   margin: 0;
@@ -83,35 +92,239 @@ header{
   border-radius: 50%;
   background: $white;
   transform: translate(-16.7%,-180px);
-  // opacity: .4;
-  .sun{
-    width: 120px;  
-    transform: translate(calc(25vw + 40px),180px);
-    img{
-      transition: .3s;
-      &:hover{
-        transform: rotate(15deg);
+  @include tab{
+    top: -20px;
+  }
+  @include sp{
+    top: -40px;
+    border-radius: 0;
+  }
+  .header-content{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    // outline: 10px solid orange;
+    .sun{
+      position: absolute;
+      top: 180px;
+      left: calc(25vw + 40px);
+      width: 120px;  
+      @include tab{
+        top: 200px;
+        left: calc(25vw + 20px);
+        width: 90px; 
+      }
+      @include sp{
+        top: 210px;
+        left: calc(25vw + 10px);
+        width: 60px;
+      }
+      img{
         transition: .3s;
+        &:hover{
+          transform: rotate(10deg);
+          transition: .3s;
+        }
       }
     }
-  }
-  .logo{
-    width: 160px;
-    transform: translate(calc(75vw - 50%),50px);
-    img{
+    .logo{
+      position: absolute;
+      top: 180px;
+      left: calc(75vw - 80px);
+      z-index: 10;
+      width: 160px;
+      @include tab{
+        top: 210px;
+        left: calc(75vw - 50px);
+        width: 100px;
+      }
+      img{
+        border-radius: 50%;
+        transition: .3s;
+        // outline: 5px solid black;
+        &:hover{
+          transform: scale(1.1);
+          transition: .3s;
+        }
+      }
+    }
+    .bird{
+      position: absolute;
+      top: 180px;
+      right: calc(25vw + 40px);
+      width: 120px;
+      @include tab{
+        top: 200px;
+        right: calc(25vw + 20px);
+        width: 90px;
+      }
+      @include sp{
+        top: 210px;
+        right: calc(25vw + 10px); 
+        width: 60px;
+      }
+      img{
+        transition: .3s;
+        &:hover{
+          transform: rotate(-10deg);
+          transition: .3s;
+        }
+      }
+    }
+    .pc{
+        position: absolute;
+        top: 200px;
+        left: calc(25vw + 200px);
+        width: calc(66.7% - 400px);
+        // outline: 6px solid blue;
+        @include tab{
+          top: 220px;
+          left: calc(25vw + 120px);
+          width: calc(66.7% - 240px);
+        }
+        @include sp{
+          display: none;  
+        }
+      ul{
+        display: flex;
+        width: 100%;
+        // outline: 4px solid green;
+        li{
+          // position: relative;
+          position: absolute;
+          top: 0;
+          width: 100px;
+          // margin-right: 20px;
+          // outline: 2px solid black;
+          .circle-btn{
+            width: 70px;
+            height: 70px;
+            background: $orange;
+            border-radius: 50% 70% 50% 80%;
+            @include tab{
+              width: 50px;
+              height: 50px;
+            }
+          }
+          a{
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            display: block;
+            transform: translateY(-50%);
+            outline: 2px solid purple;
+            // 後で削除
+            @include tab{
+              font-size: .875rem;
+              color: blue;  
+            }
+            @include sp{
+              color: red;  
+            }
+          }
+        }
+        li:nth-of-type(n + 3){
+          .circle-btn{
+            border-radius: 80% 50% 70% 50%;
+          }
+        }
+        li:first-of-type{
+          left: 0;
+          .circle-btn{
+            background: $skyblue;  
+          }  
+        }
+        li:nth-of-type(2){
+          left: 20%;
+          .circle-btn{
+            background: $orange;  
+          }  
+        }
+        li:nth-of-type(3){
+          right: calc(20% - 50px);
+          .circle-btn{
+            background: pink;  
+          }  
+        }
+        li:nth-of-type(4){
+          right: -50px;
+          .circle-btn{
+            background: $lightgreen;  
+          }  
+        }
+      } 
+    }
+    #hamburger{
+      display: none;
+      position: absolute;
+      top: 230px;
+      right: calc(25vw + 70px);
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
-      transition: .3s;
-      // outline: 5px solid black;
-      &:hover{
-        transform: scale(1.1);
-       transition: .3s;
+      cursor: pointer;
+      box-shadow: 0 4px 4px gray;
+      // outline: 4px solid red;
+      @include sp{
+        display: block;  
+      }
+      .hamburger{
+        position: relative;
+        width: 100%;
+        height: 100%;
+        span{
+          position: absolute;
+          left: 9px;
+          width: 70%;
+          height: 6px;
+          border-radius: 3px;
+          background: $brown;
+        }
+        span:first-of-type{
+          top: 25%;
+        }
+        span:nth-of-type(2){
+          top: calc(50% - 3px);
+        }
+        span:last-of-type{
+          bottom: 25%;
+        }
       }
     }
-  }
-  li{
-    display: inline-block;
-    transform: translate(calc(100vw - 100px),-100px);
-    outline: 5px solid black;
+    #hamburger.rotate{
+      background: red;
+      animation: rotate 1.5s;
+      @keyframes rotate {
+        0%{background:red}
+        50%{background:green}
+        100%{background:blue}
+      }
+    }
+    .sp{
+      display: none;
+      position: absolute;
+      top: 300px;
+      left: calc(125vw);
+      width: 50vw;
+      background: $white;
+      transition: .3s;
+      outline: 4px solid red;
+      @include sp{
+        display: block;  
+      }
+      ul{
+        li{
+          a{
+            padding: 30px;
+            font-size: 2.5rem;
+          }  
+        }
+      }
+    }
+    .sp.slide{
+      transform: translateX(-50vw);
+      transition: .3s;
+    }
   }
 }
 
@@ -127,6 +340,9 @@ main{
     width: 100%;
     height: 400px;
     outline: 2px solid black;
+    @include sp{
+      height: 300px;  
+    }
     img{
       height: 100%;
       object-fit: cover;
@@ -270,6 +486,11 @@ main{
                   width: calc(100% - 150px);
                   padding-left: 20px;
                   outline: 2px solid green;
+                  .raty{
+                    img{
+                      width: 20px;  
+                    }
+                  }
                 }
               }       
             }  
@@ -297,6 +518,12 @@ main{
                 max-width: 300px;
               }
             }
+          }
+          #map{
+            width: 100%;
+            // max-width: 600px;
+            height: 400px;
+            outline: 5px solid black;;
           }
           .reviews{
             outline: 2px solid green;
@@ -417,7 +644,7 @@ footer{
   .footer-contents{
     width: 100%;
     height: 425px;
-    background: $footerColor;
+    background: $brown;
     @include tab{
       height: 325px;
     }

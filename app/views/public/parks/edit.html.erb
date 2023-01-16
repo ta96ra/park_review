@@ -6,7 +6,9 @@
     <h2><%= @park.park %></h2>
     
     <!--5段階評価平均-->
-    <div id="average-raty"></div>
+    <div id="average-raty">
+      <p>評価平均：<%= @park.average_evaluation %></p>
+    </div>
     
     
     <!--TopImage-->
@@ -22,7 +24,37 @@
       <% end %>
     </div>
     
+    <!--公園名・住所の更新-->
     <p><%= @park.address %></p>
+    <p>公園名・住所の更新</p>
+    <%= form_with model: @park, local: true do |f| %>
+      <%= f.label :park, '公園名' %>
+      <%= f.text_field :park %>
+      <%= f.label :address, '場所' %>
+      <%= f.text_field :address %>
+      <%= f.submit '更新する' %>
+    <% end %>
+    
+    
+    
+    <!--Google Map API-->
+    <h3>公園場所</h3>
+      <div class="map">
+      <div id="map"></div>
+    </div>
+    
+    <div type="text/javascript">
+      <script>
+        function initMap(){
+          let map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: <%= @park.latitude || 0 %>, lng: <%= @park.longitude || 0 %> },
+          zoom: 15
+          });
+        }
+      </script>
+      <!--scriptタグが入る-->
+      
+    </div>
     
     <!--ActionTextによる公園詳細の編集-->
     <div class="field">
@@ -52,6 +84,11 @@
         <%= f.submit '更新' %>
       <% end %>
     </div>
+    <!--タグの追加(管理者のみのため後ほど削除)-->
+    <%= form_tag({controller:"parks",action:"edit"}, method: :get) do %>
+      <%= text_field_tag :tag %>
+      <%= submit_tag 'タグを追加' %>
+    <% end %>
     
     <!--レビュー一覧-->
     <div class="reviews">
@@ -113,6 +150,7 @@
   
   // コメントの５段階評価表示
   <% @park.reviews.each do |review| %>
+  <% p review%>
   {
     let elem = document.querySelector('#post_raty<%= review.id %>');
     let opt = {  
@@ -136,7 +174,10 @@
       starOn: "<%= asset_path('star-on.png') %>",
       starOff: "<%= asset_path('star-off.png') %>",
       starHalf: "<%= asset_path('star-half.png') %>",
-      scoreName: 'park[average_evaluation]'
+      half: true,
+      readOnly: true,
+      scoreName: 'park[average_evaluation]',
+      score: <%= @park.average_evaluation || 0 %>,
     };
     let elem = document.querySelector('#average-raty');
     raty(elem,opt);

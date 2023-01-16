@@ -58,8 +58,12 @@
             </div>
             <div class="right">
               <h3><%= park.park %></h3>
-              <p><%= park.address %></p>
               
+              <!--5段階評価平均-->
+              <p>評価平均：<%= park.average_evaluation %></p>
+              <div id="average-raty<%= park.id %>" class="raty"></div>
+              
+              <p><%= park.address %></p>       
               <!--タグ表示-->
               <% park.tags.each do |tag| %>
                 <span><%= tag.tag %></span>
@@ -73,3 +77,24 @@
     
   </div>
 </section>
+
+<script>
+  // 公園の５段階評価平均
+  <% @parks.each do |park| %>
+  {
+    let opt = {  
+      //星画像の指定などのオプションをここに記述,
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      half: true,
+      readOnly: true,
+      scoreName: 'park[average_evaluation]',
+      score: <%= park.average_evaluation || 0 %>,
+    };
+    let elem = document.querySelector('#average-raty<%= park.id %>');
+    raty(elem,opt);
+  }
+  <% end %>
+</script>
+

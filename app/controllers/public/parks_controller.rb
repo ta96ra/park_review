@@ -37,7 +37,13 @@ class Public::ParksController < ApplicationController
   def edit
     @park = Park.find(params[:id])
     @review = Review.new
-    @average_evaluastion = Review.group(:park_id).average(:evaluation)
+    # @average_evaluation = Review.group(:review_id).average(:evaluation)
+    
+    
+    # タグの追加(管理者のみに制限するため、後ほど削除)
+    if params[:tag]
+      Tag.create(tag: params[:tag])
+    end
   end
   
   def update

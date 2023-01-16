@@ -3,6 +3,12 @@
   <div class="user-park-show">
     <%= link_to '編集する', edit_park_path  %>
     
+        <!--5段階評価平均-->
+    <div id="average-raty">
+      <p>評価平均：<%= @park.average_evaluation %></p>
+    </div>
+    
+    
     <div class="top-image">
       <% if @park.park_image.attached? %>
         <%= image_tag @park.park_image %>
@@ -46,6 +52,7 @@
 </section>
 
 <script>
+  // コメントの５段階評価表示
   <% @park.reviews.each do |review| %>
   {
     let elem = document.querySelector('#post_raty<%= review.id %>');
@@ -61,4 +68,22 @@
   }
   // scriptファイルをどのidの部分に配置するかを指定
   <% end %>
+  
+  
+  // 公園の５段階評価平均
+  {
+    let opt = {  
+      //星画像の指定などのオプションをここに記述,
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      half: true,
+      readOnly: true,
+      scoreName: 'park[average_evaluation]',
+      score: <%= @park.average_evaluation || 0 %>,
+    };
+    let elem = document.querySelector('#average-raty');
+    raty(elem,opt);
+  }
+
 </script>

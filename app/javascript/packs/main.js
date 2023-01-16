@@ -3,16 +3,16 @@ $(document).on('turbolinks:load', function(){
   //-------------------
   // 5段階評価
   //-------------------
-  // new Raty(document.querySelector('[#post_raty]'));
-   // scriptファイルをどのidの部分に配置するかを指定
-   
-  // let elem = document.querySelector('#post_raty');
-  // let opt = {  
-  //   //星画像の指定などのオプションをここに記述,
-    
-    
-  // };
-  // raty(elem,opt);
+  
+  //---------------------
+  // ハンバーガーメニュー
+  //---------------------
+    const hamburger = document.getElementById('hamburger');
+    const sp = document.querySelector('.sp');
+    hamburger.addEventListener('click',()=>{
+    hamburger.classList.toggle('rotate');
+    sp.classList.toggle('slide');
+  });
   
   
   // -------------------
