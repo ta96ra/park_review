@@ -14,6 +14,23 @@ $(document).on('turbolinks:load', function(){
     sp.classList.toggle('slide');
   });
   
+  //-------------------
+  // 利用規約の同意
+  //-------------------
+    const checkbox = document.getElementById('checkbox');
+    // 送信ボタン
+    const submit_btn = document.getElementById(`submit`);
+    // チェックボックスをクリックした時
+    // checkbox.addEventListener("click", () => {
+    // チェックボックスの入力イベント
+    checkbox.addEventListener('change',() => {
+    	// チェックボックスがあれば無効化をオフ、なければオン
+    	if (checkbox.checked === true) {
+    		submit_btn.disabled = false;
+    	} else {
+    		submit_btn.disabled = true;
+    	}
+    });
   
   // -------------------
   // トップへ戻るボタン

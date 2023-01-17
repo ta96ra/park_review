@@ -38,9 +38,10 @@
           <li>テキストテキストテキストテキストテキストテキストテキストテキスト</li>
         </ol>
       </div>
-      <input type="checkbox">利用規約に同意する</input>
+      <input type="checkbox" id="checkbox" name="checkbox">
+      <label for="check">同意する</label>
       <div class="actions">
-        <%= f.submit "Sign up" %>
+        <%= f.submit "登録", id: "submit", disabled: true %>
       </div>
       
     <% end %>

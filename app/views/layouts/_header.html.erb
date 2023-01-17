@@ -19,52 +19,74 @@
       <!--ユーザーログインの場合の表示-->
       <% if user_signed_in? %>
         <li>
-          <div class="circle-btn"></div>
-          <%= link_to "ホーム", root_path %>
+          <%= link_to root_path do %>
+            <div class="circle-btn"></div>
+            <p>ホーム</p>
+          <% end %>
         </li>
         <li>
-          <div class="circle-btn"></div>
-          <%= link_to "公園一覧", parks_path %>
+          <%= link_to parks_path do %>
+            <div class="circle-btn"></div>
+            <p>公園一覧</p>
+          <% end %>   
         </li>
         <li>
-          <div class="circle-btn"></div>
-          <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
+          <%= link_to destroy_user_session_path, method: :delete do %>
+            <div class="circle-btn"></div>
+            <p>ログアウト</p>
+          <% end %>
         </li>
         <li>
-          <div class="circle-btn"></div>
-          <%= link_to "マイページ", user_path(current_user) %>
+          <%= link_to user_path(current_user) do %>
+            <div class="circle-btn"></div>
+            <p>マイページ</p>
+          <% end %>
         </li>
       <!--管理者ログインの場合の表示-->
       <% elsif admin_signed_in?%>
         <li>
-          <div class="circle-btn"></div>
-          <%= link_to "会員一覧", admin_users_path %>
+          <%= link_to user_path(current_user) do %>
+            <div class="circle-btn"></div>
+            <p>マイページ</p>
+          <% end %>  
         </li>
         <li>
-          <div class="circle-btn"></div>
-          <%= link_to "公園一覧", admin_parks_path %>
+          <%= link_to admin_parks_path do %>
+            <div class="circle-btn"></div>
+            <p>公園一覧</p>
+          <% end %>
         </li>
         <li>
-          <div class="circle-btn"></div>
-          <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
+          <%= link_to destroy_admin_session_path, method: :delete do %>
+            <div class="circle-btn"></div>
+            <p>ログアウト</p>
+          <% end %>
         </li>
       <!--ログアウトしている場合の表示-->
       <% else %>
         <li>
-          <div class="circle-btn"></div>
-          <%= link_to "公園一覧", parks_path %>
+          <%= link_to parks_path do %>
+            <div class="circle-btn"></div>
+            <p>公園一覧</p>
+          <% end %>
         </li>
         <li>
-          <div class="circle-btn"></div>
-          <%= link_to "新規登録", new_user_registration_path %>
+          <%= link_to new_user_registration_path do %>
+            <div class="circle-btn"></div>
+            <p>新規登録</p>
+          <% end %>
         </li>
         <li>
-          <div class="circle-btn"></div>
-          <%= link_to 'ゲスト', users_guest_sign_in_path, method: :post %>
+          <%= link_to users_guest_sign_in_path, method: :post do %>
+            <div class="circle-btn"></div>
+            <p>ゲスト</p>
+          <% end %>
         </li>
         <li>
-          <div class="circle-btn"></div>
-          <%= link_to "ログイン", new_user_session_path %>
+          <%= link_to new_user_session_path do %>
+            <div class="circle-btn"></div>
+            <p>ログイン</p>
+          <% end %>
         </li>
       <% end %>
       </ul>

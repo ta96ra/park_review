@@ -1,8 +1,8 @@
 class Public::ParksController < ApplicationController
   def index
     @park = Park.new
-    @parks = Park.all
-    # @parks_part = @parks.page(params[:page])  #ページネーション導入のため
+    # @parks = Park.all
+    @parks = Park.page(params[:page])  #ページネーション導入のため
     
     # タグのAND検索
     if params[:tag_ids]
@@ -48,8 +48,13 @@ class Public::ParksController < ApplicationController
   
   def update
     @park = Park.find(params[:id])
-    @park.update(park_params)
-    redirect_to park_path
+    if @park.update(park_params)
+      flash[:park_notice] = "公園情報を更新しました"
+      redirect_to park_path(@park.id)
+    else
+      render :edit
+    end
+    
   end
   
   #キーワード検索
@@ -57,15 +62,42 @@ class Public::ParksController < ApplicationController
     @parks = Park.search(params[:keyword])
     @keyword = params[:keyword]
     @park = Park.new
-    render "index"
-    
-end
+    render "index"   
+  end
+  
+  #並べ替え
+  def sort
+    if params[:new]
+      @parks = Park.page(params[:page]).order(id: "DESC")
+    elsif params[:old]
+      @parks = Park.page(params[:page]).order(id: "ASC")
+    elsif params[:raty]
+      @parks = Park.page(params[:page]).order(average_evaluation: "DESC")
+    end  
+    @park = Park.new
+    render "index"   
+  
+    # if params[:new]
+    #   @parks = Park.all.order(id: "DESC")
+    # elsif params[:old]
+    #   @parks = Park.all.order(id: "ASC")
+    # elsif params[:raty]
+    #   @parks = Park.all.order(average_evaluation: "DESC")
+    # end  
+    # @park = Park.new
+    # render "index"   
+  end
   
   private
   #ストロングパラメーター
   def park_params
     params.require(:park).permit(:user_id, :prefecture_id, :park, :address, :longitude, :latitude, :detail, :status, :average_evaluation, :park_image, tag_ids: [])  
   end
+  
+  ##複数画像に対応
+  # def park_params
+  #   params.require(:park).permit(:user_id, :prefecture_id, :park, :address, :longitude, :latitude, :detail, :status, :average_evaluation, :park_images[], tag_ids: [])  
+  # end
   
   def ensure_guest_user
     @user = User.find(params[:id])

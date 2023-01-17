@@ -12,13 +12,15 @@
     
     
     <!--TopImage-->
-    <div class="top-image">
+    <div class="top-image">     
       <% if @park.park_image.attached? %>
         <%= image_tag @park.park_image %>
       <% else %>
         <%= image_tag 'no_park_image' %>
       <% end %>
       <%= form_with model: @park do |f| %>
+        <!--activestrageのみの場合、parkテーブルのデータは空になるため-->
+        <%= f.hidden_field :for_park, value: '' %>
         <%= f.file_field :park_image %>
         <%= f.submit '更新する' %>
       <% end %>
@@ -52,9 +54,11 @@
           });
         }
       </script>
-      <!--scriptタグが入る-->
       
+      <!--APIキーあり-->
+      <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['SECRET_KEY'] %>&callback=initMap" async defer></script>
     </div>
+    
     
     <!--ActionTextによる公園詳細の編集-->
     <div class="field">
@@ -105,7 +109,6 @@
     
       <p>レビュー件数：<%= @park.reviews.count %></p>
       <% @park.reviews.each do |review| %>
-        <!--<p><%#= image_tag review.user.get_user_image(100,100) %></p>-->
         <div>
           <% if review.user.user_image.attached? %>
             <%= image_tag review.user.user_image %>

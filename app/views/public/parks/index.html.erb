@@ -1,7 +1,6 @@
 <h1>公園一覧</h1>
 <section id="user-park-index">
-  <div class="user-park-index">
-    <!--新規登録のフラッシュメッセージ-->
+  <!--新規登録のフラッシュメッセージ-->
     <%= flash[:park_notice] %>
     
     <!--バリデーションのエラーメッセージ-->
@@ -13,66 +12,95 @@
       <% end %>
     </ul>
     <% end %>
-    
-    <!--新規登録-->
-    <div class="new-park">
-      <%= form_with model: @park, url: parks_path, local:true do |f| %>
-        <%= f.label '公園名' %>
-        <%= f.text_field :park %>
-        <%= f.label '住所' %>
-        <%= f.text_area :address %>
-        <%= f.submit '新規登録' %>
-      <% end %>
+  <div class="user-park-index">
+    <div class="parks-sidebar">
+      
+      <!--キーワード検索-->
+      <div class="search-form">
+        <h2>キーワード検索</h2>
+        <div class="sub-content">
+          <%= form_with url: search_path, method: :get, local: true do |f| %>
+          <%= f.text_field :keyword, value: @keyword %>
+          <%= f.submit "検索" %>
+          <% end %>
+        </div>
+      </div>
+      
+      <!--複数タグ検索-->
+      <div class="tag-area">
+      <h2>絞り込み検索</h2>
+        <div class="sub-content">
+          <%= form_with model: @park, method: :get do %>
+            <ul>
+              <% Tag.all.each do |t| %>
+                <li><%= check_box :tag_ids, t.tag %><%= t.tag %></li>
+              <% end %>
+            </ul>
+            <%= submit_tag '絞り込み' %>
+          <% end %>
+        </div>
+      </div>
     </div>
-    
-    <!--キーワード検索-->
-    <div class="search-form">
-      <%= form_with url: search_path, method: :get, local: true do |f| %>
-      <%= f.text_field :keyword, value: @keyword %>
-      <%= f.submit "検索" %>
-      <% end %>
-    </div>
-    
-    <!--複数タグ検索-->
-    <%#= form_tag({controller:"parks",action:"index"}, method: :get) do %>
-    <%= form_with model: @park, method: :get do %>
-      <% Tag.all.each do |t| %>
-        <li><%= check_box :tag_ids, t.tag %><%= t.tag %></li>
-      <% end %>
-      <%= submit_tag '絞り込み' %>
-    <% end %>
     
     <!--公園一覧-->
     <div class="parks-list">
-      <p>(全<%= @parks.count %>件)</p>
-      <ul>
-        <% @parks.each do |park| %>
-        <li>
-          <%= link_to park_path(park.id) do %>
-            <div class="left">
-              <% if park.park_image.attached? %>
-                <%= image_tag park.park_image %>
-              <% else %>
-                <%= image_tag 'no_park_image' %>
-              <% end %>
-            </div>
-            <div class="right">
-              <h3><%= park.park %></h3>
-              
-              <!--5段階評価平均-->
-              <p>評価平均：<%= park.average_evaluation %></p>
-              <div id="average-raty<%= park.id %>" class="raty"></div>
-              
-              <p><%= park.address %></p>       
-              <!--タグ表示-->
-              <% park.tags.each do |tag| %>
-                <span><%= tag.tag %></span>
-              <% end %>
-            </div>
+      <!--新規登録-->
+      <div class="new-park">
+        <h2>公園新規登録</h2>
+        <div class="sub-content">
+          <%= form_with model: @park, url: parks_path, local:true do |f| %>
+            <%= f.label '公園名' %>
+            <%= f.text_field :park %>
+            <%= f.label '住所' %>
+            <%= f.text_area :address %>
+            <%= f.submit '新規登録' %>
           <% end %>
-        </li>
-        <% end %>
-      </ul>
+        </div>
+      </div>
+      
+      <div class="park-index">
+        <h2>公園一覧</h2>
+        <div class="sub-content">
+          <ul class="sort">
+            <li><%= link_to '新着順',sort_path(new: 'true') %></li>
+            <li><%= link_to '古い順',sort_path(old: 'true') %></li>
+            <li><%= link_to 'レート順',sort_path(raty: 'true') %></li>
+          </ul>
+          <p>(全<%= @parks.count %>件)</p>
+          <ul class="parks">
+            <% @parks.each do |park| %>
+            <li>
+              <%= link_to park_path(park.id) do %>
+                <div class="left">
+                  <% if park.park_image.attached? %>
+                    <%= image_tag park.park_image %>
+                  <% else %>
+                    <%= image_tag 'no_park_image' %>
+                  <% end %>
+                </div>
+                <div class="right">
+                  <h3><%= park.park %></h3>
+                  
+                  <!--5段階評価平均-->
+                  <div class="avg-rate">
+                    <p><span>評価：</span><strong><%= park.average_evaluation %></strong></p>
+                    <div id="average-raty<%= park.id %>" class="raty"></div>
+                  </div>
+                  
+                  
+                  <p><%= park.address %></p>       
+                  <!--タグ表示-->
+                  <% park.tags.each do |tag| %>
+                    <span><%= tag.tag %></span>
+                  <% end %>
+                </div>
+              <% end %>
+            </li>
+            <% end %>
+            <%= paginate @parks %>
+          </ul>
+        </div>
+      </div>
     </div>
     
   </div>
@@ -81,6 +109,7 @@
 <script>
   // 公園の５段階評価平均
   <% @parks.each do |park| %>
+  $('#average-raty<%= park.id %>').empty();
   {
     let opt = {  
       //星画像の指定などのオプションをここに記述,
