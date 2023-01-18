@@ -45,9 +45,9 @@
       <!--管理者ログインの場合の表示-->
       <% elsif admin_signed_in?%>
         <li>
-          <%= link_to user_path(current_user) do %>
+          <%= link_to admin_users_path  do %>
             <div class="circle-btn"></div>
-            <p>マイページ</p>
+            <p>会員一覧</p>
           <% end %>  
         </li>
         <li>

@@ -53,7 +53,7 @@ body{
   margin: 0;
   font-size: 100%;
   overflow-x: hidden;
-
+  box-sizing: border-box;
 }
 h1,h2,h3,p,ul{
   margin: 0;
@@ -376,8 +376,11 @@ main{
     width: 100%;
     height: 400px;
     outline: 2px solid black;
-    @include sp{
+    @include tab{
       height: 300px;  
+    }
+    @include sp{
+      height: 250px;  
     }
     img{
       height: 100%;
@@ -391,22 +394,36 @@ main{
       padding: 15px;  
     }
     .wrapper{
-      max-width: 1080px;  
+      width: 100%;
+      max-width: 1080px;
       margin: 0 auto;
-      padding-bottom: 20px;
+      padding: 0 40px 40px;
       background: $lightgreen;
       border-radius: 20px 0 0 0;
+      box-sizing: border-box;
       // outline: 2px solid red;
+      @include sp{
+        padding: 0 5px 40px;  
+      }
       section{
-        border: 2px solid black;
-        border-radius: 20px;
-        margin: -50px 40px 40px;
-        // background: white;
-        @include tab{
-          margin: -50px 20px 20px;  
+        box-sizing: border-box;
+        // border-radius: 20px;
+        // // margin-top: -50px;
+        // // padding: 0 40px 40px;
+        // margin: -50px 40px 40px;
+        // outline: 4px solid black;
+        // // background: white;
+        // @include tab{
+        //   margin: -50px 20px 20px;  
+        // }
+        // @include sp{
+        //   margin: -50px 5px 20px;  
+        // }
+        & > div{
+          border-radius: 20px 0 0 0;
         }
-        @include sp{
-          margin: -50px 0 20px;  
+        div{
+          box-sizing: border-box;
         }
       }
     //-----------
@@ -419,8 +436,12 @@ main{
           max-width: 480px;
           margin: 0 auto;
           padding: 40px;
-          outline: 2px solid green;
+          background: $white;
+          // outline: 2px solid green;
           form{
+            display: block;
+            // width: 100%;
+            // outline: 2px solid red;
             .field{
               width: 200px;
               margin: 0 auto 10px;
@@ -431,18 +452,29 @@ main{
                 width: 200px;
                 font-size: 1.25rem;
               }
-              // outline: 2px solid blue;
+            }
+            .remember{
+              display: flex;
+              // outline: 2px solid red;
+              input{
+                display: block;
+                width: 15px;  
+              }
             }
             .rule{
-              // outline: 2px solid green;
+              width: 80%;
+              margin: 0 auto;
+              // max-width: 480px;
+              // outline: 4px solid green;
               p{
                 font-size: 1.25rem;  
               }
               ol{
-                width: 480px;
+                width: 100%;
+                // max-width: 480px;
                 height: 120px;
                 padding: 5px;
-                border: 2px solid black;
+                border: 1px solid $gray;
                 border-radius: 5px;
                 overflow: scroll;
                 li{
@@ -450,23 +482,30 @@ main{
                 }    
               }
             }
+            .agree{
+              display: flex;  
+              margin-top: 10px;
+            }
             .actions{
-              outline: 2px solid orange;
+              // outline: 2px solid orange;
               input{
                 display: block;
                 width: 200px;
                 padding: 5px 0;
                 margin: 20px auto; 
                 cursor: pointer;
-                outline: 2px solid skyblue;  
+                color: $white;
+                background: $orange;
+                border-radius: 5px;
+                // outline: 2px solid skyblue;  
               }
             }
           }
           .login-bottom{
-            outline: 2px solid purple;
+            // outline: 2px solid purple;
             .page-link{
               float: right;
-              outline: 2px solid brown;;
+              // outline: 2px solid brown;
             }
           }
         }  
@@ -476,7 +515,9 @@ main{
         .user-show{
           width:400px;
           margin: 0 auto;
-          outline: 2px solid green;
+          padding: 20px;
+          background: $white;
+          // outline: 2px solid green;
           ul{
             li{
               display: flex;
@@ -497,7 +538,7 @@ main{
                 height: 120px;
                 margin: 5px;
                 border-radius: 50%;
-                outline: 2px solid blue;
+                // outline: 2px solid blue;
               }
             }
             
@@ -505,8 +546,24 @@ main{
           
         }
       }
+      // ユーザー退会画面
+      #user-confirm{
+        .user-confirm{
+          padding: 20px;
+          background: $white;
+          h2{
+            margin-bottom: 20px;
+            text-align: center;  
+          }
+          p{
+            text-align: center;
+            line-height: 3rem;
+          }
+        }
+      }
       // 公園一覧
       #user-park-index{
+        width: 100%;
         .user-park-index{
           display: flex;
           @include tab{
@@ -519,7 +576,9 @@ main{
             }
             h2{
               display: inline-block;
-              padding: 5px 30px 5px 5px;
+              width: 100%;
+              max-width: 200px;
+              padding: 5px 5px 5px 20px;
               background: $orange;
               border-radius: 20px 0 0 0;
               // outline: 2px solid red;
@@ -566,7 +625,9 @@ main{
             }
             h2{
               display: inline-block;
-              padding: 5px 30px 5px 5px; 
+              width: 100%;
+              max-width: 200px;
+              padding: 5px 5px 5px 20px; 
               background: $skyblue;
               border-radius: 20px 0 0 0;
             }
@@ -659,6 +720,7 @@ main{
       // 公園詳細・編集
       .user-park{
         .user-park-show{
+          background: $white;
           outline: 4px solid purple;
           #average-raty{
             img{
@@ -673,6 +735,8 @@ main{
             img{
               width: 100%;
               max-width: 400px;
+              max-height: 300px;
+              object-fit: contain;
               @include sp{
                 max-width: 300px;
               }
@@ -686,13 +750,70 @@ main{
           }
           .reviews{
             outline: 2px solid green;
-            img{
-              width: 100px;  
-            }
-            // ５段階評価
-            .raty{
-              img{
-                width: 20px;  
+            .review-content{
+              .user-space{
+                display: flex;
+                margin-bottom: 10px;
+                .user-status{
+                  width: 30%;
+                  outline: 2px solid brown;
+                  img{
+                    display: block;
+                    width: 100px;
+                    height: 100px;
+                    margin: 0 auto;
+                    border-radius: 50%;
+                    outline: 2px solid blue;
+                    @include sp{
+                      width: 80%; 
+                      max-width: 100px;
+                      height: auto;
+                    }
+                  }
+                  p{
+                    text-align: center;  
+                  }
+                }
+                .user-review{
+                  width: 70%;
+                  outline: 2px solid red;
+                  .voice{
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    position: relative;
+                    width: 90%;
+                    height: 100%;
+                    margin-left: 20px;
+                    padding: 5px;
+                    border: 2px solid blue;
+                    border-radius: 10px;
+                    &::before{
+                      content: '';
+                      position: absolute;
+                      top: 50%;
+                      left: -30px;
+                      border-right: 30px solid red;
+                      border-top: 20px solid transparent;
+                      border-bottom: 10px solid transparent;
+                      
+                    }
+                    // ５段階評価
+                    .raty{
+                      img{
+                        width: 20px;  
+                      }
+                    }
+                    .text{
+                      
+                      
+                    }
+                    .time{
+                      text-align: right;
+                    } 
+                  }
+                }
+                
               }
             }
           }
@@ -733,10 +854,52 @@ main{
         }
       }
       #admin-show{
-          img{
-            width: 100px;  
+        .admin-show{
+          h2{
+            display: inline-block;
+            width: 200px;
+            padding: 5px 5px 5px 20px;
+            background: $orange;
+            border-radius: 20px 0 0 0;
+          }
+          .user-detail{
+            display: flex;
+            padding: 10px;
+            background: $white;
+            border-radius: 0 0 20px 0;
+            outline: 2px solid red;
+            .user-id{
+              width: 5%;
+              outline: 2px solid blue;
+            }
+            .user-image{
+              width: 20%;
+              outline: 2px solid purple;
+              img{
+                max-width: 100px;  
+              }
+            }
+            .user-name{
+              width: 40%;
+              outline: 2px solid orange;
+            }
+            .user-status{
+              width: 35%;
+              outline: 2px solid green;
+              form{
+                display: flex;
+                box-sizing: border-box;
+                .radio{
+                  width: 30%;  
+                }
+                .radio:last-of-type{
+                  width: 40%;  
+                }
+              }
+            }
           }
         }
+      }
     }
   }
 }
@@ -790,7 +953,7 @@ footer{
     top: -50%;
     left: -25%;
     width: 150vw;
-    height: 400px;
+    height: 375px;
     // object-fit: cover;
     object-position: center;
     border-radius: 50%;
@@ -799,19 +962,28 @@ footer{
     @include tab{
       height: 300px;  
     }
+    @include sp{
+      height: 250px;  
+    }
   }
   .footer-contents{
     width: 100%;
-    height: 425px;
+    height: 400px;
     background: $brown;
     @include tab{
       height: 325px;
     }
+    @include sp{
+      height: 275px;
+    }
     nav{
       width: 100%;
-      height: 320px;
+      height: 325px;
       @include tab{
         height: 275px;  
+      }
+      @include sp{
+        height: 225px;  
       }
     }
     small{

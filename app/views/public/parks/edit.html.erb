@@ -1,17 +1,15 @@
 <h1>公園編集</h1>
-
 <section class="user-park">
   <div class="user-park-show">
     <%= link_to '戻る', park_path(@park.id)  %>
     <h2><%= @park.park %></h2>
     
     <!--5段階評価平均-->
-    <div id="average-raty">
-      <p>評価平均：<%= @park.average_evaluation %></p>
-    </div>
+    <p>評価：<%= @park.average_evaluation %></p>
+    <div id="average-raty"></div>
     
     
-    <!--TopImage-->
+    <!--トップ画像-->
     <div class="top-image">     
       <% if @park.park_image.attached? %>
         <%= image_tag @park.park_image %>
@@ -49,7 +47,7 @@
       <script>
         function initMap(){
           let map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: <%= @park.latitude || 0 %>, lng: <%= @park.longitude || 0 %> },
+          center: {lat: <%= @park.latitude | 0 %>, lng: <%= @park.longitude | 0 %> },
           zoom: 15
           });
         }
@@ -108,24 +106,34 @@
       <% end %>
     
       <p>レビュー件数：<%= @park.reviews.count %></p>
-      <% @park.reviews.each do |review| %>
-        <div>
-          <% if review.user.user_image.attached? %>
-            <%= image_tag review.user.user_image %>
-          <% else %>
-            <%= image_tag 'no_image' %>
-          <% end %>
-        </div>
-        <%= review.user.nickname %>
-        <%= review.created_at.strftime('%Y/%m/%d') %><%= review.review %>
-        <!--５段階評価表示-->
-        <div class="raty" id="post_raty<%= review.id %>"></div>
-        
-        <% if review.user == current_user %>
-          <%= link_to "削除", park_review_path(review.park, review), method: :delete %>
+      
+      <div class="review-content">
+        <% @park.reviews.each do |review| %>
+          <div class="user-space">
+            <div class="user-status">
+              <% if review.user.user_image.attached? %>
+                <%= image_tag review.user.user_image %>
+              <% else %>
+                <%= image_tag 'no_image' %>
+              <% end %>
+              <p><%= review.user.nickname %></p>
+            </div>
+            <div class="user-review">
+              <div class="voice">
+                <!--５段階評価表示-->
+                <div class="raty" id="post_raty<%= review.id %>"></div>
+                <p class="text"><%= review.review %></p>
+                <p class="time"><%= review.created_at.strftime('%Y/%m/%d') %>
+                  <% if review.user == current_user %>
+                    <%= link_to "削除", park_review_path(review.park, review), method: :delete %>
+                  <% end %>
+                </p>
+              </div>
+            </div>
+          
+          </div>
         <% end %>
-        
-      <% end %>
+      </div>
     </div>
     <div>
       <%= form_with model: [@park, @review] do |f| %>

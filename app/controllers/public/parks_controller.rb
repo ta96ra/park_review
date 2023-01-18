@@ -1,10 +1,11 @@
 class Public::ParksController < ApplicationController
   def index
     @park = Park.new
-    # @parks = Park.all
-    @parks = Park.page(params[:page])  #ページネーション導入のため
+    @parks = Park.all
+    # @parks = Park.page(params[:page])  #ページネーション導入のため
     
     # タグのAND検索
+    #ページネーションのため記述変更が必要
     if params[:tag_ids]
       @parks = []
       params[:tag_ids].each do |key, value|
@@ -62,30 +63,30 @@ class Public::ParksController < ApplicationController
     @parks = Park.search(params[:keyword])
     @keyword = params[:keyword]
     @park = Park.new
-    render "index"   
+    render "index" 
+    #ページネーション導入の場合、記述変更が必要
   end
   
   #並べ替え
   def sort
     if params[:new]
-      @parks = Park.page(params[:page]).order(id: "DESC")
+      @parks = Park.all.order(id: "DESC")
     elsif params[:old]
-      @parks = Park.page(params[:page]).order(id: "ASC")
+      @parks = Park.all.order(id: "ASC")
     elsif params[:raty]
-      @parks = Park.page(params[:page]).order(average_evaluation: "DESC")
+      @parks = Park.all.order(average_evaluation: "DESC")
     end  
+    
     @park = Park.new
-    render "index"   
-  
+    render "index"
+    #ページネーション導入の場合、記述変更が必要
     # if params[:new]
-    #   @parks = Park.all.order(id: "DESC")
+    #   @parks = Park.page(params[:page]).order(id: "DESC")
     # elsif params[:old]
-    #   @parks = Park.all.order(id: "ASC")
+    #   @parks = Park.page(params[:page]).order(id: "ASC")
     # elsif params[:raty]
-    #   @parks = Park.all.order(average_evaluation: "DESC")
+    #   @parks = Park.page(params[:page]).order(average_evaluation: "DESC")
     # end  
-    # @park = Park.new
-    # render "index"   
   end
   
   private

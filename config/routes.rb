@@ -35,16 +35,9 @@ Rails.application.routes.draw do
       resources :reviews,only:[:create, :destroy]
     end
     ###キーワード検索機能
-    # get 'parks/search'=>'parks#search'
     get 'search'=>'parks#search'
     ###並べ替え機能
-    # get 'sort/new'=>'parks#sort', as: 'sort_new'
-    # get 'sort/old'=>'parks#sort', as: 'sort_old'
-    # get 'sort/raty'=>'parks#sort', as: 'sort_raty'
     get 'sort' => 'parks#sort'
-    # get 'parks/search/sort_new'=>'parks#search', as: 'sort_new'
-    # get 'parks/search/sort_old'=>'parks#search', as: 'sort_old'
-    # get 'parks/search/sort_raty'=>'parks#search', as: 'sort_raty'
   end  
   
   
@@ -63,16 +56,13 @@ Rails.application.routes.draw do
     root to:'parks#index'
     resources :users,only: [:index,:show, :update]
     
-    resources :parks,only: [:index, :create, :show, :edit, :update] do
+    resources :parks,only: [:index, :create, :show, :edit, :update, :destroy] do
       resources :reviews,only:[:create, :destroy] 
     end
     ###キーワード検索機能
-    # get 'parks/search'=>'parks#search'
     get 'search'=>'parks#search'
     ###並べ替え機能
-    # get 'parks/search/sort_new'=>'parks#search', as: 'sort_new'
-    # get 'parks/search/sort_old'=>'parks#search', as: 'sort_old'
-    # get 'parks/search/sort_raty'=>'parks#search', as: 'sort_raty'
+    get 'sort' => 'parks#sort'
     
   end  
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html

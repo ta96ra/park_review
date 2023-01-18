@@ -1,3 +1,4 @@
+<!--公園詳細ページ-->
 <h1><%= @park.park %></h1>
 <section class="user-park">
   <div class="user-park-show">
@@ -7,9 +8,8 @@
     <%= flash[:park_notice] %>
     
         <!--5段階評価平均-->
-    <div id="average-raty">
-      <p>評価平均：<%= @park.average_evaluation %></p>
-    </div>
+    <p>評価：<%= @park.average_evaluation %></p>
+    <div id="average-raty"></div>
     
     <!--トップ画像-->
     <div class="top-image">
@@ -19,7 +19,29 @@
         <%= image_tag 'no_park_image' %>
       <% end %>
     </div>
+    
+    <!--住所-->
     <p><%= @park.address %></p>
+    
+    <!--Google Map API-->
+    <h3>公園場所</h3>
+      <div class="map">
+      <div id="map"></div>
+    </div>
+    
+    <!--<div type="text/javascript">-->
+    <!--  <script>-->
+    <!--    function initMap(){-->
+    <!--      let map = new google.maps.Map(document.getElementById('map'), {-->
+    <!--      center: {lat: <%#= @park.latitude || 0 %>, lng: <%#= @park.longitude || 0 %> },-->
+    <!--      zoom: 15-->
+    <!--      });-->
+    <!--    }-->
+    <!--  </script>-->
+      
+      <!--APIキーあり-->
+      <!--<script src="https://maps.googleapis.com/maps/api/js?key=<%#= ENV['SECRET_KEY'] %>&callback=initMap" async defer></script>-->
+    <!--</div>-->
     
     <!--ActionTextによる公園詳細-->
     <div class="field">
@@ -34,22 +56,28 @@
     <!--レビュー一覧-->
     <div class="reviews">
       <p>レビュー件数：<%= @park.reviews.count %></p>
-      <% @park.reviews.each do |review| %>
-        <!--<p><%#= image_tag review.user.get_user_image(100,100) %></p>-->
-        <div>
-          <% if review.user.user_image.attached? %>
-            <%= image_tag review.user.user_image %>
-          <% else %>
-            <%= image_tag 'no_image' %>
-          <% end %>
+      <div class="review-content">
+        <% @park.reviews.each do |review| %>
+        <div class="user-space">
+          <div class="user-status">
+            <% if review.user.user_image.attached? %>
+              <%= image_tag review.user.user_image %>
+            <% else %>
+              <%= image_tag 'no_image' %>
+            <% end %>
+            <p><%= review.user.nickname %></p>
+          </div>
+          <div class="user-review">
+            <div class="voice">
+              <!--５段階評価表示-->
+              <div class="raty" id="post_raty<%= review.id %>"></div>
+              <p class="text"><%= review.review %></p>
+              <p class="time"><%= review.created_at.strftime('%Y/%m/%d') %></p>
+            </div>
+          </div>
         </div>
-        <%= review.user.nickname %>
-        <%= review.created_at.strftime('%Y/%m/%d') %><%= review.review %>
-        
-        <!--５段階評価表示-->
-        <div class="raty" id="post_raty<%= review.id %>"></div>
-        
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </section>
