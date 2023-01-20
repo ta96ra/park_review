@@ -2,39 +2,82 @@
 
 <section id="admin-show">
     <div class="admin-show">
-        <h2>会員情報</h2>
-        <div class="user-detail">
-            <p class="user-id"><%= @user.id %></p>
-            <div class="user-image">
-                <% if @user.user_image.attached? %>
-                    <%= image_tag @user.user_image %>
-                <% else %>
-                    <%= image_tag 'no_image' %>
-                <% end %> 
-            </div>
-            <div class="user-name">
-                <p>ニックネーム：<br><%= @user.nickname %></p>
-                <p>メールアドレス：<br><%= @user.email %></p>
-            </div>
-            <div class="user-status">
-                <p>退会ステータスの切り替え</p>
-                <%= form_with model: @user, url: admin_user_path(@user), method: :patch do |f| %>
-                    <div class="radio">
-                        <%= f.radio_button :is_deleted, false %>
-                        <%= f.label :is_deleted, "有効", value: false %>
-                    </div>
-                    <div class="radio">
-                        <%= f.radio_button :is_deleted, true %>
-                        <%= f.label :is_deleted, "退会", value: true %>
-                    </div>
-                    <div class="radio">
-                        <%= f.submit "変更を保存" %>
-                    </div>
-                <% end %>      
+        <div class="user-information">
+            <h2>会員情報</h2>
+            <div class="user-detail">
+                <p class="user-id"><%= @user.id %></p>
+                <div class="user-image">
+                    <% if @user.user_image.attached? %>
+                        <%= image_tag @user.user_image %>
+                    <% else %>
+                        <%= image_tag 'no_image' %>
+                    <% end %> 
+                </div>
+                <div class="user-name">
+                    <p>ニックネーム：<br><%= @user.nickname %></p>
+                    <p>メールアドレス：<br><%= @user.email %></p>
+                </div>
+                <div class="user-status">
+                    <p>退会ステータスの切り替え</p>
+                    <%= form_with model: @user, url: admin_user_path(@user), method: :patch do |f| %>
+                        <div class="radio">
+                            <%= f.radio_button :is_deleted, false %>
+                            <%= f.label :is_deleted, "有効", value: false %>
+                        </div>
+                        <div class="radio">
+                            <%= f.radio_button :is_deleted, true %>
+                            <%= f.label :is_deleted, "退会", value: true %>
+                        </div>
+                        <div class="radio">
+                            <%= f.submit "変更を保存" %>
+                        </div>
+                    <% end %>      
+                </div>
             </div>
         </div>
-        <h2>レビュー一覧</h2>
+        <div class="review-index">
+            <h2>レビュー一覧</h2>
+            <div class="user-reviews">
+                <p>(全<%= @reviews.count %>件)</p>
+                <ul>
+                    <% @reviews.each do |review|%>
+                        <li>
+                            <p><%= review.id %></p>
+                            <p>
+                                <%= link_to review.park.park, admin_park_path(review.park.id) %><br>
+                                <!--５段階評価表示-->
+                                <div class="raty" id="post_raty<%= review.id %>"></div>
+                                レビュー内容:<%= review.review %><br>
+                                登録日時：<%= review.created_at.strftime('%Y/%m/%d') %>
+                            </p>
+                            <%= link_to "削除", admin_park_review_path(review.park, review), method: :delete %>
+                        </li>
+                    <% end %> 
+                </ul> 
+            </div>
+        </div>
         
     </div>
 </section>
+
+<script>
+// コメントの５段階評価表示
+  <% @reviews.each do |review| %>
+  <%# p review %>
+  $('#post_raty<%= review.id %>').empty();
+  {
+    let elem = document.querySelector('#post_raty<%= review.id %>');
+    let opt = {  
+    //星画像の指定などのオプションをここに記述,
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      readOnly: true,
+      score: <%= review.evaluation || 0 %>
+    };
+    raty(elem,opt);
+  }
+  // scriptファイルをどのidの部分に配置するかを指定
+  <% end %>
+  </script>
 

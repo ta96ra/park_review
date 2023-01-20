@@ -22,26 +22,45 @@
     
     <!--住所-->
     <p><%= @park.address %></p>
-    
     <!--Google Map API-->
     <h3>公園場所</h3>
-      <div class="map">
+    <div class="map">
       <div id="map"></div>
     </div>
     
-    <!--<div type="text/javascript">-->
-    <!--  <script>-->
-    <!--    function initMap(){-->
-    <!--      let map = new google.maps.Map(document.getElementById('map'), {-->
-    <!--      center: {lat: <%#= @park.latitude || 0 %>, lng: <%#= @park.longitude || 0 %> },-->
-    <!--      zoom: 15-->
-    <!--      });-->
-    <!--    }-->
-    <!--  </script>-->
+    <div type="text/javascript">
+      <script>        
+        function initMap() {
+
+          var test = {lat: <%= @park.latitude %>, lng: <%= @park.longitude %>};
+          var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: test
+          });
+          var transitLayer = new google.maps.TransitLayer();
+          transitLayer.setMap(map);
       
-      <!--APIキーあり-->
-      <!--<script src="https://maps.googleapis.com/maps/api/js?key=<%#= ENV['SECRET_KEY'] %>&callback=initMap" async defer></script>-->
-    <!--</div>-->
+          var contentString = '住所：<%= @park.address %>';
+          var infowindow = new google.maps.InfoWindow({
+            content: contentString
+          });
+      
+          var marker = new google.maps.Marker({
+            position:test,
+            map: map,
+            title: contentString
+          });
+      
+          marker.addListener('click', function() {
+            infowindow.open(map, marker);
+          });
+        }
+      </script>
+      
+    <!--APIキーあり-->
+      <!--$('#map').empty();-->
+      <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['SECRET_KEY'] %>&callback=initMap" async defer></script>
+    </div>
     
     <!--ActionTextによる公園詳細-->
     <div class="field">
@@ -117,6 +136,36 @@
     };
     let elem = document.querySelector('#average-raty');
     raty(elem,opt);
-  }
+    
+    // GoogleMapAPI
+    // function initMap() {
 
+    //   var test = {lat: <%#= @park.latitude %>, lng: <%#= @park.longitude %>};
+    //   var map = new google.maps.Map(document.getElementById('map'), {
+    //     zoom: 15,
+    //     center: test
+    //   });
+    //   var transitLayer = new google.maps.TransitLayer();
+    //   transitLayer.setMap(map);
+  
+    //   var contentString = '住所：<%#= @park.address %>';
+    //   var infowindow = new google.maps.InfoWindow({
+    //     content: contentString
+    //   });
+  
+    //   var marker = new google.maps.Marker({
+    //     position:test,
+    //     map: map,
+    //     title: contentString
+    //   });
+  
+    //   marker.addListener('click', function() {
+    //     infowindow.open(map, marker);
+    //   });
+    // }
+    
+    
+  }
 </script>
+
+<!--<script src="https://maps.googleapis.com/maps/api/js?key=<%#= ENV['SECRET_KEY'] %>&callback=initMap" async defer></script>-->

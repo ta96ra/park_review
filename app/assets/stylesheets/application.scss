@@ -338,27 +338,41 @@ header{
     .sp{
       display: none;
       position: absolute;
-      top: -100px;
+      top: -150px;
       left: calc(25vw);
+      z-index: -10;
       width: 100vw;
       background: $white;
+      opacity: 0;
       transition: .3s;
-      outline: 4px solid red;
+      // outline: 4px solid red;
       @include sp{
         display: block;  
       }
       ul{
         li{
+          display: block;
+          width: 100%;
+          // outline: 2px solid black;
           a{
-            padding: 30px;
+            display: block;
+            width: 100%;
+            padding: 15px;
             font-size: 2.5rem;
             font-family: 'RocknRoll One', sans-serif;
+            transition: .3s;
+            // outline: 4px solid red;
+            &:hover{
+              background: rgba(150,150,150,.4);
+              transition: .3s;
+            }
           }
         }
       }
     }
     .sp.slide{
-      transform: translateY(400px);
+      opacity: 1;
+      transform: translateY(450px);
       transition: .3s;
     }
   }
@@ -862,41 +876,60 @@ main{
             background: $orange;
             border-radius: 20px 0 0 0;
           }
-          .user-detail{
-            display: flex;
-            padding: 10px;
-            background: $white;
-            border-radius: 0 0 20px 0;
-            outline: 2px solid red;
-            .user-id{
-              width: 5%;
-              outline: 2px solid blue;
-            }
-            .user-image{
-              width: 20%;
-              outline: 2px solid purple;
-              img{
-                max-width: 100px;  
+          .user-information{
+            margin-bottom: 40px;
+            .user-detail{
+              display: flex;
+              padding: 10px;
+              background: $white;
+              border-radius: 0 0 20px 0;
+              outline: 2px solid red;
+              .user-id{
+                width: 5%;
+                outline: 2px solid blue;
               }
-            }
-            .user-name{
-              width: 40%;
-              outline: 2px solid orange;
-            }
-            .user-status{
-              width: 35%;
-              outline: 2px solid green;
-              form{
-                display: flex;
-                box-sizing: border-box;
-                .radio{
-                  width: 30%;  
-                }
-                .radio:last-of-type{
-                  width: 40%;  
+              .user-image{
+                width: 20%;
+                outline: 2px solid purple;
+                img{
+                  max-width: 100px;  
                 }
               }
+              .user-name{
+                width: 40%;
+                outline: 2px solid orange;
+              }
+              .user-status{
+                width: 35%;
+                outline: 2px solid green;
+                form{
+                  display: flex;
+                  box-sizing: border-box;
+                  .radio{
+                    width: 30%;  
+                  }
+                  .radio:last-of-type{
+                    width: 40%;  
+                  }
+                }
+              }
             }
+          }
+          .review-index{
+            .user-reviews{
+              padding: 10px;
+              background: $white;
+              ul{
+                li{
+                  outline: 2px solid red;  
+                  .raty{
+                    img{
+                      width: 16px;  
+                    } 
+                  }
+                }  
+              }
+            }  
           }
         }
       }

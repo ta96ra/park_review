@@ -18,9 +18,9 @@ class Park < ApplicationRecord
   end
   
   # 並べ替え機能
-  scope :latest, ->{order(created_at: :desc)}
-  scope :old, ->{order(create_at: :asc)}
-  scope :raty, -> {order(average_evaluation: :asc)}
+  # scope :latest, ->{order(created_at: :desc)}
+  # scope :old, ->{order(create_at: :asc)}
+  # scope :raty, -> {order(average_evaluation: :asc)}
   
   #ActionText
   has_rich_text :detail
@@ -46,5 +46,22 @@ class Park < ApplicationRecord
   #   end
   #   park_images.variant(resize_to_limit: [width, height]).processed
   # end
+  
+  
+  # GoogleMapAPI
+  after_validation :geocode
+  
+  private
+  #住所からGoogleMapAPIにリクエストし緯度・経度を取得
+  def geocode
+    # uri = URI.escape("https://maps.googleapis.com/maps/api/geocode/json?address="+self.address.gsub(" ", "")+"&key=[<%= ENV['SECRET_KEY'] %>]")
+    query = URI.encode_www_form(address: self.address.gsub(" ", ""))
+    uri = URI.parse("https://maps.googleapis.com/maps/api/geocode/json?#{query}&key=#{ENV['API_KEY']}")
+    # res = Net::HTTP.get(uri).to_s
+    res = Net::HTTP.get_response(uri)
+    response = JSON.parse(res.body)
+    self.latitude = response["results"][0]["geometry"]["location"]["lat"]
+    self.longitude = response["results"][0]["geometry"]["location"]["lng"]
+  end
   
 end

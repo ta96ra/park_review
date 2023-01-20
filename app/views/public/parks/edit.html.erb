@@ -1,7 +1,7 @@
 <h1>公園編集</h1>
 <section class="user-park">
   <div class="user-park-show">
-    <%= link_to '戻る', park_path(@park.id)  %>
+    <%= link_to '戻る', park_path(@park.id),data: { turbo: false }  %>
     <h2><%= @park.park %></h2>
     
     <!--5段階評価平均-->
@@ -32,30 +32,40 @@
       <%= f.text_field :park %>
       <%= f.label :address, '場所' %>
       <%= f.text_field :address %>
+      <!--緯度、経度の入力（テスト用）-->
+      <%= f.label :latitude, '緯度' %>
+      <%= f.text_field :latitude %>
+      <%= f.label :longitude,'経度'%>
+      <%= f.text_field :longitude %>
       <%= f.submit '更新する' %>
     <% end %>
     
     
-    
     <!--Google Map API-->
-    <h3>公園場所</h3>
-      <div class="map">
-      <div id="map"></div>
-    </div>
+    <!--<h3>公園場所</h3>-->
+    <!--  <div class="map">-->
+    <!--  <div id="map"></div>-->
+    <!--</div>-->
     
-    <div type="text/javascript">
-      <script>
-        function initMap(){
-          let map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: <%= @park.latitude | 0 %>, lng: <%= @park.longitude | 0 %> },
-          zoom: 15
-          });
-        }
-      </script>
+    <!--<div type="text/javascript">-->
+    <!--  <script>-->
+    <!--    function initMap(){-->
+    <!--      let map = new google.maps.Map(document.getElementById('map'), {-->
+    <!--      center: {lat: <%#= @park.latitude || 0 %>, lng: <%#= @park.longitude || 0 %> },-->
+    <!--      zoom: 15-->
+    <!--      });-->
+          
+    <!--      marker = new google.maps.Marker({-->
+    <!--        position:  {lat: <%#= @park.latitude || 0 %>, lng:<%#= @park.longitude || 0 %> },-->
+    <!--        map: map-->
+    <!--      });-->
+    <!--    }-->
+        
+    <!--  </script>-->
       
       <!--APIキーあり-->
-      <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['SECRET_KEY'] %>&callback=initMap" async defer></script>
-    </div>
+      <!--<script src="https://maps.googleapis.com/maps/api/js?key=<%#= ENV['SECRET_KEY'] %>&callback=initMap" async defer></script>-->
+    <!--</div>-->
     
     
     <!--ActionTextによる公園詳細の編集-->
@@ -161,7 +171,7 @@
   
   // コメントの５段階評価表示
   <% @park.reviews.each do |review| %>
-  <% p review%>
+  <%# p review%>
   {
     let elem = document.querySelector('#post_raty<%= review.id %>');
     let opt = {  

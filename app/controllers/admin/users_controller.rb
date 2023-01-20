@@ -6,6 +6,8 @@ class Admin::UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @reviews = @user.reviews.order(id: 'DESC')
+    # @reviews = Review.all
   end
   
   def update

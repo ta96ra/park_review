@@ -31,7 +31,7 @@ class Public::ParksController < ApplicationController
 
   def show
     @park = Park.find(params[:id])
-    # @reviews = Review.all
+    @reviews = Review.all
     
   end
 

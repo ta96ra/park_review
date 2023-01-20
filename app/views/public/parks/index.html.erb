@@ -44,7 +44,6 @@
     
     <!--公園一覧-->
     <div class="parks-list">
-      新規登録
       <div class="new-park">
         <h2>公園新規登録</h2>
         <div class="sub-content">
@@ -70,7 +69,7 @@
           <ul class="parks">
             <% @parks.each do |park| %>
             <li>
-              <%= link_to park_path(park.id) do %>
+              <%= link_to park_path(park.id), data: { 'turbolinks': false } do %>
                 <div class="left">
                   <% if park.park_image.attached? %>
                     <%= image_tag park.park_image %>

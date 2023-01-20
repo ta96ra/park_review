@@ -30,10 +30,13 @@ class Admin::ParksController < ApplicationController
   # end  
 
   def show
+    @park = Park.find(params[:id])
+    @parks = Park.all
+    @reviews = Review.all
   end
 
   def edit
-    
+    @park = Park.find(params[:id])
   end
   
   #キーワード検索
