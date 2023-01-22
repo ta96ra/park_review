@@ -2,28 +2,52 @@
 <h1><%= @park.park %></h1>
 <section class="user-park">
   <div class="user-park-show">
-    <%= link_to '編集する', edit_park_path  %>
-    <%= link_to '公園一覧', parks_path  %>
+  
      <!--公園情報更新のフラッシュメッセージ-->
     <%= flash[:park_notice] %>
     
         <!--5段階評価平均-->
-    <p>評価：<%= @park.average_evaluation %></p>
-    <div id="average-raty"></div>
-    
-    <!--トップ画像-->
-    <div class="top-image">
-      <% if @park.park_image.attached? %>
-        <%= image_tag @park.park_image %>
-      <% else %>
-        <%= image_tag 'no_park_image' %>
+    <div class="average-rate">
+      <div id="average-raty"></div>
+      <p>評価：<strong><%= @park.average_evaluation %></strong>( <%= @park.reviews.count %>件)</p>
+    </div>    
+    <!--リンク-->
+    <div class="top-links">
+      <%= link_to edit_park_path do %>
+        <i class="bi bi-pencil-fill"></i>
+        <span>編集する</span>
       <% end %>
+      
+      <%= link_to '公園一覧', parks_path  %>
     </div>
     
-    <!--住所-->
-    <p><%= @park.address %></p>
+    <!--ActionTextによる公園詳細-->
+    <div class="field">
+      <%= @park.detail %>
+    </div>
+    
+    <div class="basic-information">
+      <h2>基本情報</h2>
+      <!--住所-->
+      <p>所在地：<%= @park.address %></p>
+      <!--タグの表示-->
+      <div class="tag-area">
+        <% @park.tags.each do |tag| %>
+          <span class="tag"><%= tag.tag %></span>
+        <% end %>
+      </div>
+    </div>
+    
+    <!--サムネイル画像-->
+    <!--<div class="sumbnail">-->
+    <!--  <%# if @park.park_image.attached? %>-->
+    <!--    <%#= image_tag @park.park_image %>-->
+    <!--  <%# else %>-->
+    <!--    <%#= image_tag 'no_park_image' %>-->
+    <!--  <%# end %>-->
+    <!--</div>-->
+    
     <!--Google Map API-->
-    <h3>公園場所</h3>
     <div class="map">
       <div id="map"></div>
     </div>
@@ -61,42 +85,37 @@
       <!--$('#map').empty();-->
       <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['SECRET_KEY'] %>&callback=initMap" async defer></script>
     </div>
-    
-    <!--ActionTextによる公園詳細-->
-    <div class="field">
-      <%= @park.detail %>
+  </div>
+  <!--レビュー一覧-->
+  <div class="reviews">
+    <div class="review-title">
+      <h2>レビュー一覧(<%= @park.reviews.count %>)</h2>
+      <%= link_to edit_park_path do %>
+        <i class="bi bi-pencil-fill"></i>
+        <span>レビューを投稿する</span>
+      <% end %>
     </div>
-    
-    <!--タグの表示-->
-    <% @park.tags.each do |tag| %>
-      <span><%= tag.tag %></span>
-    <% end %>
-    
-    <!--レビュー一覧-->
-    <div class="reviews">
-      <p>レビュー件数：<%= @park.reviews.count %></p>
-      <div class="review-content">
-        <% @park.reviews.each do |review| %>
-        <div class="user-space">
-          <div class="user-status">
-            <% if review.user.user_image.attached? %>
-              <%= image_tag review.user.user_image %>
-            <% else %>
-              <%= image_tag 'no_image' %>
-            <% end %>
-            <p><%= review.user.nickname %></p>
-          </div>
-          <div class="user-review">
-            <div class="voice">
-              <!--５段階評価表示-->
-              <div class="raty" id="post_raty<%= review.id %>"></div>
-              <p class="text"><%= review.review %></p>
-              <p class="time"><%= review.created_at.strftime('%Y/%m/%d') %></p>
-            </div>
+    <div class="review-content">
+      <% @park.reviews.each do |review| %>
+      <div class="user-space">
+        <div class="user-status">
+          <% if review.user.user_image.attached? %>
+            <%= image_tag review.user.user_image %>
+          <% else %>
+            <%= image_tag 'no_image' %>
+          <% end %>
+          <p><%= review.user.nickname %></p>
+        </div>
+        <div class="user-review">
+          <div class="voice">
+            <!--５段階評価表示-->
+            <div class="raty" id="post_raty<%= review.id %>"></div>
+            <p class="text"><%= review.review %></p>
+            <p class="time"><%= review.created_at.strftime('%Y/%m/%d') %></p>
           </div>
         </div>
-        <% end %>
       </div>
+      <% end %>
     </div>
   </div>
 </section>

@@ -1,6 +1,6 @@
 class Public::UsersController < ApplicationController
   # アクセス制限
-  # before_action :authenticate_user!
+  before_action :authenticate_user!
   before_action :ensure_guest_user, only: [:edit]
   
   def show

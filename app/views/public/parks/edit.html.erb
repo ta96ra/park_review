@@ -1,44 +1,74 @@
 <h1>公園編集</h1>
 <section class="user-park">
   <div class="user-park-show">
-    <%= link_to '戻る', park_path(@park.id),data: { turbo: false }  %>
-    <h2><%= @park.park %></h2>
-    
-    <!--5段階評価平均-->
-    <p>評価：<%= @park.average_evaluation %></p>
-    <div id="average-raty"></div>
-    
-    
-    <!--トップ画像-->
-    <div class="top-image">     
-      <% if @park.park_image.attached? %>
-        <%= image_tag @park.park_image %>
-      <% else %>
-        <%= image_tag 'no_park_image' %>
-      <% end %>
-      <%= form_with model: @park do |f| %>
-        <!--activestrageのみの場合、parkテーブルのデータは空になるため-->
-        <%= f.hidden_field :for_park, value: '' %>
-        <%= f.file_field :park_image %>
-        <%= f.submit '更新する' %>
-      <% end %>
+  <%= form_with model: @park do |f| %>  
+    <div class="park-title">
+      <%= link_to '戻る', park_path(@park.id),data: { turbo: false }  %>
+      <h2><%= @park.park %></h2>
     </div>
     
-    <!--公園名・住所の更新-->
-    <p><%= @park.address %></p>
-    <p>公園名・住所の更新</p>
-    <%= form_with model: @park, local: true do |f| %>
-      <%= f.label :park, '公園名' %>
-      <%= f.text_field :park %>
-      <%= f.label :address, '場所' %>
-      <%= f.text_field :address %>
-      <!--緯度、経度の入力（テスト用）-->
-      <%= f.label :latitude, '緯度' %>
-      <%= f.text_field :latitude %>
-      <%= f.label :longitude,'経度'%>
-      <%= f.text_field :longitude %>
-      <%= f.submit '更新する' %>
-    <% end %>
+    <!--5段階評価平均-->
+    <!--<p>評価：<%#= @park.average_evaluation %></p>-->
+    <!--<div id="average-raty"></div>-->
+    
+    <!--ActionTextによる公園詳細の編集-->
+    <h2>詳細情報</h2>
+    <div class="field">
+      <div class="trix-content">
+        <%= f.rich_text_area :detail %>  
+      </div> 
+    </div>
+    
+    <div class="basic-information">
+      <h2>基本情報</h2>
+      <ul class="park-status">
+        <li>
+          <%= f.label :park, '公園名' %>
+          <%= f.text_field :park %>
+        </li>
+        <li>
+          <%= f.label :address, '場所' %>
+          <%= f.text_area :address %>
+        </li>
+      </ul>
+      <!--サムネイル画像-->
+      <div class="sumbnail">
+        <h3>サムネイル設定</h3>
+        <div class="sumbnail-content">
+          <div class="image">
+            <% if @park.park_image.attached? %>
+              <%= image_tag @park.park_image %>
+            <% else %>
+              <%= image_tag 'no_park_image' %>
+            <% end %>
+          </div>
+            <!--activestrageのみの場合、parkテーブルのデータは空になるため-->
+            <%= f.hidden_field :for_park, value: '' %>
+            <%= f.file_field :park_image %>
+        </div>
+      </div>
+      <!--タグの編集-->
+      <div class="tag-area">
+        <h3>タグ</h3>
+          <div class='form-group'>
+            <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :tag) do |tag| %>
+            <!--tag:ids : タグIDのリストを渡し、複数のタグをtweetに紐づける-->
+              <div class='form-check'>
+                  <%= tag.label do %>
+                    <%= tag.check_box %>
+                    <%= tag.text %>
+                  <% end %>
+              </div>
+            <% end %>
+          </div>
+      </div>
+      <div class="update">
+        <%= f.submit '更新する' %>
+      </div>
+    <% end %>  
+    </div>
+    
+    
     
     
     <!--Google Map API-->
@@ -68,91 +98,66 @@
     <!--</div>-->
     
     
-    <!--ActionTextによる公園詳細の編集-->
-    <div class="field">
-    <%= form_with model: @park do |f| %>
-      <div class="trix-content">
-        <%= f.label :detail %>
-        <%= f.rich_text_area :detail %>  
-        <%= f.submit '更新する' %>
-      </div> 
-    <% end %>  
-    </div>
     
-    <!--タグの編集-->
-    <div class="tags">
-      <%= form_with model: @park do |f| %>
-        <div class='form-group'>
-            <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :tag) do |tag| %>
-            <!--tag:ids : タグIDのリストを渡し、複数のタグをtweetに紐づける-->
-                <div class='form-check'>
-                    <%= tag.label class: 'form-check-label' do %>
-                        <%= tag.check_box class: 'form-check-input' %>
-                        <%= tag.text %>
-                    <% end %>
-                </div>
-            <% end %>
-        </div>
-        <%= f.submit '更新' %>
-      <% end %>
+    
+
+  </div>
+  <!--レビュー一覧-->
+  <div class="reviews">
+    <div class="review-title">
+      <h3>レビュー一覧(<%= @park.reviews.count %>)</h3>  
     </div>
-    <!--タグの追加(管理者のみのため後ほど削除)-->
-    <%= form_tag({controller:"parks",action:"edit"}, method: :get) do %>
-      <%= text_field_tag :tag %>
-      <%= submit_tag 'タグを追加' %>
+    <!--バリデーションのエラーメッセージ-->
+    <% if @review.errors.any? %>
+      <%= @review.errors.count %>件のエラーが発生しました
+      <ul>
+        <% @review.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
     <% end %>
     
-    <!--レビュー一覧-->
-    <div class="reviews">
-      
-      <!--バリデーションのエラーメッセージ-->
-      <% if @review.errors.any? %>
-        <%= @review.errors.count %>件のエラーが発生しました
-        <ul>
-          <% @review.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-      <% end %>
-    
-      <p>レビュー件数：<%= @park.reviews.count %></p>
-      
-      <div class="review-content">
-        <% @park.reviews.each do |review| %>
-          <div class="user-space">
-            <div class="user-status">
-              <% if review.user.user_image.attached? %>
-                <%= image_tag review.user.user_image %>
-              <% else %>
-                <%= image_tag 'no_image' %>
-              <% end %>
-              <p><%= review.user.nickname %></p>
-            </div>
-            <div class="user-review">
-              <div class="voice">
-                <!--５段階評価表示-->
-                <div class="raty" id="post_raty<%= review.id %>"></div>
-                <p class="text"><%= review.review %></p>
-                <p class="time"><%= review.created_at.strftime('%Y/%m/%d') %>
-                  <% if review.user == current_user %>
-                    <%= link_to "削除", park_review_path(review.park, review), method: :delete %>
-                  <% end %>
-                </p>
-              </div>
-            </div>
-          
+    <div class="review-content">
+      <% @park.reviews.each do |review| %>
+        <div class="user-space">
+          <div class="user-status">
+            <% if review.user.user_image.attached? %>
+              <%= image_tag review.user.user_image %>
+            <% else %>
+              <%= image_tag 'no_image' %>
+            <% end %>
+            <p><%= review.user.nickname %></p>
           </div>
-        <% end %>
-      </div>
+          <div class="user-review">
+            <div class="voice">
+              <!--５段階評価表示-->
+              <div class="raty" id="post_raty<%= review.id %>"></div>
+              <p class="text"><%= review.review %></p>
+              <p class="time"><%= review.created_at.strftime('%Y/%m/%d') %>
+                <% if review.user == current_user %>
+                  <%= link_to "削除", park_review_path(review.park, review), method: :delete %>
+                <% end %>
+              </p>
+            </div>
+          </div>
+        
+        </div>
+      <% end %>
     </div>
-    <div>
+    <div class="review-submit">
       <%= form_with model: [@park, @review] do |f| %>
-        <%= f.text_area :review, rows: '5', placeholder: "コメントをここに" %>
-        <div id="post_raty"></div>
-        <%= f.submit "送信する" %>
+        <div class="form-content">
+          <%= f.text_area :review, rows: '5', placeholder: "レビューをここに" %>
+          <div class="review-raty">
+            <p>評価を選択</p>
+            <div id="post_raty"></div>
+          </div>
+        </div>
+        <%= f.submit '送信する' %>
       <% end %>
     </div>
   </div>
+  
 </section>
 
 <script>
@@ -189,19 +194,19 @@
   
   
   // 公園の５段階評価平均
-  {
-    let opt = {  
-      //星画像の指定などのオプションをここに記述,
-      starOn: "<%= asset_path('star-on.png') %>",
-      starOff: "<%= asset_path('star-off.png') %>",
-      starHalf: "<%= asset_path('star-half.png') %>",
-      half: true,
-      readOnly: true,
-      scoreName: 'park[average_evaluation]',
-      score: <%= @park.average_evaluation || 0 %>,
-    };
-    let elem = document.querySelector('#average-raty');
-    raty(elem,opt);
-  }
+  // {
+  //   let opt = {  
+  //     //星画像の指定などのオプションをここに記述,
+  //     starOn: "<%#= asset_path('star-on.png') %>",
+  //     starOff: "<#%= asset_path('star-off.png') %>",
+  //     starHalf: "<%#= asset_path('star-half.png') %>",
+  //     half: true,
+  //     readOnly: true,
+  //     scoreName: 'park[average_evaluation]',
+  //     score: <%#= @park.average_evaluation || 0 %>,
+  //   };
+  //   let elem = document.querySelector('#average-raty');
+  //   raty(elem,opt);
+  // }
 
 </script>

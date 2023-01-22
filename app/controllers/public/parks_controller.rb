@@ -1,7 +1,9 @@
 class Public::ParksController < ApplicationController
+  before_action :authenticate_user!, {only: [:create,:edit, :update]}
   def index
     @park = Park.new
-    @parks = Park.all
+    # 公園ステータスがtrueのみ表示
+    @parks = Park.where(status:true).all
     # @parks = Park.page(params[:page])  #ページネーション導入のため
     
     # タグのAND検索
@@ -39,12 +41,6 @@ class Public::ParksController < ApplicationController
     @park = Park.find(params[:id])
     @review = Review.new
     # @average_evaluation = Review.group(:review_id).average(:evaluation)
-    
-    
-    # タグの追加(管理者のみに制限するため、後ほど削除)
-    if params[:tag]
-      Tag.create(tag: params[:tag])
-    end
   end
   
   def update
@@ -55,7 +51,6 @@ class Public::ParksController < ApplicationController
     else
       render :edit
     end
-    
   end
   
   #キーワード検索

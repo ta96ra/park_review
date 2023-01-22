@@ -56,7 +56,7 @@ Rails.application.routes.draw do
     root to:'parks#index'
     resources :users,only: [:index,:show, :update]
     
-    resources :parks,only: [:index, :create, :show, :edit, :update, :destroy] do
+    resources :parks,only: [:index, :create, :show, :edit, :update] do
       resources :reviews,only:[:create, :destroy] 
     end
     ###キーワード検索機能

@@ -79,8 +79,14 @@
                   <% end %>
                 </div>
                 <div class="right">
-                  <h3><%= park.park %></h3>
-                  
+                  <div class="park-status">
+                    <h3><%= park.park %></h3>
+                    <% if park.status %>
+                      <p>有効</p>
+                    <% else %>
+                      <p>無効</p>
+                    <% end %>
+                  </div>
                   <!--5段階評価平均-->
                   <div class="avg-rate">
                     <p><span>評価：</span><strong><%= park.average_evaluation %></strong></p>

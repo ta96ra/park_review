@@ -1,4 +1,5 @@
 class Admin::ParksController < ApplicationController
+  before_action :authenticate_admin!
   def index
     @park = Park.new
     @parks = Park.all
@@ -31,12 +32,35 @@ class Admin::ParksController < ApplicationController
 
   def show
     @park = Park.find(params[:id])
-    @parks = Park.all
+    # @parks = Park.all
     @reviews = Review.all
   end
 
   def edit
     @park = Park.find(params[:id])
+    @review = Review.new
+     # タグの追加(管理者のみに制限するため)
+    if params[:tag]
+      Tag.create(tag: params[:tag])
+    end
+  end
+  
+  def update
+    @park = Park.find(params[:id])
+    if @park.update(park_params)
+      flash[:park_notice] = "公園情報を更新しました"
+      redirect_to admin_park_path(@park.id)
+      
+      # 公園の表示設定のフラッシュメッセージ（不要かも）
+      # if params[:park][:status] == "false"
+      #   flash[:notice] = "公園非表示に設定いたしました"
+      # else
+      #   flash[:notice] = "公園表示を有効にしました"
+      # end
+      
+    else
+      render "admin/parks/edit"
+    end
   end
   
   #キーワード検索

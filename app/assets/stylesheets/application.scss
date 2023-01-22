@@ -40,7 +40,7 @@ $white: #fff;
 $brown: #7c4d25;
 $lightgreen: #c9d439;
 // $green: #9eb11e;
-// $brown: #7c4d25;
+$brown: #7c4d25;
 $skyblue: #d6f4ff;
 $orange: #faa61a;
 $black: rgb(40,40,40);
@@ -409,10 +409,16 @@ main{
     }
     .wrapper{
       width: 100%;
-      max-width: 1080px;
+      max-width: 1200px;
       margin: 0 auto;
       padding: 0 40px 40px;
       background: $lightgreen;
+      // background: $skyblue;
+      // background: rgba(255,240,220,.3);
+      // background: rgb(255,240,220);
+      // background: $white;
+      // border: 2px solid $lightgreen;
+      // background: rgba(205,216,54,.6);
       border-radius: 20px 0 0 0;
       box-sizing: border-box;
       // outline: 2px solid red;
@@ -421,18 +427,6 @@ main{
       }
       section{
         box-sizing: border-box;
-        // border-radius: 20px;
-        // // margin-top: -50px;
-        // // padding: 0 40px 40px;
-        // margin: -50px 40px 40px;
-        // outline: 4px solid black;
-        // // background: white;
-        // @include tab{
-        //   margin: -50px 20px 20px;  
-        // }
-        // @include sp{
-        //   margin: -50px 5px 20px;  
-        // }
         & > div{
           border-radius: 20px 0 0 0;
         }
@@ -483,17 +477,27 @@ main{
               p{
                 font-size: 1.25rem;  
               }
-              ol{
-                width: 100%;
+              .rule-box{
+               width: 100%;
                 // max-width: 480px;
                 height: 120px;
                 padding: 5px;
                 border: 1px solid $gray;
                 border-radius: 5px;
                 overflow: scroll;
-                li{
-                  list-style-type: decimal;
-                }    
+                p{
+                  font-size: 1rem;  
+                }  
+                ol{
+                  li{
+                    list-style-type: decimal;
+                  }    
+                }
+                dl{
+                  dd{
+                    margin-left: 0;
+                  }
+                }
               }
             }
             .agree{
@@ -594,6 +598,9 @@ main{
               max-width: 200px;
               padding: 5px 5px 5px 20px;
               background: $orange;
+              // background: $lightgreen;
+              // background: rgba(255,240,220,1);
+              // color: $brown;
               border-radius: 20px 0 0 0;
               // outline: 2px solid red;
             }
@@ -642,7 +649,8 @@ main{
               width: 100%;
               max-width: 200px;
               padding: 5px 5px 5px 20px; 
-              background: $skyblue;
+              // background: $skyblue;
+              background: $orange;
               border-radius: 20px 0 0 0;
             }
             .sub-content{
@@ -705,6 +713,18 @@ main{
                       width: 75%;
                       padding-left: 10px;
                     }
+                    .park-status{
+                      display: flex;
+                      h3{
+                        padding-right: 20px;  
+                      }
+                      p{
+                        display: inline-block;
+                        padding: 3px;
+                        background: $lightgreen;
+                        border-radius: 5px;
+                      }
+                    }
                     .avg-rate{
                       display: flex;
                       p{
@@ -734,109 +754,351 @@ main{
       // 公園詳細・編集
       .user-park{
         .user-park-show{
+          padding: 0 20px 40px;
           background: $white;
-          outline: 4px solid purple;
-          #average-raty{
-            img{
-              width: 40px;
-              height: 40px;
-            }
+          // outline: 4px solid purple;
+          @include sp{
+            padding: 0 10px;  
           }
-          .top-image{
+          .update{
             display: flex;
-            justify-content: center;
-            outline: 4px solid green;
-            img{
+            justify-content: flex-end;
+            input{
+              margin-top: 40px;
+              padding: 5px;
+              background: $orange;
+              border-radius: 5px;
+              cursor: pointer;
+            }   
+          }
+          .average-rate{
+            position: relative;
+            height: 110px;
+            margin-bottom: 20px;
+            // outline: 2px solid red;
+            span{
+              display: block;
+              position: absolute;
+              top: 10px;
+              left: 0;
+              padding: 3px;
+              background: $lightgreen;
+              border-radius: 5px;
+              // outline: 2px solid green;
+            }
+            #average-raty{
+              display: flex;
+              justify-content: center;
+              position: absolute;
+              top: 0;
+              left: 50%;
               width: 100%;
-              max-width: 400px;
-              max-height: 300px;
-              object-fit: contain;
+              margin: 0 auto;
+              padding-top: 32px;
+              transform: translateX(-50%);
+              // outline: 2px solid blue;
               @include sp{
-                max-width: 300px;
+                top: 10px;  
+              }
+              img{
+                width: 60px;
+                height: 60px;
+                // outline: 2px solid purple;
+                @include tab{
+                  width: 40px;
+                  height: 40px;
+                }
+              }
+            }
+            p{
+              position: absolute;
+              bottom: 0;
+              right: 10px;
+              font-size: 1.125rem;
+              line-height: 40px;
+              // outline: 2px solid green;
+              @include sp{
+                line-height: 30px;
+                font-size: .875rem;  
+              }
+              strong{
+                font-size: 1.75rem;
+                font-weight: bold;
+                @include sp{
+                  font-size: 1.5rem;  
+                }
               }
             }
           }
-          #map{
-            width: 100%;
-            // max-width: 600px;
-            height: 400px;
-            outline: 5px solid black;;
+          .park-title{
+            padding-top: 20px;
+            // outline: 2px solid red;
+            a{
+              display: inline-block;
+              padding: 5px;
+              background: $orange;
+              border-radius: 5px;
+            }
+            h2{
+              text-align: center;
+            }
           }
-          .reviews{
-            outline: 2px solid green;
-            .review-content{
-              .user-space{
+          .top-links{
+            display: flex;
+            justify-content: right;
+            margin-bottom: 10px;
+            a{
+              display: block;
+              margin-right: 10px;
+              padding: 5px;
+              background: $orange;
+              border-radius: 5px;
+              // outline: 2px solid black;
+            }
+          }
+          .field{
+            width: 100%;
+            max-width: 920px;
+            margin: 0 auto 60px;
+            font-size: 1.125rem;
+            // outline: 6px solid green;
+          }
+          .basic-information{
+            margin-bottom: 20px;
+            outline: 2px solid red;
+            .park-status{
+              margin-bottom: 20px;
+              // outline: 2px solid blue;
+              li{
                 display: flex;
                 margin-bottom: 10px;
-                .user-status{
-                  width: 30%;
-                  outline: 2px solid brown;
+                // outline: 2px solid green;
+                label,input,textarea{
+                  font-size: 1.125rem;
+                }
+                label{
+                  width: 60px;
+                  padding-right: 10px;
+                }
+                input{
+                  width: 100%;
+                  max-width: 200px;
+                }
+                textarea{
+                  width: 100%;
+                  max-width: 300px;
+                }
+              }
+            }
+            .sumbnail{
+              margin-bottom: 20px;
+              outline: 4px solid green;
+              .sumbnail-content{
+                display: flex;
+                .image{
+                  margin-right: 10px;
                   img{
-                    display: block;
-                    width: 100px;
-                    height: 100px;
-                    margin: 0 auto;
-                    border-radius: 50%;
-                    outline: 2px solid blue;
+                    width: 100%;
+                    border-radius: 10px;
+                    max-width: 400px;
+                    max-height: 300px;
+                    object-fit: contain;
                     @include sp{
-                      width: 80%; 
-                      max-width: 100px;
-                      height: auto;
+                      max-width: 300px;
                     }
-                  }
-                  p{
-                    text-align: center;  
                   }
                 }
-                .user-review{
-                  width: 70%;
-                  outline: 2px solid red;
-                  .voice{
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                    position: relative;
-                    width: 90%;
-                    height: 100%;
-                    margin-left: 20px;
+              }
+            }
+            .tag-area{
+              display: flex;
+              flex-wrap: wrap;
+              .tag{
+                display: block;
+                padding: 5px;
+                margin: 5px;
+                border-radius: 5px;
+                background: $lightgreen;  
+              }
+              .form-group{
+                display: flex;
+                flex-wrap: wrap;
+                margin-bottom: 20px;
+                outline: 2px solid red;
+                .form-check{
+                  margin-right: 5px;
+                  margin-bottom: 5px;
+                  outline: 2px solid blue;
+                  label{
+                    display: block;
+                    // width: 200px;
+                    height: 20px;
                     padding: 5px;
-                    border: 2px solid blue;
-                    border-radius: 10px;
-                    &::before{
-                      content: '';
-                      position: absolute;
-                      top: 50%;
-                      left: -30px;
-                      border-right: 30px solid red;
-                      border-top: 20px solid transparent;
-                      border-bottom: 10px solid transparent;
-                      
-                    }
-                    // ５段階評価
-                    .raty{
-                      img{
-                        width: 20px;  
+                    line-height: 20px;
+                    text-align: center;
+                    cursor: pointer;
+                    // outline: 4px solid orange;
+                    input[type='checkbox']{
+                      opacity: 0.2;
+                      outline: 2px solid green;
+                      &:checkd + label{
+                        background: red;
+                        color: red;
                       }
                     }
-                    .text{
-                      
-                      
-                    }
-                    .time{
-                      text-align: right;
-                    } 
                   }
                 }
-                
               }
             }
           }
-          #post_raty{
-            img{
-              width: 20px;
-            }  
+          .map{
+            padding-bottom: 40px;
+            // outline: 4px solid red;
+            #map{
+              width: 100%;
+              height: 400px;
+              // outline: 2px solid black;
+              @include sp{
+                height: 300px; 
+              }
+            }
           }
-        }  
+        }
+        .reviews{
+          margin-top: 40px;
+          // outline: 2px solid green;
+          
+          .review-title{
+            position: relative;
+            height: 80px;
+            margin-bottom: 20px;
+            a{
+              position: absolute;
+              bottom: 0;
+              right: 0;
+              padding: 5px;
+              background: $orange;
+              border-radius: 5px;
+            }
+          }
+          .review-content{
+            margin-bottom: 40px;
+            .user-space{
+              display: flex;
+              margin-bottom: 10px;
+              .user-status{
+                align-self: center;
+                width: 25%;
+                // outline: 2px solid brown;
+                img{
+                  display: block;
+                  width: 100px;
+                  height: 100px;
+                  margin: 0 auto;
+                  border-radius: 50%;
+                  // outline: 2px solid blue;
+                  @include sp{
+                    width: 80%; 
+                    max-width: 100px;
+                    height: auto;
+                  }
+                }
+                p{
+                  text-align: center;  
+                }
+              }
+              .user-review{
+                width: 75%;
+                // outline: 2px solid red;
+                .voice{
+                  display: flex;
+                  flex-direction: column;
+                  justify-content: space-between;
+                  position: relative;
+                  width: 90%;
+                  height: 100%;
+                  margin-left: 20px;
+                  padding: 5px;
+                  background: $white;
+                  // border: 2px solid blue;
+                  border-radius: 10px;
+                  &::before{
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    left: -30px;
+                    border-right: 30px solid $white;
+                    border-top: 20px solid transparent;
+                    border-bottom: 10px solid transparent;
+                    
+                  }
+                  // ５段階評価
+                  .raty{
+                    img{
+                      width: 20px;  
+                    }
+                  }
+                  .text{
+                    
+                    
+                  }
+                  .time{
+                    text-align: right;
+                  } 
+                }
+              }
+            }
+          }
+          .review-submit{
+            display: flex;
+            justify-content: flex-end;
+            // outline: 2px solid red;
+            form{
+              display: flex;
+              width: 100%;
+              max-width: 500px;
+              // outline: 4px solid green;
+              @include sp{
+                flex-direction: column;  
+              }
+              .form-content{
+                width: 75%;
+                max-width: 400px;
+                // outline: 2px solid blue;
+                @include sp{
+                  width: 100%;  
+                }
+                textarea{
+                  width: 95%;
+                }
+                .review-raty{
+                  display: flex;
+                    p{
+                      padding-right: 20px;  
+                    }
+                  #post_raty{
+                    // outline: 2px solid red;
+                    img{
+                      width: 20px;
+                    }  
+                  }  
+                }
+              }
+              input[type='submit']{
+                display: block;
+                align-self: end;
+                width: 80px;
+                height: 32px;
+                background: $skyblue;
+                border-radius: 5px;
+                cursor: pointer;
+                @include sp{
+                  margin-top: 10px;  
+                }
+              }
+            }
+          }
+        }
       }
     //-----------
     // 管理者側
@@ -846,6 +1108,7 @@ main{
         .admin-index{
           table{
             width: 100%;
+            background: $white;
             border-collapse: collapse;
             border-color: black; 
             th{
@@ -921,12 +1184,28 @@ main{
               background: $white;
               ul{
                 li{
-                  outline: 2px solid red;  
-                  .raty{
-                    img{
-                      width: 16px;  
-                    } 
+                  padding: 10px;
+                  border-bottom: 1px solid $gray;
+                  // outline: 2px solid red;
+                  .top{
+                    display: flex;
+                    @include sp{
+                      flex-direction: column;  
+                    }
+                    div,h3,p{
+                      padding-right: 10px;  
+                    }
+                    .raty{
+                      img{
+                        width: 16px;  
+                      } 
+                    }
                   }
+                  .bottom{
+                    text-align: right;
+                    padding-right: 20px;
+                  }
+
                 }  
               }
             }  

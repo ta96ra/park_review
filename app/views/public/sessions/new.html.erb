@@ -1,6 +1,7 @@
 <h1>会員ログイン</h1>
 <section class="login">
   <div class="login-content">
+    <%= flash[:login_notice] %>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field">
         <%= f.label 'Eメール' %><br />

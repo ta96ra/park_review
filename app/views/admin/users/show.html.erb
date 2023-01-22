@@ -18,7 +18,6 @@
                     <p>メールアドレス：<br><%= @user.email %></p>
                 </div>
                 <div class="user-status">
-                    <p>退会ステータスの切り替え</p>
                     <%= form_with model: @user, url: admin_user_path(@user), method: :patch do |f| %>
                         <div class="radio">
                             <%= f.radio_button :is_deleted, false %>
@@ -42,15 +41,16 @@
                 <ul>
                     <% @reviews.each do |review|%>
                         <li>
-                            <p><%= review.id %></p>
-                            <p>
-                                <%= link_to review.park.park, admin_park_path(review.park.id) %><br>
-                                <!--５段階評価表示-->
+                            <div class="top">
+                                <h3><%= link_to review.park.park, admin_park_path(review.park.id) %></h3>
+                                 <!--５段階評価表示-->
                                 <div class="raty" id="post_raty<%= review.id %>"></div>
-                                レビュー内容:<%= review.review %><br>
-                                登録日時：<%= review.created_at.strftime('%Y/%m/%d') %>
+                            </div>
+                            <p><%= review.review %></p>
+                            <p class="bottom">
+                                <%= review.created_at.strftime('%Y/%m/%d') %>
+                                <%= link_to "削除", admin_park_review_path(review.park, review), method: :delete %>
                             </p>
-                            <%= link_to "削除", admin_park_review_path(review.park, review), method: :delete %>
                         </li>
                     <% end %> 
                 </ul> 
