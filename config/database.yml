@@ -24,7 +24,7 @@ production:
   <<: *default
   database: db/production.sqlite3
  
-#追記 
+#追記内容 
 production:
   <<: *default
   database: <%= ENV['DB_DATABASE'] %>

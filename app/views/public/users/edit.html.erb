@@ -19,7 +19,7 @@
         <% if @user.user_image.attached? %>
           <%= image_tag @user.user_image %>
         <% else %>
-          <%= image_tag 'no_image' %>
+          <%= image_tag 'no_image.jpg' %>
         <% end %>
         <%= f.file_field :user_image %>
       </li>
