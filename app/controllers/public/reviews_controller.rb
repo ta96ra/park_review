@@ -2,11 +2,12 @@ class Public::ReviewsController < ApplicationController
   def create
     @park = Park.find(params[:park_id])
     @review = Review.new(review_params)
+    @review.evaluation = review_params[:evaluation].blank? ? 0 : review_params[:evaluation]
     @review.user_id = current_user.id
     # review = current_user.reviews.new(review_params)
     @review.park_id = @park.id
     if @review.save
-      @park.update(average_evaluation: @park.reviews.average(:evaluation).round(1))
+      @park.update(average_evaluation: @park.reviews.average(:evaluation).nil? ? 0 : @park.reviews.average(:evaluation).round(1))
       redirect_to request.referer
     else
       render template: "public/parks/edit"
@@ -16,7 +17,7 @@ class Public::ReviewsController < ApplicationController
   def destroy
     @park = Park.find(params[:park_id])
     Review.find(params[:id]).destroy
-    @park.update(average_evaluation: @park.reviews.average(:evaluation).round(1))
+    @park.update(average_evaluation: @park.reviews.average(:evaluation).nil? ? 0 : @park.reviews.average(:evaluation).round(1))
     redirect_to request.referer
   end
 
