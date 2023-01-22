@@ -1,64 +1,68 @@
-<h1>会員詳細</h1>
-
-<section id="admin-show">
-    <div class="admin-show">
-        <div class="user-information">
-            <h2>会員情報</h2>
-            <div class="user-detail">
-                <p class="user-id"><%= @user.id %></p>
-                <div class="user-image">
-                    <% if @user.user_image.attached? %>
-                        <%= image_tag @user.user_image %>
-                    <% else %>
-                        <%= image_tag 'no_image.jpg' %>
-                    <% end %> 
-                </div>
-                <div class="user-name">
-                    <p>ニックネーム：<br><%= @user.nickname %></p>
-                    <p>メールアドレス：<br><%= @user.email %></p>
-                </div>
-                <div class="user-status">
-                    <%= form_with model: @user, url: admin_user_path(@user), method: :patch do |f| %>
-                        <div class="radio">
-                            <%= f.radio_button :is_deleted, false %>
-                            <%= f.label :is_deleted, "有効", value: false %>
-                        </div>
-                        <div class="radio">
-                            <%= f.radio_button :is_deleted, true %>
-                            <%= f.label :is_deleted, "退会", value: true %>
-                        </div>
-                        <div class="radio">
-                            <%= f.submit "変更を保存" %>
-                        </div>
-                    <% end %>      
-                </div>
-            </div>
-        </div>
-        <div class="review-index">
-            <h2>レビュー一覧</h2>
-            <div class="user-reviews">
-                <p>(全<%= @reviews.count %>件)</p>
-                <ul>
-                    <% @reviews.each do |review|%>
-                        <li>
-                            <div class="top">
-                                <h3><%= link_to review.park.park, admin_park_path(review.park.id) %></h3>
-                                 <!--５段階評価表示-->
-                                <div class="raty" id="post_raty<%= review.id %>"></div>
-                            </div>
-                            <p><%= review.review %></p>
-                            <p class="bottom">
-                                <%= review.created_at.strftime('%Y/%m/%d') %>
-                                <%= link_to "削除", admin_park_review_path(review.park, review), method: :delete %>
-                            </p>
-                        </li>
-                    <% end %> 
-                </ul> 
-            </div>
-        </div>
+<div class="contents">
+    <div class="wrapper">
+        <h1>会員詳細</h1>
         
+        <section id="admin-show">
+            <div class="admin-show">
+                <div class="user-information">
+                    <h2>会員情報</h2>
+                    <div class="user-detail">
+                        <p class="user-id"><%= @user.id %></p>
+                        <div class="user-image">
+                            <% if @user.user_image.attached? %>
+                                <%= image_tag @user.user_image %>
+                            <% else %>
+                                <%= image_tag 'no_image.jpg' %>
+                            <% end %> 
+                        </div>
+                        <div class="user-name">
+                            <p>ニックネーム：<br><%= @user.nickname %></p>
+                            <p>メールアドレス：<br><%= @user.email %></p>
+                        </div>
+                        <div class="user-status">
+                            <%= form_with model: @user, url: admin_user_path(@user), method: :patch do |f| %>
+                                <div class="radio">
+                                    <%= f.radio_button :is_deleted, false %>
+                                    <%= f.label :is_deleted, "有効", value: false %>
+                                </div>
+                                <div class="radio">
+                                    <%= f.radio_button :is_deleted, true %>
+                                    <%= f.label :is_deleted, "退会", value: true %>
+                                </div>
+                                <div class="radio">
+                                    <%= f.submit "変更を保存" %>
+                                </div>
+                            <% end %>      
+                        </div>
+                    </div>
+                </div>
+                <div class="review-index">
+                    <h2>レビュー一覧</h2>
+                    <div class="user-reviews">
+                        <p>(全<%= @reviews.count %>件)</p>
+                        <ul>
+                            <% @reviews.each do |review|%>
+                                <li>
+                                    <div class="top">
+                                        <h3><%= link_to review.park.park, admin_park_path(review.park.id) %></h3>
+                                         <!--５段階評価表示-->
+                                        <div class="raty" id="post_raty<%= review.id %>"></div>
+                                    </div>
+                                    <p><%= review.review %></p>
+                                    <p class="bottom">
+                                        <%= review.created_at.strftime('%Y/%m/%d') %>
+                                        <%= link_to "削除", admin_park_review_path(review.park, review), method: :delete %>
+                                    </p>
+                                </li>
+                            <% end %> 
+                        </ul> 
+                    </div>
+                </div>
+                
+            </div>
+        </section>
     </div>
-</section>
+</div>
 
 <script>
 // コメントの５段階評価表示

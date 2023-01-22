@@ -27,7 +27,7 @@
         <li>
           <%= link_to parks_path do %>
             <div class="circle-btn"></div>
-            <p>公園一覧</p>
+            <p>公園を探す</p>
           <% end %>   
         </li>
         <li>
@@ -67,13 +67,13 @@
         <li>
           <%= link_to parks_path do %>
             <div class="circle-btn"></div>
-            <p>公園一覧</p>
+            <p>公園を探す</p>
           <% end %>
         </li>
         <li>
           <%= link_to new_user_registration_path do %>
             <div class="circle-btn"></div>
-            <p>新規登録</p>
+            <p>会員登録</p>
           <% end %>
         </li>
         <li>
@@ -108,7 +108,7 @@
           <%= link_to "ホーム", root_path %>
         </li>
         <li>
-          <%= link_to "公園一覧", parks_path %>
+          <%= link_to "公園を探す", parks_path %>
         </li>
         <li>
           <%= link_to "ログアウト", destroy_user_session_path, method: :delete %>
@@ -122,7 +122,7 @@
           <%= link_to "会員一覧", admin_users_path %>
         </li>
         <li>
-          <%= link_to "公園一覧", admin_parks_path %>
+          <%= link_to "公園を探す", admin_parks_path %>
         </li>
         <li>
           <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>
@@ -130,10 +130,10 @@
       <!--ログアウトしている場合の表示-->
       <% else %>
         <li>
-          <%= link_to "公園一覧", parks_path %>
+          <%= link_to "公園を探す", parks_path %>
         </li>
         <li>
-          <%= link_to "新規登録", new_user_registration_path %>
+          <%= link_to "会員登録", new_user_registration_path %>
         </li>
         <li>
           <%= link_to 'ゲスト', users_guest_sign_in_path, method: :post %>

@@ -1,8 +1,73 @@
-<h1>会員トップ</h1>
+<h1>Park Review</h1>
 
-<section id="user-top">
-  <div class="user-top">
+<section id="home-top">
+  <div class="home-top">
     <!--フラッシュメッセージ-->
     <%= flash[:notice] %>
+    <div class="description">
+      <h2>我が子の行きたい公園に連れて行きませんか？</h2>
+      <h2>子供と楽しむ公園選びをしませんか？</h2>
+      <p>このサイトでは、幼児目線の絞り込み検索機能をつけることで、子供の要求に答えた公園を探すことができます。</p>
+      <p>こちらのサイトでぜひ我が子の願いを叶えてあげてください。</p>
+    </div>
+    <div class="news">
+      <h2>お知らせ</h2>
+      <ul>
+        <li>
+          <dt>23.1.28</dt>
+          <dd>公園のレビューサイト『Park Review』を公開しました。</dd>
+        </li>
+      </ul>
+    </div>
+    <div class="new-parks">
+      <h2>新着公園情報</h2>
+      <div class="park-container">
+        <ul id="park-contents">
+          <% @parks.last(7).reverse.each do |park| %>
+          <li>
+            <%= link_to park_path(park.id), data: { 'turbolinks': false } do %>
+              <div class="park-image">
+                <% if park.park_image.attached? %>
+                  <%= image_tag park.park_image %>
+                <% else %>
+                  <%= image_tag 'no_park_image.png' %>
+                <% end %>
+              </div>
+              <div class="park-name">
+                <h3><%= park.park %></h3>
+              </div>
+            <% end %>
+          </li>
+          <% end %>
+        </ul>
+        <div id="park-prev">
+        
+        </div>
+        <div id="park-next">
+        
+        </div>
+      </div>
+    </div>
+    <div class="popular-parks">
+      <h2>評価の高い公園</h2>
+      <ul>
+        <% @parks.last(3).reverse.each do |park| %>
+        <li>
+          <%= link_to park_path(park.id), data: { 'turbolinks': false } do %>
+            <div class="park-image">
+              <% if park.park_image.attached? %>
+                <%= image_tag park.park_image %>
+              <% else %>
+                <%= image_tag 'no_park_image.png' %>
+              <% end %>
+            </div>
+            <div class="park-text">
+              <h3><%= park.park %></h3>
+            </div>
+          <% end %>
+        </li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </section>

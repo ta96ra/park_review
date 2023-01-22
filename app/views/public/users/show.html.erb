@@ -1,33 +1,37 @@
-<h1>マイページ（会員詳細画面）</h1>
-
-<section class="user">
-    <div class="user-show">
-        <!--フラッシュメッセージ-->
-        <%= flash[:user_notice] %>
-         <!--フラッシュメッセージ-->
-        <%= flash[:notice] %>
-        <!--会員詳細情報-->
-        <ul class="detail">
-            <li>
-                <h3>画像</h3>
-                <% if @user.user_image.attached? %>
-                    <%= image_tag @user.user_image %>
-                <% else %>
-                    <%= image_tag 'no_image.jpg' %>
-                <% end %>
-            </li>
-            <li>
-                <h3>ニックネーム</h3>
-                <p><%= @user.nickname %></p>
-            </li>
-            <li>
-                <h3>Email</h3>
-                <p><%= @user.email%></p>
-            </li>
-        </ul>
+<div class="contents">
+    <div class="wrapper">
+        <h1>マイページ</h1>
+        <section class="user">
+            <div class="user-show">
+                <!--フラッシュメッセージ-->
+                <%= flash[:user_notice] %>
+                 <!--フラッシュメッセージ-->
+                <%= flash[:notice] %>
+                <!--会員詳細情報-->
+                <ul class="detail">
+                    <li>
+                        <h3>画像</h3>
+                        <% if @user.user_image.attached? %>
+                            <%= image_tag @user.user_image %>
+                        <% else %>
+                            <%= image_tag 'no_image.jpg' %>
+                        <% end %>
+                    </li>
+                    <li>
+                        <h3>ニックネーム</h3>
+                        <p><%= @user.nickname %></p>
+                    </li>
+                    <li>
+                        <h3>Email</h3>
+                        <p><%= @user.email%></p>
+                    </li>
+                </ul>
+            </div>
+            <!--ゲストユーザーの場合は表示させない-->
+            <% if @user.nickname != "guestuser" %>
+                <%= link_to "編集する", info_edit_path %>
+            <% end %>    
+        </section>
     </div>
-    <!--ゲストユーザーの場合は表示させない-->
-    <% if @user.nickname != "guestuser" %>
-        <%= link_to "編集する", info_edit_path %>
-    <% end %>    
-</section>
+</div>
+

@@ -1,49 +1,48 @@
-<h1>会員一覧</h1>
-
-<section id="admin-index">
-    <div class="admin-index">
-        <!--フラッシュメッセージ-->
-        <%= flash[:notice] %>
-        
-        <!--会員一覧-->
-        <table>
-            <thead>
-                <tr>
-                    <th>会員ID</th>
-                    <th>写真</th>
-                    <th>ニックネーム</th>
-                    <th>Email</th>
-                    <th>ステータス</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% @users.each do |user|%>
-                <tr>
-                    <td><%= user.id %></td>
-                    <td>
-                        <% if user.user_image.attached? %>
-                            <%= image_tag user.user_image %>
-                        <% else %>
-                            <%= image_tag 'no_image.jpg' %>
-                        <% end %>
-                    </td>
-                    <td><%= link_to user.nickname,admin_user_path(user)  %></td>
-                    <td><%= user.email %></td>
-                    <td>
-                        <% if user.is_deleted %>
-                            <p>退会</p>
-                        <% else %>
-                            <P>有効</P>
-                        <% end %>
-                    </td>
-                </tr>
-                <% end %>                 
-            </tbody>    
-        </table>
-        <ul>
-        
-        </ul>
-    
+<div class="contents">
+    <div class="wrapper">
+        <h1>会員一覧</h1>
+        <section id="admin-index">
+            <div class="admin-index">
+                <!--フラッシュメッセージ-->
+                <%= flash[:notice] %>
+                
+                <!--会員一覧-->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>会員ID</th>
+                            <th>写真</th>
+                            <th>ニックネーム</th>
+                            <th>Email</th>
+                            <th>ステータス</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% @users.each do |user|%>
+                        <tr>
+                            <td><%= user.id %></td>
+                            <td>
+                                <% if user.user_image.attached? %>
+                                    <%= image_tag user.user_image %>
+                                <% else %>
+                                    <%= image_tag 'no_image.jpg' %>
+                                <% end %>
+                            </td>
+                            <td><%= link_to user.nickname,admin_user_path(user)  %></td>
+                            <td><%= user.email %></td>
+                            <td>
+                                <% if user.is_deleted %>
+                                    <p>退会</p>
+                                <% else %>
+                                    <P>有効</P>
+                                <% end %>
+                            </td>
+                        </tr>
+                        <% end %>                 
+                    </tbody>    
+                </table>
+            </div>
+        </section>
     </div>
-</section>
-
+</div>
+        
