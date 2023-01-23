@@ -4,9 +4,9 @@
       <%= image_tag('headersun1.png')%>
     </div>
     <div class="logo">
-      <a href="/">
+      <%= link_to root_path,data: { turbo: false } do %>
         <%= image_tag('logo.png')%> 
-      </a>
+      <% end %>
     </div>
     <div class="bird">
       <%= image_tag('bird.png')%>

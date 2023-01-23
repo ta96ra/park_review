@@ -5,10 +5,11 @@
     <!--フラッシュメッセージ-->
     <%= flash[:notice] %>
     <div class="description">
-      <h2>我が子の行きたい公園に連れて行きませんか？</h2>
-      <h2>子供と楽しむ公園選びをしませんか？</h2>
-      <p>このサイトでは、幼児目線の絞り込み検索機能をつけることで、子供の要求に答えた公園を探すことができます。</p>
-      <p>こちらのサイトでぜひ我が子の願いを叶えてあげてください。</p>
+      <div class="text">
+        <h2>子供と楽しむ公園選びをしませんか？</h2>
+        <p>Park Reviewでは、幼児目線の絞り込み検索機能をつけることで、子供の要求に答えた公園を探すことができます。</p>
+        <p>Park Reviewでぜひ我が子の願いを叶えてあげてください。</p>
+      </div>
     </div>
     <div class="news">
       <h2>お知らせ</h2>
@@ -24,7 +25,7 @@
       <div class="park-container">
         <ul id="park-contents">
           <% @parks.last(7).reverse.each do |park| %>
-          <li>
+          <li data-index="<%= park.id %>">
             <%= link_to park_path(park.id), data: { 'turbolinks': false } do %>
               <div class="park-image">
                 <% if park.park_image.attached? %>
@@ -40,34 +41,208 @@
           </li>
           <% end %>
         </ul>
-        <div id="park-prev">
-        
-        </div>
-        <div id="park-next">
-        
-        </div>
+        <div id="park-prev"></div>
+        <div id="park-next"></div>
       </div>
+      <nav id="park-nav"></nav>
     </div>
     <div class="popular-parks">
-      <h2>評価の高い公園</h2>
-      <ul>
-        <% @parks.last(3).reverse.each do |park| %>
-        <li>
-          <%= link_to park_path(park.id), data: { 'turbolinks': false } do %>
-            <div class="park-image">
-              <% if park.park_image.attached? %>
-                <%= image_tag park.park_image %>
-              <% else %>
-                <%= image_tag 'no_park_image.png' %>
+      <div class="popular-parks-contents">
+        <h2>評価の高い公園</h2>
+        <ul class="ranking">
+          <% @sorts.first(3).each.with_index(1) do |park,index| %>
+          <li>
+            <dt>
+              <% case index when 1 %>
+                <%= image_tag ('first.png')%>
+              <% when 2 %>
+                <%= image_tag('second.png')%>
+              <% when 3 %>
+                <%= image_tag('third.png')%>
+              <% end %>  
+            </dt>
+            <dd>
+              <!--5段階評価平均-->
+              <div class="avg-rate">
+                <div id="average-raty<%= park.id %>" class="raty"></div>
+                <strong><%= park.average_evaluation %></strong>
+              </div>
+              <%= link_to park_path(park.id), data: { 'turbolinks': false } do %>
+                <div class="park-image">
+                  <% if park.park_image.attached? %>
+                    <%= image_tag park.park_image %>
+                  <% else %>
+                    <%= image_tag 'no_park_image.png' %>
+                  <% end %>
+                  <div class="park-text">
+                    <h3><%= park.park %></h3>
+                  </div>
+                </div>
               <% end %>
-            </div>
-            <div class="park-text">
-              <h3><%= park.park %></h3>
-            </div>
+            </dd>
+          </li>
           <% end %>
-        </li>
-        <% end %>
-      </ul>
+        </ul>
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+//-----------------------
+// 新着動画のカルーセル
+//-----------------------
+const parkPrev = document.getElementById('park-prev');
+const parkNext = document.getElementById('park-next');
+const parkContents = document.getElementById('park-contents');
+const parks = document.querySelectorAll('#park-contents li');
+const parkDots = [];
+let parkCurrentIndex = 0;
+
+// parkPrev,parkNextボタンの表示、非表示
+  function parkUpdateButtons(){
+    const style = window.getComputedStyle(parkContents);
+    const marginPx = style.getPropertyValue('margin-left');
+    const margin = parseInt(marginPx,10);
+    let parkWidth = parks[0].getBoundingClientRect().width; //公園のコンテンツ幅を取得
+    let numberOfShow = Math.floor((window.innerWidth - margin) / (parkWidth + 50)); //公園の表示数
+    //画像が画面幅をoverflowしない場合
+    if(parks.length <= numberOfShow){
+      parkNext.classList.add('hidden');
+      parkPrev.classList.add('hidden');
+    }else{// overflowする場合
+      parkNext.classList.remove('hidden');
+      parkPrev.classList.remove('hidden');
+      console.log('none');
+      if(parkCurrentIndex <= 0){
+        parkPrev.classList.add('hidden');//prevボタンを隠す
+        console.log('prev');
+      }
+      if(parkCurrentIndex >= parks.length - (numberOfShow)){
+        parkNext.classList.add('hidden');//nextボタンを隠す
+        console.log('next');
+      
+      }
+    } 
+  }
+  parkUpdateButtons();
+  // 公園の配置
+  function parkLayout(){
+    const style = window.getComputedStyle(parkContents);
+    const marginPx = style.getPropertyValue('margin-left');
+    const margin = parseInt(marginPx,10);
+    let parkWidth = parks[0].getBoundingClientRect().width; //公園幅を取得
+    let numberOfShow = Math.floor((window.innerWidth - margin) / (parkWidth + 50)); //公園の表示数
+    
+    //画像が画面幅をoverflowしない場合(常に中央寄せ)
+    if(parks.length <= numberOfShow){
+      parkContents.classList.add('layout');
+    }else{
+      parkContents.classList.remove('layout');
+    }
+  }
+  
+  //イメージの幅分 + marginだけスライドを左右に動かすための処理
+  function parkMoveSlides(){
+    let parkWidth = parks[0].getBoundingClientRect().width; //公園幅を取得
+    parkContents.style.transform = `translateX(${-1 * (parkWidth + 50) * parkCurrentIndex}px)`;
+  }
+  
+  // //ドットボタンの処理・生成
+  function parkSetupDots(){
+    for(let i=0; i < parks.length;i++){
+      const button = document.createElement('button');
+      button.addEventListener('click',()=>{
+        parkCurrentIndex = i;
+        parkUpdateDots();
+        parkUpdateButtons();
+        parkMoveSlides();
+      });
+      parkDots.push(button);
+      document.getElementById('park-nav').appendChild(button);
+    }
+    parkDots[0].classList.add('current');
+  }
+  
+  function parkUpdateDots(){
+    parkDots.forEach(parkDot=>{
+      parkDot.classList.remove('current');
+    });
+    parkDots[parkCurrentIndex].classList.add('current');
+  }
+  
+  // //hoverしたボタンに色をつける
+  function hoverParkUpdateDots(){
+    parks.forEach(park=>{
+      park.addEventListener('mouseover',(event)=>{
+        const index = event.target.dataset.index;
+        // const index = <%#= @park.id %>
+        
+        // parkDots[index].classList.add('current');
+        console.log(index);
+        
+        parkDots.forEach(parkDot=>{
+          parkDot.classList.remove('current');
+        });
+        
+      });
+    });
+    parks.forEach(park=>{
+      park.addEventListener('mouseout',()=>{
+        parkDots.forEach(parkDot=>{
+        parkDot.classList.remove('current');
+      });
+      parkDots[parkCurrentIndex].classList.add('current');
+      });
+    });
+  }
+  hoverParkUpdateDots();
+  parkUpdateButtons();
+  parkSetupDots();
+  parkLayout();
+  
+   // videoNextボタンクリック時
+  parkNext.addEventListener('click',()=>{
+    parkCurrentIndex++;    //currentIndexを1増やす
+    parkUpdateButtons();   //ボタンの表示、非表示の更新
+    parkUpdateDots();　　　//ドットの更新
+    parkMoveSlides();　　　//スライドの移動
+    console.log(parkCurrentIndex);
+  });
+  
+   // videoPrevボタンクリック時
+  parkPrev.addEventListener('click',()=>{
+    parkCurrentIndex--;
+    parkUpdateButtons();
+    parkUpdateDots();
+    parkMoveSlides();
+  });
+  
+   //リサイズによるレイアウト等の変更
+  window.addEventListener('resize',()=>{
+    parkUpdateButtons();
+    parkLayout();
+    parkMoveSlides()
+  });
+  
+  
+  
+   // 公園の５段階評価平均
+  <% @sorts.each do |park| %>
+  $('#average-raty<%= park.id %>').empty();
+  {
+    let opt = {  
+      //星画像の指定などのオプションをここに記述,
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      half: true,
+      readOnly: true,
+      scoreName: 'park[average_evaluation]',
+      score: <%= park.average_evaluation || 0 %>,
+    };
+    let elem = document.querySelector('#average-raty<%= park.id %>');
+    raty(elem,opt);
+  }
+  <% end %>
+</script>

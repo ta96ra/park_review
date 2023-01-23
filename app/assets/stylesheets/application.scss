@@ -229,16 +229,14 @@ header{
               display: block;
               font-family: 'RocknRoll One', sans-serif;
               font-size: 1.25rem;
+              color: $brown;
               transform: translateY(-50%);
               // outline: 2px solid purple;
-              // 後で削除
               @include tab{
                 left: 10%;
-                font-size: 1.125rem;
-                color: blue;  
+                font-size: 1.125rem; 
               }
               @include sp{
-                color: red;  
               }
             }
           }
@@ -363,6 +361,7 @@ header{
             padding: 15px;
             font-size: 2.5rem;
             font-family: 'RocknRoll One', sans-serif;
+            color: $brown;
             transition: .3s;
             // outline: 4px solid red;
             &:hover{
@@ -409,19 +408,60 @@ main{
   #home-top{
     outline: 2px solid red;
     .home-top{
+      .description{
+        width: 100%;
+        max-width: 640px;
+        margin: 0 auto 80px;
+        outline: 2px solid red;
+        .text{
+          padding: 40px;
+          h2{
+            margin-bottom: 40px;
+            text-align: center;  
+          }
+          
+        }
+      }
+      .news{
+        width: 100%;
+        max-width: 640px;
+        margin: 0 auto 80px; 
+        outline: 2px solid green;
+      }
       .new-parks{
-        outline: 6px solid blue;
-        margin-bottom: 100px;
+        // outline: 6px solid blue;
+        margin-bottom: 40px;
+        h2{
+          text-align: center;
+          margin-bottom: 60px;
+        }
         .park-container{
            position: relative;
           #park-contents{
             display: flex;
-            outline: 4px solid green;
+            margin-left: 110px;
+            transition: .5s;
+            // outline: 4px solid green;
+            @include sp{
+              margin-left: 0;  
+            }
             li{
               position: relative;
-              min-width: 300px;
-              height: 213px;
-              outline: 2px solid black; 
+              min-width: 360px;
+              height: 256px;
+              margin-right: 50px;
+              border-radius: 10px;
+              box-shadow: 3px 3px 6px $gray;
+              transition: .3s;
+              // outline: 2px solid black;
+              &:hover{
+                opacity: .7;
+                transition: .3s;
+              }
+              @include sp{
+                min-width: 220px;
+                height: 156px;
+              }
               .park-image{
                 height: 100%;
                 img{
@@ -437,7 +477,14 @@ main{
                 position: absolute;
                 bottom: 0;
                 right: 0;
-                outline: 2px solid orange;
+                min-width: 150px;
+                padding: 5px;
+                height: 28px;
+                background: $orange;
+                border-radius: 14px 0 0 14px;
+                box-shadow: -5px -5px 5px 2px $white;
+                // outline: 5px solid $white;
+                // outline: 2px solid orange;
                 h3{
                   padding: 0;
                   text-align-last: right;  
@@ -445,35 +492,195 @@ main{
               }
             }  
           }
+          #park-contents.layout{
+            justify-content: center;
+          }
           #park-prev{
             position: absolute;
             top: 0;
             left: 0;
             width: 80px;
-            height: 240px;
+            height: 260px;
             background: $gray;
-            outline: 2px solid pink;
+            border-radius: 0 10px 10px 0;
+            opacity: 1;
+            transition: .3s;
+            cursor: pointer;
+            // outline: 2px solid pink;
+            &:hover{
+              opacity: .8;
+              transition: .3s;
+            }
+            @include sp{
+              width: 40px;
+              height: 160px;
+            }
+          }
+          #park-prev.hidden{
+            opacity: 0;
+            pointer-events: none;
           }
           #park-next{
             position: absolute;
             top: 0;
             right: 0;
             width: 80px;
-            height: 240px;
+            height: 260px;
             background: $gray;
-            outline: 2px solid orange;
+            border-radius: 10px 0 0 10px;
+            opacity: 1;
+            transition: .3s;
+            cursor: pointer;
+            // outline: 2px solid orange;
+            &:hover{
+              opacity: .8;
+              transition: .3s;
+            }
+            @include sp{
+              width: 40px;
+              height: 160px;
+            }
           }
+          #park-next.hidden{
+            opacity: 0;
+            pointer-events: none;
+          }
+        }
+        #park-nav{
+          display: flex;
+          justify-content: center;
+          height: 120px;
+          // outline: 2px solid blue;  
+        }
+        button{
+          display: block;
+          width: 16px;
+          height: 16px;
+          margin: 60px 12px 0;
+          background: $white;
+          border: 1px solid $orange;
+          border-radius: 50%;
+          cursor: pointer;
+        }
+        button.current{
+          background: $orange; 
+          transition: .3s;
         }
       }
       .popular-parks{
-        margin-bottom: 300px;
-        ul{
-          display: flex;
-          li{
-            width: 300px;
-            height: 100%;
+        width: 100%;
+        padding: 40px;
+        box-sizing: border-box;
+        @include sp{
+          padding: 20px;  
+        }
+        .popular-parks-contents{
+          width: 100%;
+          max-width: 976px;
+          margin: 0 auto 150px;
+          // outline: 4px solid purple;
+          h2{
+            text-align: center;
+            margin-bottom: 40px;
           }
-        }  
+          .ranking{
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            @include sp{
+              flex-direction: column;
+              align-items: center;
+            }
+            li{
+              width: 30%;
+              max-width: 300px;
+              height: auto;
+              // outline: 2px solid red;
+              @include sp{
+                max-width: none;
+                width: 100%;
+                margin-bottom: 12vw;
+              }
+              dt{
+                margin-bottom: 15px;
+                img{
+                  display: block;
+                  width: 60px;
+                  margin: 0 auto;
+                  @include sp{
+                    width: 18%;  
+                  }
+                }
+              }
+              dd{
+                margin-left: 0;
+                .avg-rate{
+                  display: flex;
+                  justify-content: space-around;
+                  .raty{
+                    margin-bottom: 5px;
+                    // outline: 2px solid red;
+                    img{
+                      width: 20px;
+                      // outline: 2px solid blue;
+                      @include sp{
+                        width: 8vw;  
+                      }
+                    }
+                  }
+                  strong{
+                    font-size: 1.25rem;
+                    @include sp{
+                      font-size: 8vw;  
+                    }
+                  }
+                }
+                .park-image{
+                  position: relative;
+                  box-shadow: 5px 5px 10px $gray;
+                  transition: .3s;
+                  // outline: 2px solid red;
+                  &:hover{
+                    opacity: .7;
+                    transition: .3s;
+                  }
+                  img{
+                    height: 214px;
+                    object-fit: cover;
+                    object-position: center;
+                    // outline: 4px solid blue;
+                    @include tab{
+                      height: 20vw;
+                    }
+                    @include sp{
+                      height: calc(70vw - 40px);  
+                    }
+                  }
+                  .park-text{
+                    position: absolute;
+                    bottom: 0;
+                    right: 0;
+                    min-width: 120px;
+                    padding: 5px;
+                    background: $orange;
+                    box-shadow: -3px -3px 6px $white;
+                    border-radius: 15px 0 0 15px;
+                    // outline: 4px solid green;
+                    @include sp{
+                      min-width: 50vw;  
+                    }
+                    h3{
+                      text-align: right;
+                      @include sp{
+                        font-size: 8vw;  
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }  
+        }
       }
     }
   }
@@ -489,11 +696,6 @@ main{
       padding: 0 40px 40px;
       // background: $lightgreen;
       background: $skyblue;
-      // background: rgba(255,240,220,.3);
-      // background: rgb(255,240,220);
-      // background: $white;
-      // border: 2px solid $lightgreen;
-      // background: rgba(205,216,54,.6);
       border-radius: 20px 0 0 0;
       box-sizing: border-box;
       // outline: 2px solid red;
@@ -1304,6 +1506,9 @@ main{
   transition: .3s;
   pointer-events: none;
   // outline: 2px solid brown;
+  @include sp{
+    right: 0;
+  }
   .to-top-content{
     display: flex;
     flex-direction: column;
@@ -1316,7 +1521,7 @@ main{
     }
     span{
       display: block;
-      color: lightgreen;
+      color: $orange;
       // outline: 2px solid red;
     }
     
@@ -1332,7 +1537,6 @@ main{
 footer{
   position: relative;
   margin-top: 180px;
-  // overflow: hidden;
   // outline: 4px solid blue;
   @include tab{
     margin-top: 155px;  
@@ -1343,10 +1547,8 @@ footer{
     left: -25%;
     width: 150vw;
     height: 375px;
-    // object-fit: cover;
     object-position: center;
     border-radius: 50%;
-    // transform: translate(-16.7%,150px);
     // outline: 2px solid red;
     @include tab{
       height: 300px;  
@@ -1365,14 +1567,46 @@ footer{
     @include sp{
       height: 275px;
     }
-    nav{
+    .footer-content{
+      position: relative;
       width: 100%;
       height: 325px;
+      // outline: 2px solid yellow;
       @include tab{
         height: 275px;  
       }
       @include sp{
         height: 225px;  
+      }
+      .footer-logo{
+        position: absolute;
+        bottom: 0;
+        left: 30%;
+        width: 100px;
+        @include sp{
+          bottom: 10px;
+          left: 10%;
+          width: 60px;  
+        }
+        img{
+          border-radius: 50%;
+        }
+      }
+      nav{
+        position: absolute;
+        bottom: 20px;
+        right: 30%;
+        // outline: 2px solid orange;
+        @include sp{
+          bottom: 10px;
+        }
+        ul{
+          li{
+            a{
+              color: $white;  
+            }
+          }
+        }
       }
     }
     small{

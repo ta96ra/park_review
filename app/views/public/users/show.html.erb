@@ -26,11 +26,11 @@
                         <p><%= @user.email%></p>
                     </li>
                 </ul>
-            </div>
-            <!--ゲストユーザーの場合は表示させない-->
-            <% if @user.nickname != "guestuser" %>
-                <%= link_to "編集する", info_edit_path %>
-            <% end %>    
+                <!--ゲストユーザーの場合は表示させない-->
+                <% if @user.nickname != "guestuser" %>
+                    <%= link_to "編集する", info_edit_path %>
+                <% end %>
+            </div>  
         </section>
     </div>
 </div>
