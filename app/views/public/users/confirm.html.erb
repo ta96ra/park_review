@@ -8,8 +8,10 @@
                     退会すると公園の新規投稿・レビュー・編集ができなくなります。<br>
                     退会する場合は、「退会するをクリックしてください」
                 </p>
-                <%= link_to '退会しない',user_path(current_user) %>
-                <%= link_to '退会する',users_withdraw_path,method: :patch, "data-confirm" => "本当に退会しますか？" %>
+                <div class="buttons">
+                    <%= link_to '退会しない',user_path(current_user),class:"link-button" %>
+                    <%= link_to '退会する',users_withdraw_path,method: :patch,class:"link-button" ,"data-confirm" => "本当に退会しますか？" %>
+                </div>
             </div>
         </section>
     </div>

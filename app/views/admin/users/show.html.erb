@@ -21,16 +21,18 @@
                         </div>
                         <div class="user-status">
                             <%= form_with model: @user, url: admin_user_path(@user), method: :patch do |f| %>
-                                <div class="radio">
-                                    <%= f.radio_button :is_deleted, false %>
-                                    <%= f.label :is_deleted, "有効", value: false %>
+                                <div class="radios">
+                                    <div class="radio">
+                                        <%= f.radio_button :is_deleted, false %>
+                                        <%= f.label :is_deleted, "有効", value: false %>
+                                    </div>
+                                    <div class="radio">
+                                        <%= f.radio_button :is_deleted, true %>
+                                        <%= f.label :is_deleted, "退会", value: true %>
+                                    </div>
                                 </div>
-                                <div class="radio">
-                                    <%= f.radio_button :is_deleted, true %>
-                                    <%= f.label :is_deleted, "退会", value: true %>
-                                </div>
-                                <div class="radio">
-                                    <%= f.submit "変更を保存" %>
+                                <div class="radio-submit">
+                                    <%= f.submit "変更を保存",class:'submit-button' %>
                                 </div>
                             <% end %>      
                         </div>
@@ -49,10 +51,11 @@
                                         <div class="raty" id="post_raty<%= review.id %>"></div>
                                     </div>
                                     <p><%= review.review %></p>
-                                    <p class="bottom">
-                                        <%= review.created_at.strftime('%Y/%m/%d') %>
-                                        <%= link_to "削除", admin_park_review_path(review.park, review), method: :delete %>
-                                    </p>
+                                    
+                                    <div class="bottom">
+                                        <p><%= review.created_at.strftime('%Y/%m/%d') %></p>
+                                        <%= link_to "削除", admin_park_review_path(review.park, review), method: :delete,class:'link-button' %>
+                                    </div>
                                 </li>
                             <% end %> 
                         </ul> 

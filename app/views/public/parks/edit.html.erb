@@ -5,13 +5,10 @@
       <div class="user-park-show">
       <%= form_with model: @park do |f| %>  
         <div class="park-title">
-          <%= link_to '戻る', park_path(@park.id),data: { turbo: false }  %>
+          <%= link_to '戻る', park_path(@park.id),data: { turbo: false },class:'link-button' %>
           <h2><%= @park.park %></h2>
         </div>
         
-        <!--5段階評価平均-->
-        <!--<p>評価：<%#= @park.average_evaluation %></p>-->
-        <!--<div id="average-raty"></div>-->
         
         <!--ActionTextによる公園詳細の編集-->
         <h2>詳細情報</h2>
@@ -64,8 +61,8 @@
                 <% end %>
               </div>
           </div>
-          <div class="update">
-            <%= f.submit '更新する' %>
+          <div class="update" id="reviews">
+            <%= f.submit '更新する',class:'submit-button' %>
           </div>
         <% end %>  
         </div>
@@ -148,17 +145,13 @@
                 <div id="post_raty"></div>
               </div>
             </div>
-            <%= f.submit '送信する' %>
+            <%= f.submit '送信する',class:'submit-button' %>
           <% end %>
         </div>
       </div>
-      
     </section>
-  
   </div>
-
 </div>
-
 
 <script>
   // コメント投稿フォームの５段階評価

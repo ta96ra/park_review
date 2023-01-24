@@ -25,7 +25,7 @@ class Park < ApplicationRecord
   
   #キーワード検索機能(部分一致)
   def self.search(keyword)
-    where(["park like? OR detail like?", "%#{keyword}%", "%#{keyword}%"])
+    where(["park like? AND detail like?", "%#{keyword}%", "%#{keyword}%"])
   end
   
   #ActionText

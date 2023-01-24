@@ -5,13 +5,9 @@
       <div class="user-park-show">
       <%= form_with model: @park, url:admin_park_path(@park.id) do |f| %>  
         <div class="park-title">
-          <%= link_to '戻る', admin_park_path(@park.id),data: { turbo: false }  %>
+          <%= link_to '戻る', admin_park_path(@park.id),data: { turbo: false },class:'link-button'  %>
           <h2><%= @park.park %></h2>
         </div>
-        
-        <!--5段階評価平均-->
-        <!--<p>評価：<%#= @park.average_evaluation %></p>-->
-        <!--<div id="average-raty"></div>-->
         
         <!--ActionTextによる公園詳細の編集-->
         <h2>詳細情報</h2>
@@ -23,21 +19,18 @@
         
         <div class="basic-information">
           <h2>基本情報</h2>
-          <div class="user-status">
+          <div class="status-change">
             <p>公園ステータスの切り替え</p>
-            <%= form_with model: @park, url: admin_park_path(@park.id), method: :patch do |f| %>
+            <div class="radios">
               <div class="radio">
                 <%= f.radio_button :status, true %>
-                <%= f.label :status, "表示", value: true %>
+                <%= f.label :status, "有効", value: true %>
               </div>
               <div class="radio">
                 <%= f.radio_button :status, false %>
-                <%= f.label :status, "非表示", value: false %>
-              </div>
-              <div class="radio">
-                  <%= f.submit "変更を保存" %>
-              </div>
-            <% end %>      
+                <%= f.label :status, "無効", value: false %>
+              </div>   
+            </div>
           </div>
           <ul class="park-status">
               <li>
@@ -77,54 +70,23 @@
           <!--タグの編集-->
           <div class="tag-area">
             <h3>タグ</h3>
-              <div class='form-group'>
-                <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :tag) do |tag| %>
-                <!--tag:ids : タグIDのリストを渡し、複数のタグをtweetに紐づける-->
-                  <div class='form-check'>
-                      <%= tag.label do %>
-                        <%= tag.check_box %>
-                        <%= tag.text %>
-                      <% end %>
-                  </div>
-                <% end %>
-              </div>
+            <div class='form-group'>
+              <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :tag) do |tag| %>
+              <!--tag:ids : タグIDのリストを渡し、複数のタグをtweetに紐づける-->
+                <div class='form-check'>
+                    <%= tag.label do %>
+                      <%= tag.check_box %>
+                      <%= tag.text %>
+                    <% end %>
+                </div>
+              <% end %>
+            </div>
           </div>
-          <!--タグの追加(管理者のみのため後ほど削除)-->
-          <%= form_tag({controller:"parks",action:"edit"}, method: :get) do %>
-            <%= text_field_tag :tag %>
-            <%= submit_tag 'タグを追加' %>
-          <% end %>
           <div class="update">
-            <%= f.submit '更新する' %>
+            <%= f.submit '更新する',class:'submit-button' %>
           </div>
-        <% end %>  
+        <% end %>
         </div>
-        
-        <!--Google Map API-->
-        <!--<h3>公園場所</h3>-->
-        <!--  <div class="map">-->
-        <!--  <div id="map"></div>-->
-        <!--</div>-->
-        
-        <!--<div type="text/javascript">-->
-        <!--  <script>-->
-        <!--    function initMap(){-->
-        <!--      let map = new google.maps.Map(document.getElementById('map'), {-->
-        <!--      center: {lat: <%#= @park.latitude || 0 %>, lng: <%#= @park.longitude || 0 %> },-->
-        <!--      zoom: 15-->
-        <!--      });-->
-              
-        <!--      marker = new google.maps.Marker({-->
-        <!--        position:  {lat: <%#= @park.latitude || 0 %>, lng:<%#= @park.longitude || 0 %> },-->
-        <!--        map: map-->
-        <!--      });-->
-        <!--    }-->
-            
-        <!--  </script>-->
-          
-          <!--APIキーあり-->
-          <!--<script src="https://maps.googleapis.com/maps/api/js?key=<%#= ENV['SECRET_KEY'] %>&callback=initMap" async defer></script>-->
-        <!--</div>-->
       </div>
       <!--レビュー一覧-->
       <div class="reviews">
@@ -158,7 +120,7 @@
                   <div class="raty" id="post_raty<%= review.id %>"></div>
                   <p class="text"><%= review.review %></p>
                   <p class="time"><%= review.created_at.strftime('%Y/%m/%d') %>
-                  <%= link_to "削除", park_review_path(review.park, review), method: :delete %>
+                  <%= link_to "削除", park_review_path(review.park, review), method: :delete,class:'link-button' %>
                   </p>
                 </div>
               </div>
@@ -166,23 +128,25 @@
             </div>
           <% end %>
         </div>
+        
         <div class="review-submit">
           <%= form_with model: [@park, @review] do |f| %>
             <div class="form-content">
-              <%= f.text_area :review, rows: '5', placeholder: "レビューをここに" %>
+              <%= f.text_area :review, rows: '5', placeholder: "管理者は投稿できません" %>
               <div class="review-raty">
                 <p>評価を選択</p>
                 <div id="post_raty"></div>
               </div>
             </div>
-            <%= f.submit '送信する' %>
+            <%= f.submit '送信する', disabled: true,class:'submit-button'%>
           <% end %>
+          
         </div>
       </div>
-      
     </section>
-  </div>
+  </div>  
 </div>
+
 
 
 <script>
@@ -216,22 +180,5 @@
   }
   // scriptファイルをどのidの部分に配置するかを指定
   <% end %>
-  
-  
-  // // 公園の５段階評価平均
-  // {
-  //   let opt = {  
-  //     //星画像の指定などのオプションをここに記述,
-  //     starOn: "<%#= asset_path('star-on.png') %>",
-  //     starOff: "<%#= asset_path('star-off.png') %>",
-  //     starHalf: "<%#= asset_path('star-half.png') %>",
-  //     half: true,
-  //     readOnly: true,
-  //     scoreName: 'park[average_evaluation]',
-  //     score: <%#= @park.average_evaluation || 0 %>,
-  //   };
-  //   let elem = document.querySelector('#average-raty');
-  //   raty(elem,opt);
-  // }
 
 </script>

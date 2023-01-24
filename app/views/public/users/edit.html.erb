@@ -23,7 +23,7 @@
             <% else %>
               <%= image_tag 'no_image.jpg' %>
             <% end %>
-            <%= f.file_field :user_image %>
+            <%= f.file_field :user_image%>
           </li>
           <li>
             <%= f.label 'ニックネーム' %>
@@ -39,9 +39,9 @@
           </li>
         </ul>
         <div class="buttons">
-          <%= link_to '戻る', user_path %>
-          <%= f.submit "編集内容を保存" %>
-          <%= link_to '退会する', users_confirm_path %>
+          <%= link_to '戻る', user_path, class:'link-button' %>
+          <%= f.submit "編集内容を保存",class:'submit-button' %>
+          <%= link_to '退会する', users_confirm_path,class:'link-button' %>
         </div>
         <% end %>
       </div>

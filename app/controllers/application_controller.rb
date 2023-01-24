@@ -2,17 +2,18 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
  #アクセス制限にかかれば新規登録画面へ
-  def authenticate_user
-    if @current_user==nil
-      flash[:login_notice]="ログインが必要です"
+  def authenticate_user!
+    if !current_user
+      flash[:notice]="ログインが必要です"
+      redirect_to new_user_registration_path 
     end
   end
-# def autheniticate_admin
-#   if @current_admin==nil
-#     flash[:notice]="ログインが必要です"
-#     redirect_to new_user_registration_path  
-#   end
-# end
+def authenticate_admin!
+  if !current_admin
+    flash[:notice]="ログインが必要です"
+    redirect_to new_user_registration_path  
+  end
+end
 
 # ログアウト後の遷移
   def after_sign_out_path_for(resource_or_scope)

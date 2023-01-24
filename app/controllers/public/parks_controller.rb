@@ -13,7 +13,7 @@ class Public::ParksController < ApplicationController
       params[:tag_ids].each do |key, value|
         if value == "1"
           tag_parks = Tag.find_by(tag: key).parks
-          @parks = @parks.empty? ? tag_parks : @tweets & tag_parks
+          @parks = @parks.empty? ? tag_parks : @parks & tag_parks
         end
       end
     end 
@@ -65,11 +65,11 @@ class Public::ParksController < ApplicationController
   #並べ替え
   def sort
     if params[:new]
-      @parks = Park.all.order(id: "DESC")
+      @parks = Park.where(status:true).all.order(id: "DESC")
     elsif params[:old]
-      @parks = Park.all.order(id: "ASC")
+      @parks = Park.where(status:true).all.order(id: "ASC")
     elsif params[:raty]
-      @parks = Park.all.order(average_evaluation: "DESC")
+      @parks = Park.where(status:true).all.order(average_evaluation: "DESC")
     end  
     
     @park = Park.new

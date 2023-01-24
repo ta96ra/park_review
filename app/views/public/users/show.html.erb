@@ -27,9 +27,11 @@
                     </li>
                 </ul>
                 <!--ゲストユーザーの場合は表示させない-->
-                <% if @user.nickname != "guestuser" %>
-                    <%= link_to "編集する", info_edit_path %>
-                <% end %>
+                <div class="edit-button">
+                    <% if @user.nickname != "guestuser" %>
+                        <%= link_to "編集する", info_edit_path, class:'link-button' %>
+                    <% end %>
+                </div>
             </div>  
         </section>
     </div>

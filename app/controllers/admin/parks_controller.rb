@@ -11,24 +11,18 @@ class Admin::ParksController < ApplicationController
       params[:tag_ids].each do |key, value|
         if value == "1"
           tag_parks = Tag.find_by(tag: key).parks
-          @parks = @parks.empty? ? tag_parks : @tweets & tag_parks
+          @parks = @parks.empty? ? tag_parks : @parks & tag_parks
         end
       end
     end 
+    
+    @tag = Tag.new
+    
+     # タグの追加(管理者のみに制限するため)
+    # if params[:tag]
+    #   Tag.create(tag: params[:tag])
+    # end
   end
-  
-  # 新規登録機能はなし
-  # def create
-  #   @park = Park.new(park_params)
-  #   @park.user_id = current_user.id
-  #   if @park.save
-  #     flash[:park_notice] = "公園を新規登録しました"
-  #     redirect_to parks_path
-  #   else
-  #     @parks = Park.all
-  #     render 'admin/parks/index'
-  #   end     
-  # end  
 
   def show
     @park = Park.find(params[:id])
@@ -39,10 +33,6 @@ class Admin::ParksController < ApplicationController
   def edit
     @park = Park.find(params[:id])
     @review = Review.new
-     # タグの追加(管理者のみに制限するため)
-    if params[:tag]
-      Tag.create(tag: params[:tag])
-    end
   end
   
   def update
@@ -68,6 +58,7 @@ class Admin::ParksController < ApplicationController
     @parks = Park.search(params[:keyword])
     @keyword = params[:keyword]
     @park = Park.new
+    @tag = Tag.new
     render "admin/parks/index"   
   end
   
@@ -95,6 +86,7 @@ class Admin::ParksController < ApplicationController
   private
   #ストロングパラメーター
   def park_params
-    params.require(:park).permit(:user_id, :prefecture_id, :park, :address, :longitude, :latitude, :detail, :status, :average_evaluation, :park_image, tag_ids: [])  
+    params.require(:park).permit(:user_id, :prefecture_id, :park, :address, :longitude, :latitude, :detail, :status, :average_evaluation, :park_image, tag_ids: [])
+    # params.require(:tag).permit(:tag)
   end
 end

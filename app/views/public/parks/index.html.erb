@@ -23,7 +23,7 @@
             <div class="sub-content">
               <%= form_with url: search_path, method: :get, local: true do |f| %>
               <%= f.text_field :keyword, value: @keyword %>
-              <%= f.submit "検索" %>
+              <%= f.submit "検索",class:"submit-button" %>
               <% end %>
             </div>
           </div>
@@ -32,20 +32,17 @@
           <div class="tag-area">
           <h2>絞り込み検索</h2>
             <div class="sub-content">
-              <%= form_with model: @park, method: :get do %>
+              <%= form_with model: @park, method: :get do |f| %>
                 <ul>
                   <% Tag.all.each do |t| %>
                     <li><%= check_box :tag_ids, t.tag %><%= t.tag %></li>
                   <% end %>
                 </ul>
-                <%= submit_tag '絞り込み' %>
+                <%= f.submit '絞り込み',class:"submit-button" %>
               <% end %>
             </div>
           </div>
-        </div>
-        
-        <!--公園一覧-->
-        <div class="parks-list">
+          <!--公園新規登録-->
           <div class="new-park">
             <h2>公園新規登録</h2>
             <div class="sub-content">
@@ -54,11 +51,14 @@
                 <%= f.text_field :park %>
                 <%= f.label '住所' %>
                 <%= f.text_area :address %>
-                <%= f.submit '新規登録' %>
+                <%= f.submit '新規登録',class:"submit-button" %>
               <% end %>
             </div>
-          </div>
-          
+          </div> 
+        </div>
+        
+        <!--公園一覧-->
+        <div class="parks-list">
           <div class="park-index">
             <h2>公園一覧</h2>
             <div class="sub-content">
@@ -91,9 +91,11 @@
                       
                       <p><%= park.address %></p>       
                       <!--タグ表示-->
-                      <% park.tags.each do |tag| %>
-                        <span><%= tag.tag %></span>
-                      <% end %>
+                      <div class="tag-space">
+                        <% park.tags.each do |tag| %>
+                          <span><%= tag.tag %></span>
+                        <% end %>
+                      </div>
                     </div>
                   <% end %>
                 </li>

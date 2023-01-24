@@ -6,13 +6,19 @@
     <%= flash[:notice] %>
     <div class="description">
       <div class="text">
-        <h2>子供と楽しむ公園選びをしませんか？</h2>
+        <div class="subtitle">
+          <h2>子供と楽しむ公園選びをしませんか？</h2>
+          <span class="border"></span>
+        </div>
         <p>Park Reviewでは、幼児目線の絞り込み検索機能をつけることで、子供の要求に答えた公園を探すことができます。</p>
         <p>Park Reviewでぜひ我が子の願いを叶えてあげてください。</p>
       </div>
     </div>
     <div class="news">
-      <h2>お知らせ</h2>
+      <div class="subtitle">
+        <h2>お知らせ</h2>
+        <span class="border"></span>
+      </div>
       <ul>
         <li>
           <dt>23.1.28</dt>
@@ -21,17 +27,21 @@
       </ul>
     </div>
     <div class="new-parks">
-      <h2>新着公園情報</h2>
+      <div class="subtitle">
+        <h2>新着公園情報</h2>
+        <span class="border"></span>
+      </div>
       <div class="park-container">
         <ul id="park-contents">
-          <% @parks.last(7).reverse.each do |park| %>
-          <li data-index="<%= park.id %>">
+          <% @parks.last(7).reverse.each_with_index do |park,i| %>
+          <!--<li data-index="<%#= i %>">-->
+          <li>
             <%= link_to park_path(park.id), data: { 'turbolinks': false } do %>
               <div class="park-image">
                 <% if park.park_image.attached? %>
-                  <%= image_tag park.park_image %>
+                  <%= image_tag park.park_image,:dataindex => i %>
                 <% else %>
-                  <%= image_tag 'no_park_image.png' %>
+                  <%= image_tag 'no_park_image.png',:dataindex => i %>
                 <% end %>
               </div>
               <div class="park-name">
@@ -48,7 +58,10 @@
     </div>
     <div class="popular-parks">
       <div class="popular-parks-contents">
-        <h2>評価の高い公園</h2>
+        <div class="subtitle">
+          <h2>評価の高い公園</h2>
+          <span class="border"></span>
+        </div>
         <ul class="ranking">
           <% @sorts.first(3).each.with_index(1) do |park,index| %>
           <li>
@@ -113,15 +126,11 @@ let parkCurrentIndex = 0;
     }else{// overflowする場合
       parkNext.classList.remove('hidden');
       parkPrev.classList.remove('hidden');
-      console.log('none');
       if(parkCurrentIndex <= 0){
         parkPrev.classList.add('hidden');//prevボタンを隠す
-        console.log('prev');
       }
       if(parkCurrentIndex >= parks.length - (numberOfShow)){
         parkNext.classList.add('hidden');//nextボタンを隠す
-        console.log('next');
-      
       }
     } 
   }
@@ -175,16 +184,11 @@ let parkCurrentIndex = 0;
   function hoverParkUpdateDots(){
     parks.forEach(park=>{
       park.addEventListener('mouseover',(event)=>{
-        const index = event.target.dataset.index;
-        // const index = <%#= @park.id %>
-        
-        // parkDots[index].classList.add('current');
-        console.log(index);
-        
+        const index = event.target.getAttribute("dataindex")
         parkDots.forEach(parkDot=>{
           parkDot.classList.remove('current');
         });
-        
+        parkDots[index].classList.add('current');
       });
     });
     parks.forEach(park=>{
@@ -196,10 +200,10 @@ let parkCurrentIndex = 0;
       });
     });
   }
-  hoverParkUpdateDots();
-  parkUpdateButtons();
-  parkSetupDots();
-  parkLayout();
+  hoverParkUpdateDots(); //hoverしたボタンに色をつける
+  parkUpdateButtons();  //prev,nextボタンの表示、非表示
+  parkSetupDots();      //ドットボタンの処理、生成
+  parkLayout();        //公園の配置
   
    // videoNextボタンクリック時
   parkNext.addEventListener('click',()=>{

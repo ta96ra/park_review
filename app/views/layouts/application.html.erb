@@ -27,6 +27,9 @@
       <div class="title">
         <%= image_tag('title.png')%>
       </div>
+      <% if flash[:notice]%> 
+        <%= flash[:notice] %>
+      <% end %>
       <%= yield %>
     </main>
     <div id="to-top">

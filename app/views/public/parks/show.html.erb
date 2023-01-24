@@ -15,12 +15,12 @@
         </div>    
         <!--リンク-->
         <div class="top-links">
-          <%= link_to edit_park_path do %>
+          <%= link_to edit_park_path,class:"link-button" do %>
             <i class="bi bi-pencil-fill"></i>
             <span>編集する</span>
           <% end %>
           
-          <%= link_to '公園一覧', parks_path  %>
+          <%= link_to '公園一覧', parks_path,class:'link-button'  %>
         </div>
         
         <!--ActionTextによる公園詳細-->
@@ -39,15 +39,6 @@
             <% end %>
           </div>
         </div>
-        
-        <!--サムネイル画像-->
-        <!--<div class="sumbnail">-->
-        <!--  <%# if @park.park_image.attached? %>-->
-        <!--    <%#= image_tag @park.park_image %>-->
-        <!--  <%# else %>-->
-        <!--    <%#= image_tag 'no_park_image,png' %>-->
-        <!--  <%# end %>-->
-        <!--</div>-->
         
         <!--Google Map API-->
         <div class="map">
@@ -92,7 +83,7 @@
       <div class="reviews">
         <div class="review-title">
           <h2>レビュー一覧(<%= @park.reviews.count %>)</h2>
-          <%= link_to edit_park_path do %>
+          <%= link_to edit_park_path(anchor: 'reviews'),class:'link-button' do %>
             <i class="bi bi-pencil-fill"></i>
             <span>レビューを投稿する</span>
           <% end %>

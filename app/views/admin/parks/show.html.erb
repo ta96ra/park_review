@@ -1,7 +1,7 @@
 <div class="contents">
   <div class="wrapper">
     <!--公園詳細ページ-->
-    <h1><%= @park.park %>(管理者)</h1>
+    <h1><%= @park.park %></h1>
     <section class="user-park">
       <div class="user-park-show">
       
@@ -22,12 +22,12 @@
         </div>    
         <!--リンク-->
         <div class="top-links">
-          <%= link_to edit_admin_park_path do %>
+          <%= link_to edit_admin_park_path,class:'link-button' do %>
             <i class="bi bi-pencil-fill"></i>
             <span>編集する</span>
           <% end %>
           
-          <%= link_to '公園一覧', admin_parks_path  %>
+          <%= link_to '公園一覧', admin_parks_path,class:'link-button' %>
         </div>
         
         <!--ActionTextによる公園詳細-->
@@ -46,15 +46,6 @@
             <% end %>
           </div>
         </div>
-        
-        <!--サムネイル画像-->
-        <!--<div class="sumbnail">-->
-        <!--  <%# if @park.park_image.attached? %>-->
-        <!--    <%#= image_tag @park.park_image %>-->
-        <!--  <%# else %>-->
-        <!--    <%#= image_tag 'no_park_image.png' %>-->
-        <!--  <%# end %>-->
-        <!--</div>-->
         
         <!--Google Map API-->
         <div class="map">
@@ -99,10 +90,6 @@
       <div class="reviews">
         <div class="review-title">
           <h2>レビュー一覧(<%= @park.reviews.count %>)</h2>
-          <%= link_to edit_admin_park_path do %>
-            <i class="bi bi-pencil-fill"></i>
-            <span>レビューを投稿する</span>
-          <% end %>
         </div>
         <div class="review-content">
           <% @park.reviews.each do |review| %>
@@ -166,36 +153,7 @@
       score: <%= @park.average_evaluation || 0 %>,
     };
     let elem = document.querySelector('#average-raty');
-    raty(elem,opt);
-    
-    // GoogleMapAPI
-    // function initMap() {
-
-    //   var test = {lat: <%#= @park.latitude %>, lng: <%#= @park.longitude %>};
-    //   var map = new google.maps.Map(document.getElementById('map'), {
-    //     zoom: 15,
-    //     center: test
-    //   });
-    //   var transitLayer = new google.maps.TransitLayer();
-    //   transitLayer.setMap(map);
-  
-    //   var contentString = '住所：<%#= @park.address %>';
-    //   var infowindow = new google.maps.InfoWindow({
-    //     content: contentString
-    //   });
-  
-    //   var marker = new google.maps.Marker({
-    //     position:test,
-    //     map: map,
-    //     title: contentString
-    //   });
-  
-    //   marker.addListener('click', function() {
-    //     infowindow.open(map, marker);
-    //   });
-    // }
-    
-    
+    raty(elem,opt); 
   }
 </script>
 
