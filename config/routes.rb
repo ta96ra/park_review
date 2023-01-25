@@ -59,7 +59,10 @@ Rails.application.routes.draw do
     resources :parks,only: [:index, :create, :show, :edit, :update] do
       resources :reviews,only:[:create, :destroy] 
     end
-    resources :tags,only: [:create,:delete]
+    
+    #タグの追加、削除機
+    resources :tags,only: [:create,:destroy]
+    
     ###キーワード検索機能
     get 'search'=>'parks#search'
     ###並べ替え機能

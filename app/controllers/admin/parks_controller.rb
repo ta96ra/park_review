@@ -5,23 +5,28 @@ class Admin::ParksController < ApplicationController
     @parks = Park.all
     # @parks = Park.page(params[:page])  #ページネーション導入のため
     
-    # タグのAND検索
+    # タグのOR検索
     if params[:tag_ids]
       @parks = []
-      params[:tag_ids].each do |key, value|
-        if value == "1"
-          tag_parks = Tag.find_by(tag: key).parks
-          @parks = @parks.empty? ? tag_parks : @parks & tag_parks
-        end
+      params[:tag_ids].each do |key, value|      
+        @parks += Tag.find_by(tag: key).parks if value == "1"
       end
+      @parks.uniq!
+      #uniq = 重複を取り除く
     end 
-    
+    # タグの追加
     @tag = Tag.new
     
-     # タグの追加(管理者のみに制限するため)
-    # if params[:tag]
-    #   Tag.create(tag: params[:tag])
-    # end
+    # タグの複数検索(2つのみ)
+    # if params[:tag_ids]
+    #   @parks = []
+    #   params[:tag_ids].each do |key, value|
+    #     if value == "1"
+    #       tag_parks = Tag.find_by(tag: key).parks
+    #       @parks = @parks.empty? ? tag_parks : @parks & tag_parks
+    #     end
+    #   end
+    # end 
   end
 
   def show
@@ -38,7 +43,7 @@ class Admin::ParksController < ApplicationController
   def update
     @park = Park.find(params[:id])
     if @park.update(park_params)
-      flash[:park_notice] = "公園情報を更新しました"
+      flash[:notice] = "公園情報を更新しました"
       redirect_to admin_park_path(@park.id)
       
       # 公園の表示設定のフラッシュメッセージ（不要かも）

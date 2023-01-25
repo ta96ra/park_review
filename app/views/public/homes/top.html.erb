@@ -3,33 +3,23 @@
 <section id="home-top">
   <div class="home-top">
     <!--フラッシュメッセージ-->
-    <%= flash[:notice] %>
+    <!--<%#= flash[:notice] %>-->
     <div class="description">
+      <%= image_tag('butterfly.png') %>
+      <%= image_tag('batta.png') %>
       <div class="text">
         <div class="subtitle">
           <h2>子供と楽しむ公園選びをしませんか？</h2>
-          <span class="border"></span>
+          <span class="border target"></span>
         </div>
         <p>Park Reviewでは、幼児目線の絞り込み検索機能をつけることで、子供の要求に答えた公園を探すことができます。</p>
         <p>Park Reviewでぜひ我が子の願いを叶えてあげてください。</p>
       </div>
     </div>
-    <div class="news">
-      <div class="subtitle">
-        <h2>お知らせ</h2>
-        <span class="border"></span>
-      </div>
-      <ul>
-        <li>
-          <dt>23.1.28</dt>
-          <dd>公園のレビューサイト『Park Review』を公開しました。</dd>
-        </li>
-      </ul>
-    </div>
     <div class="new-parks">
       <div class="subtitle">
         <h2>新着公園情報</h2>
-        <span class="border"></span>
+        <span class="border target"></span>
       </div>
       <div class="park-container">
         <ul id="park-contents">
@@ -51,8 +41,12 @@
           </li>
           <% end %>
         </ul>
-        <div id="park-prev"></div>
-        <div id="park-next"></div>
+        <div id="park-prev">
+          <span></span>
+        </div>
+        <div id="park-next">
+          <span></span>
+        </div>
       </div>
       <nav id="park-nav"></nav>
     </div>
@@ -60,11 +54,11 @@
       <div class="popular-parks-contents">
         <div class="subtitle">
           <h2>評価の高い公園</h2>
-          <span class="border"></span>
+          <span class="border target"></span>
         </div>
         <ul class="ranking">
           <% @sorts.first(3).each.with_index(1) do |park,index| %>
-          <li>
+          <li class="target">
             <dt>
               <% case index when 1 %>
                 <%= image_tag ('first.png')%>
@@ -97,6 +91,18 @@
           <% end %>
         </ul>
       </div>
+    </div>
+    <div class="news">
+      <div class="subtitle">
+        <h2>お知らせ</h2>
+        <span class="border target"></span>
+      </div>
+      <ul>
+        <li>
+          <dt>23.1.28</dt>
+          <dd>公園のレビューサイト『Park Review』を公開しました。</dd>
+        </li>
+      </ul>
     </div>
   </div>
 </section>
@@ -211,7 +217,7 @@ let parkCurrentIndex = 0;
     parkUpdateButtons();   //ボタンの表示、非表示の更新
     parkUpdateDots();　　　//ドットの更新
     parkMoveSlides();　　　//スライドの移動
-    console.log(parkCurrentIndex);
+    // console.log(parkCurrentIndex);
   });
   
    // videoPrevボタンクリック時
@@ -249,4 +255,31 @@ let parkCurrentIndex = 0;
     raty(elem,opt);
   }
   <% end %>
+  
+ // --------------------
+  // スクロールフェード
+  // --------------------
+  // const targets = document.querySelectorAll('.target');
+  // console.log(targets);
+  
+  // function scrollCallback(entries,obs){
+  //   console.log(entries);
+  //   entries.forEach(entry=>{
+  //     // targetとrootが交差していなければ、処理終了
+  //     if(!entry.isIntersecting){
+  //       console.log('none');
+  //       return;
+  //     }
+  //     // 交差していればappearクラスの追加
+  //     entry.target.classList.add('appear');
+  //     console.log('ok');
+  //     obs.unobserve(entry.target);
+  //   });
+  // }
+  // const option = {rootMargin:'0px 0px 0px -200px'};
+  // const scrollObserver = new IntersectionObserver(scrollCallback,option);
+  // targets.forEach(target =>{
+  //   scrollObserver.observe(target);  
+  // });
+  
 </script>

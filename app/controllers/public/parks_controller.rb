@@ -2,28 +2,34 @@ class Public::ParksController < ApplicationController
   before_action :authenticate_user!, {only: [:create,:edit, :update]}
   def index
     @park = Park.new
-    # 公園ステータスがtrueのみ表示
-    @parks = Park.where(status:true).all
+    @parks = Park.where(status:true).all  # 公園ステータスがtrueのみ表示
     # @parks = Park.page(params[:page])  #ページネーション導入のため
     
-    # タグのAND検索
-    #ページネーションのため記述変更が必要
+    # タグのOR検索
     if params[:tag_ids]
       @parks = []
-      params[:tag_ids].each do |key, value|
-        if value == "1"
-          tag_parks = Tag.find_by(tag: key).parks
-          @parks = @parks.empty? ? tag_parks : @parks & tag_parks
-        end
+      params[:tag_ids].each do |key, value|      
+        @parks += Tag.find_by(tag: key).parks if value == "1"
       end
+      @parks.uniq!  #uniq = 重複を取り除く
     end 
+    # タグの複数検索(2つのみ)
+    # if params[:tag_ids]
+    #   @parks = []
+    #   params[:tag_ids].each do |key, value|
+    #     if value == "1"
+    #       tag_parks = Tag.find_by(tag: key).parks
+    #       @parks = @parks.empty? ? tag_parks : @parks & tag_parks
+    #     end
+    #   end
+    # end 
   end
   
   def create
     @park = Park.new(park_params)
     @park.user_id = current_user.id
     if @park.save
-      flash[:park_notice] = "公園を新規登録しました"
+      flash[:notice] = "公園を新規登録しました"
       redirect_to parks_path
     else
       @parks = Park.all
@@ -34,7 +40,6 @@ class Public::ParksController < ApplicationController
   def show
     @park = Park.find(params[:id])
     @reviews = Review.all
-    
   end
 
   def edit
@@ -46,7 +51,7 @@ class Public::ParksController < ApplicationController
   def update
     @park = Park.find(params[:id])
     if @park.update(park_params)
-      flash[:park_notice] = "公園情報を更新しました"
+      flash[:notice] = "公園情報を更新しました"
       redirect_to park_path(@park.id)
     else
       render :edit

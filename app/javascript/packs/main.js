@@ -10,6 +10,33 @@ $(document).on('turbolinks:load', function(){
     sp.classList.toggle('slide');
   });
   
+  // --------------------
+  // スクロールフェード
+  // --------------------
+  const targets = document.querySelectorAll('.target');
+  // console.log(targets);
+  
+  function scrollCallback(entries,obs){
+    // console.log(entries);
+    entries.forEach(entry=>{
+      // targetとrootが交差していなければ、処理終了
+      if(!entry.isIntersecting){
+        // console.log('none');
+        return;
+      }
+      // 交差していればappearクラスの追加
+      entry.target.classList.add('appear');
+      // console.log('ok');
+      obs.unobserve(entry.target);
+    });
+  }
+  const options = {threshold:0.3,rootMargin:'0px 0px -200px'};
+  const scrollObserver = new IntersectionObserver(scrollCallback,options);
+  targets.forEach(target =>{
+    scrollObserver.observe(target);  
+  });
+  
+  
   // -------------------
   // トップへ戻るボタン
   //--------------------

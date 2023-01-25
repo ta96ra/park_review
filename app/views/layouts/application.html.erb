@@ -19,46 +19,48 @@
     </style>
   </head>
   <body>
-    <!--ヘッダー-->
-    <%= render 'layouts/header' %>
-    
-    <main>
-      <div id="index"></div>
-      <div class="title">
-        <%= image_tag('title.png')%>
-      </div>
-      <% if flash[:notice]%> 
-        <%= flash[:notice] %>
-      <% end %>
-      <%= yield %>
-    </main>
-    <div id="to-top">
-      <div class="to-top-content">
-        <%= image_tag('to-top2.png')%>
-        <span>Topへ戻る</span>
-      </div>
-    </div>
-    <footer>
-      <!--<div class="bottom"></div>-->
-      <%= image_tag('footer-image1.png',class:"bottom") %>
-      <div class="footer-contents">
-        <div class="footer-content">
-          <div class="footer-logo">
-            <%= image_tag('logo.png')%>
-          </div>
-          <nav>
-            <ul>
-              <li>
-                <%= link_to 'ホーム' ,root_path,data: { turbo: false } %>
-              </li>
-              <li>
-                <%= link_to "公園を探す", parks_path %>
-              </li>
-            </ul>
-          </nav>
+    <div class="body-wrapper">
+      <!--ヘッダー-->
+      <%= render 'layouts/header' %>
+      
+      <main>
+        <div id="index"></div>
+        <div class="title">
+          <%= image_tag('title.png')%>
         </div>
-        <small>&copy;park_review All Right Reserved</small>
+        <% if flash[:notice]%> 
+          <%= flash[:notice] %>
+        <% end %>
+        <%= yield %>
+      </main>
+      <div id="to-top">
+        <div class="to-top-content">
+          <%= image_tag('to-top2.png')%>
+          <span>Topへ戻る</span>
+        </div>
       </div>
-    </footer>
+      <footer>
+        <!--<div class="bottom"></div>-->
+        <%= image_tag('footer-image1.png',class:"bottom") %>
+        <div class="footer-contents">
+          <div class="footer-content">
+            <div class="footer-logo">
+              <%= image_tag('logo.png')%>
+            </div>
+            <nav>
+              <ul>
+                <li>
+                  <%= link_to 'ホーム' ,root_path,data: { turbo: false } %>
+                </li>
+                <li>
+                  <%= link_to "公園を探す", parks_path %>
+                </li>
+              </ul>
+            </nav>
+          </div>
+          <small>&copy;park_review All Right Reserved</small>
+        </div>
+      </footer>
+    </div>
   </body>
 </html>

@@ -8,7 +8,8 @@ class Public::ReviewsController < ApplicationController
     @review.park_id = @park.id
     if @review.save
       @park.update(average_evaluation: @park.reviews.average(:evaluation).nil? ? 0 : @park.reviews.average(:evaluation).round(1))
-      redirect_to request.referer
+      # redirect_to request.referer
+      redirect_to edit_park_path(@park.id)
     else
       render template: "public/parks/edit"
     end  
@@ -18,7 +19,8 @@ class Public::ReviewsController < ApplicationController
     @park = Park.find(params[:park_id])
     Review.find(params[:id]).destroy
     @park.update(average_evaluation: @park.reviews.average(:evaluation).blank? ? 0 : @park.reviews.average(:evaluation).round(1))
-    redirect_to request.referer
+    redirect_to edit_park_path(@park.id)
+    # redirect_to request.referer
   end
 
   private

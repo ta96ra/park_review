@@ -4,7 +4,7 @@
       <%= image_tag('headersun1.png')%>
     </div>
     <div class="logo">
-      <%= link_to root_path,data: { turbo: false } do %>
+      <%= link_to root_path,data: {"turbolinks"=>false} do %>
         <%= image_tag('logo.png')%> 
       <% end %>
     </div>
@@ -19,7 +19,7 @@
       <!--ユーザーログインの場合の表示-->
       <% if user_signed_in? %>
         <li>
-          <%= link_to root_path do %>
+          <%= link_to root_path,data: {"turbolinks"=>false} do %>
             <div class="circle-btn"></div>
             <p>ホーム</p>
           <% end %>
@@ -105,7 +105,7 @@
       <!--ユーザーログインの場合の表示-->
       <% if user_signed_in? %>
         <li>
-          <%= link_to "ホーム", root_path %>
+          <%= link_to "ホーム", root_path,data: {"turbolinks"=>false} %>
         </li>
         <li>
           <%= link_to "公園を探す", parks_path %>

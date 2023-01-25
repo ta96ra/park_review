@@ -2,9 +2,7 @@
   <div class="wrapper">
     <h1>公園を探す</h1>
     <section id="user-park-index">
-      <!--新規登録のフラッシュメッセージ-->
-        <%= flash[:park_notice] %>
-        
+
         <!--バリデーションのエラーメッセージ-->
         <% if @park.errors.any? %>
         <%= @park.errors.count %>件のエラーが発生しました

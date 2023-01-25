@@ -8,12 +8,12 @@ class ApplicationController < ActionController::Base
       redirect_to new_user_registration_path 
     end
   end
-def authenticate_admin!
-  if !current_admin
-    flash[:notice]="ログインが必要です"
-    redirect_to new_user_registration_path  
-  end
-end
+# def authenticate_admin!
+#   if !current_admin
+#     flash[:notice]="ログインが必要です"
+#     redirect_to new_user_registration_path  
+#   end
+# end
 
 # ログアウト後の遷移
   def after_sign_out_path_for(resource_or_scope)

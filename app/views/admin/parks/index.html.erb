@@ -3,7 +3,7 @@
     <h1>公園一覧</h1>
     <section id="user-park-index">
       <!--新規登録のフラッシュメッセージ-->
-        <%= flash[:park_notice] %>
+        <!--<%= flash[:park_notice] %>-->
         
         <!--バリデーションのエラーメッセージ-->
         <% if @park.errors.any? %>
@@ -32,20 +32,20 @@
           <div class="tag-area">
           <h2>絞り込み検索</h2>
             <div class="sub-content">
-              <%= form_with model: @park,url: admin_parks_path, method: :get do %>
+              <%= form_with model: @park,url: admin_parks_path, method: :get do %>             
                 <ul>
                   <% Tag.all.each do |t| %>
-                    <li><%= check_box :tag_ids, t.tag %><%= t.tag %></li>
+                    <li>
+                      <%= check_box :tag_ids, t.tag %><%= t.tag %>
+                      <!--<%#= link_to 'x', admin_tag_path(tag.id) ,method: :delete, class:'destroy' %>-->
+                    </li>
                   <% end %>
                 </ul>
                 <%= submit_tag '絞り込み', class:'submit-button' %>
               <% end %>
               <!--タグの追加-->
-              <!--<%#= form_tag({controller:"parks",action:"index"}, method: :get) do %>-->
-              <!--  <%#= text_field_tag :tag %>-->
-              <!--  <%#= submit_tag 'タグを追加',class:'submit-button' %>-->
-              <!--<%# end %>-->
-              <%= form_with model: [:admin,@tag] do |f| %>
+              <%= form_with url:  admin_tags_path do |f| %>
+              <%#= form_with model: @tag do |f| %>
                 <%= f.text_field :tag %>
                 <%= f.submit "タグを追加",class:'submit-button' %>
               <% end %>

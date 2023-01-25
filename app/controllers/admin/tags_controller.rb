@@ -11,9 +11,16 @@ class Admin::TagsController < ApplicationController
     end  
   end
   
-  private
+  # def destroy
+  #   @tag = Tag.find(params[:id])
+  #   # @tag.destroy
+  #   @tag.destroy
+  #   Tag.find(params[:id]).destroy
+  #   redirect_to admin_parks_path
+  # end  
   
+  private
   def tag_params
-    params.require(:tag).permit(:tag)
+    params.permit(:tag)
   end  
 end
