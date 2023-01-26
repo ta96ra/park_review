@@ -3,9 +3,20 @@
     <h1>公園編集</h1>
     <section class="user-park">
       <div class="user-park-show">
+      
+        <!--バリデーションのエラーメッセージ-->
+        <% if @park.errors.any? %>
+          <%= @park.errors.count %>件のエラーが発生しました
+          <ul>
+            <% @park.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+
       <%= form_with model: @park, url:admin_park_path(@park.id) do |f| %>  
         <div class="park-title">
-          <%= link_to '戻る', admin_park_path(@park.id),data: { turbo: false },class:'link-button'  %>
+          <%= link_to '戻る', admin_park_path(@park.id),data: {"turbolinks"=>false},class:'link-button'  %>
           <h2><%= @park.park %></h2>
         </div>
         
@@ -120,7 +131,7 @@
                   <div class="raty" id="post_raty<%= review.id %>"></div>
                   <p class="text"><%= review.review %></p>
                   <p class="time"><%= review.created_at.strftime('%Y/%m/%d') %>
-                  <%= link_to "削除", park_review_path(review.park, review), method: :delete,class:'link-button' %>
+                  <%= link_to "削除", admin_park_review_path(review.park, review), method: :delete,class:'link-button' %>
                   </p>
                 </div>
               </div>

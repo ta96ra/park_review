@@ -8,16 +8,15 @@ class Admin::TagsController < ApplicationController
     else
       flash[:danger] = 'タグを登録に失敗しました'
       redirect_to admin_parks_path
-    end  
+    end
   end
   
-  # def destroy
-  #   @tag = Tag.find(params[:id])
-  #   # @tag.destroy
-  #   @tag.destroy
-  #   Tag.find(params[:id]).destroy
-  #   redirect_to admin_parks_path
-  # end  
+  def destroy
+    @tag = Tag.find(params[:id])
+    @tag.destroy
+    # Tag.find(params[:id]).destroy
+    redirect_to admin_parks_path
+  end  
   
   private
   def tag_params

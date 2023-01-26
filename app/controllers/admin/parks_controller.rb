@@ -11,12 +11,8 @@ class Admin::ParksController < ApplicationController
       params[:tag_ids].each do |key, value|      
         @parks += Tag.find_by(tag: key).parks if value == "1"
       end
-      @parks.uniq!
-      #uniq = 重複を取り除く
+      @parks.uniq! #uniq = 重複を取り除く
     end 
-    # タグの追加
-    @tag = Tag.new
-    
     # タグの複数検索(2つのみ)
     # if params[:tag_ids]
     #   @parks = []
@@ -52,8 +48,8 @@ class Admin::ParksController < ApplicationController
       # else
       #   flash[:notice] = "公園表示を有効にしました"
       # end
-      
     else
+      @review = Review.new
       render "admin/parks/edit"
     end
   end

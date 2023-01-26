@@ -66,9 +66,11 @@ h1{
   font-size: 3rem;
   text-align: center;
   transform: translateY(-180px);
+  // transform: translateY(-120px);
   @include sp{
     font-size: 2.25rem;
     transform: translateY(-130px);
+    // transform: translateY(-70px);
   }
 }
 ul,ol{
@@ -431,10 +433,34 @@ main{
     @include sp{
       height: 250px;  
     }
-    img{
+    .mainvisual{
       height: 100%;
       object-fit: cover;
       object-position: center;
+    }
+    .tori{
+      position: absolute;
+      bottom: 25%;
+      left: 10%;
+      width: 80px;
+      animation: 2s infinite tri;
+      @keyframes tri{
+        0%{
+          transform: rotate(4deg);  
+        }
+        25%{
+          transform: none; 
+        }
+        50%{
+          transform: rotate(-4deg);
+        }
+        75%{
+          transform: none;
+        }
+        100%{
+          transform: rotate(4deg);  
+        }
+      } 
     }
   }
    // トップページ
@@ -471,14 +497,15 @@ main{
         max-width: 640px;
         margin: 0 auto 80px;
         // outline: 2px solid green;
-        img:first-of-type{
+        .butterfly{
+          // display: none;
           position: absolute;
           top: 40%;
           left: -140px;
           width: 80px;
           // transform: rotate(-5deg);
-          animation: 2s infinite batta;
-          @keyframes batta{
+          animation: 2s infinite butterfly;
+          @keyframes butterfly{
             0%{
               transform: rotate(3deg);  
             }
@@ -505,7 +532,7 @@ main{
             width: 40px; 
           }
         }
-        img:nth-of-type(2){
+        .batta{
           position: absolute;
           bottom: 0;
           right: -120px;
@@ -584,15 +611,11 @@ main{
               }
               .park-image{
                 height: 100%;
-                // pointer-events: none;
                 img{
                   display: block;
                   height: 100%;
                   object-fit: cover;
                   object-position: center;
-                  // pointer-events: none;
-                  // vertical-align: bottom;
-                  // width: 100%;
                 }
               }
               .park-name{
@@ -1061,9 +1084,6 @@ main{
               padding: 5px 5px 5px 20px;
               // background: $orange;
               background: pink;
-              // background: $lightgreen;
-              // background: rgba(255,240,220,1);
-              // color: $brown;
               border-radius: 20px 0 0 0;
               // outline: 2px solid red;
             }
@@ -1090,6 +1110,34 @@ main{
               // outline: 4px solid blue;
               input{
                 font-size: 1.125rem;  
+              }
+              .destroy{
+                position: relative;
+                display: inline-block;
+                width: 15px;
+                height: 15px;
+                border-radius: 50%;
+                background: pink;
+                box-shadow: 1px 1px $gray;
+                &:active{
+                  transform: translate(1px,1px);
+                  box-shadow: none;
+                }
+                span{
+                  position: absolute;
+                  top: 6.5px;
+                  left: 2.5px;
+                  display: block;
+                  width: 10px;
+                  height: 2px;
+                  background: $white;
+                }
+                span:first-of-type{
+                  transform: rotate(-45deg);
+                }
+                span:last-of-type{
+                  transform: rotate(45deg);
+                }
               }
               .submit-button{
                 margin-top: 10px;  
@@ -1833,6 +1881,82 @@ footer{
     }
     @include sp{
       height: 250px;  
+    }
+  }
+  .img{
+    position: absolute;
+    width: 100px;
+  }
+  .tree1{
+    width: 60px;
+    bottom: 103%;
+    right: 10%;
+  }
+  .tree2{
+    width: 55px;
+    bottom: 103%;
+    right: 15%;
+    @include sp{
+      display: none;  
+    }
+  }
+  .tree6{
+    width: 50px;
+    bottom: 103%;
+    right: 20%;
+    @include sp{
+      display: none;  
+    }
+  }
+  .mogura{
+    width: 90px;
+    top: -8%;
+    left: 20%;
+    animation: 1s infinite mogura;
+    @keyframes mogura{
+      0%{
+        transform: none;  
+      }
+      50%{
+        transform: scale(1.04);
+      }
+      100%{
+        transform: none;  
+      }
+    }  
+    @include sp{
+      top: -12%;  
+    }
+  }
+  .flower{
+    width: 30px;
+    bottom: 90%;
+    left: 15%;
+    @include sp{
+      left: 10%;
+    }
+  }
+  .kikyu{
+    width: 100px;
+    bottom: 120%;
+    left: 10%;
+    animation: 1s infinite kikyu;
+    @keyframes kikyu{
+      0%{
+        transform: none;  
+      }
+      50%{
+        transform: translateY(2px);
+      }
+      100%{
+        transform: none;  
+      }
+    }  
+    @include sp{
+      top: -12%;  
+    }
+    @include sp{
+      display: none;  
     }
   }
   .footer-contents{

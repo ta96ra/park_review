@@ -32,12 +32,15 @@
           <div class="tag-area">
           <h2>絞り込み検索</h2>
             <div class="sub-content">
-              <%= form_with model: @park,url: admin_parks_path, method: :get do %>             
+              <%= form_with model: @park,url: admin_parks_path, method: :get do %>
                 <ul>
-                  <% Tag.all.each do |t| %>
+                  <% Tag.all.each do |tag| %>
                     <li>
-                      <%= check_box :tag_ids, t.tag %><%= t.tag %>
-                      <!--<%#= link_to 'x', admin_tag_path(tag.id) ,method: :delete, class:'destroy' %>-->
+                      <%= check_box :tag_ids, tag.tag %><%= tag.tag %>
+                      <%= link_to admin_tag_path(tag.id),method: :delete, class:'destroy' do %>
+                        <span></span>
+                        <span></span>
+                      <% end %>
                     </li>
                   <% end %>
                 </ul>
@@ -45,7 +48,6 @@
               <% end %>
               <!--タグの追加-->
               <%= form_with url:  admin_tags_path do |f| %>
-              <%#= form_with model: @tag do |f| %>
                 <%= f.text_field :tag %>
                 <%= f.submit "タグを追加",class:'submit-button' %>
               <% end %>

@@ -11,7 +11,7 @@ class Public::ReviewsController < ApplicationController
       # redirect_to request.referer
       redirect_to edit_park_path(@park.id)
     else
-      render template: "public/parks/edit"
+      render "public/parks/edit"
     end  
   end
   

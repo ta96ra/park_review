@@ -3,9 +3,20 @@
     <h1>公園編集</h1>
     <section class="user-park">
       <div class="user-park-show">
+      
+      <!--バリデーションのエラーメッセージ-->
+        <% if @park.errors.any? %>
+          <%= @park.errors.count %>件のエラーが発生しました
+          <ul>
+            <% @park.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+
       <%= form_with model: @park do |f| %>  
         <div class="park-title">
-          <%= link_to '戻る', park_path(@park.id),data: { turbo: false },class:'link-button' %>
+          <%= link_to '戻る', park_path(@park.id),data: {"turbolinks"=>false},class:'link-button' %>
           <h2><%= @park.park %></h2>
         </div>
         
@@ -65,34 +76,7 @@
             <%= f.submit '更新する',class:'submit-button' %>
           </div>
         <% end %>  
-        </div>
-        
-        <!--Google Map API-->
-        <!--<h3>公園場所</h3>-->
-        <!--  <div class="map">-->
-        <!--  <div id="map"></div>-->
-        <!--</div>-->
-        
-        <!--<div type="text/javascript">-->
-        <!--  <script>-->
-        <!--    function initMap(){-->
-        <!--      let map = new google.maps.Map(document.getElementById('map'), {-->
-        <!--      center: {lat: <%#= @park.latitude || 0 %>, lng: <%#= @park.longitude || 0 %> },-->
-        <!--      zoom: 15-->
-        <!--      });-->
-              
-        <!--      marker = new google.maps.Marker({-->
-        <!--        position:  {lat: <%#= @park.latitude || 0 %>, lng:<%#= @park.longitude || 0 %> },-->
-        <!--        map: map-->
-        <!--      });-->
-        <!--    }-->
-            
-        <!--  </script>-->
-          
-          <!--APIキーあり-->
-          <!--<script src="https://maps.googleapis.com/maps/api/js?key=<%#= ENV['SECRET_KEY'] %>&callback=initMap" async defer></script>-->
-        <!--</div>-->
-    
+        </div>  
       </div>
       <!--レビュー一覧-->
       <div class="reviews">

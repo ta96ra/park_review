@@ -2,11 +2,9 @@
 
 <section id="home-top">
   <div class="home-top">
-    <!--フラッシュメッセージ-->
-    <!--<%#= flash[:notice] %>-->
     <div class="description">
-      <%= image_tag('butterfly.png') %>
-      <%= image_tag('batta.png') %>
+      <%= image_tag('butterfly.png',class:'butterfly') %>
+      <%= image_tag('batta.png',class:'batta') %>
       <div class="text">
         <div class="subtitle">
           <h2>子供と楽しむ公園選びをしませんか？</h2>
@@ -99,7 +97,7 @@
       </div>
       <ul>
         <li>
-          <dt>23.1.28</dt>
+          <dt>23.1.29</dt>
           <dd>公園のレビューサイト『Park Review』を公開しました。</dd>
         </li>
       </ul>
@@ -235,9 +233,9 @@ let parkCurrentIndex = 0;
     parkMoveSlides()
   });
   
-  
-  
+   // ---------------------
    // 公園の５段階評価平均
+   // ----------------------
   <% @sorts.each do |park| %>
   $('#average-raty<%= park.id %>').empty();
   {
@@ -256,30 +254,5 @@ let parkCurrentIndex = 0;
   }
   <% end %>
   
- // --------------------
-  // スクロールフェード
-  // --------------------
-  // const targets = document.querySelectorAll('.target');
-  // console.log(targets);
-  
-  // function scrollCallback(entries,obs){
-  //   console.log(entries);
-  //   entries.forEach(entry=>{
-  //     // targetとrootが交差していなければ、処理終了
-  //     if(!entry.isIntersecting){
-  //       console.log('none');
-  //       return;
-  //     }
-  //     // 交差していればappearクラスの追加
-  //     entry.target.classList.add('appear');
-  //     console.log('ok');
-  //     obs.unobserve(entry.target);
-  //   });
-  // }
-  // const option = {rootMargin:'0px 0px 0px -200px'};
-  // const scrollObserver = new IntersectionObserver(scrollCallback,option);
-  // targets.forEach(target =>{
-  //   scrollObserver.observe(target);  
-  // });
   
 </script>

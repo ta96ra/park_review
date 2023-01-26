@@ -54,6 +54,7 @@ class Public::ParksController < ApplicationController
       flash[:notice] = "公園情報を更新しました"
       redirect_to park_path(@park.id)
     else
+      @review = Review.new
       render :edit
     end
   end

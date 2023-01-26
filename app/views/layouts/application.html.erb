@@ -26,7 +26,8 @@
       <main>
         <div id="index"></div>
         <div class="title">
-          <%= image_tag('title.png')%>
+          <%= image_tag('title.png',class:'mainvisual')%>
+          <%#= image_tag('tori.png',class:'tori')%>
         </div>
         <% if flash[:notice]%> 
           <%= flash[:notice] %>
@@ -40,8 +41,13 @@
         </div>
       </div>
       <footer>
-        <!--<div class="bottom"></div>-->
         <%= image_tag('footer-image1.png',class:"bottom") %>
+        <%= image_tag('tree1.png',class:"img tree1") %>
+        <%= image_tag('tree2.png',class:"img tree2") %>
+        <%= image_tag('tree6.png',class:"img tree6") %>
+        <%= image_tag('mogura1.png',class:"img mogura") %>
+        <%= image_tag('flower.png',class:"img flower") %>
+        <%= image_tag('kikyu3.png',class:"img kikyu") %>
         <div class="footer-contents">
           <div class="footer-content">
             <div class="footer-logo">
