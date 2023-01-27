@@ -40,33 +40,8 @@
           <span>Topへ戻る</span>
         </div>
       </div>
-      <footer>
-        <%= image_tag('footer-image1.png',class:"bottom") %>
-        <%= image_tag('tree1.png',class:"img tree1") %>
-        <%= image_tag('tree2.png',class:"img tree2") %>
-        <%= image_tag('tree6.png',class:"img tree6") %>
-        <%= image_tag('mogura1.png',class:"img mogura") %>
-        <%= image_tag('flower.png',class:"img flower") %>
-        <%= image_tag('kikyu3.png',class:"img kikyu") %>
-        <div class="footer-contents">
-          <div class="footer-content">
-            <div class="footer-logo">
-              <%= image_tag('logo.png')%>
-            </div>
-            <nav>
-              <ul>
-                <li>
-                  <%= link_to 'ホーム' ,root_path,data: { turbo: false } %>
-                </li>
-                <li>
-                  <%= link_to "公園を探す", parks_path %>
-                </li>
-              </ul>
-            </nav>
-          </div>
-          <small>&copy;park_review All Right Reserved</small>
-        </div>
-      </footer>
+      <!--フッター-->
+      <%= render 'layouts/footer' %>
     </div>
   </body>
 </html>
