@@ -5,14 +5,7 @@
       <div class="user-park-show">
       
         <!--バリデーションのエラーメッセージ-->
-        <% if @park.errors.any? %>
-          <%= @park.errors.count %>件のエラーが発生しました
-          <ul>
-            <% @park.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        <% end %>
+        <%= render 'layouts/error_messages', model: @park %>
 
       <%= form_with model: @park, url:admin_park_path(@park.id) do |f| %>  
         <div class="park-title">
@@ -104,15 +97,6 @@
         <div class="review-title">
           <h3>レビュー一覧(<%= @park.reviews.count %>)</h3>  
         </div>
-        <!--バリデーションのエラーメッセージ-->
-        <% if @review.errors.any? %>
-          <%= @review.errors.count %>件のエラーが発生しました
-          <ul>
-            <% @review.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        <% end %>
         
         <div class="review-content">
           <% @park.reviews.each do |review| %>

@@ -4,14 +4,7 @@
     <section class="user">
       <div class="user-show">
         <!--バリデーションのエラーメッセージ-->
-        <% if @user.errors.any? %>
-        <%= @user.errors.count %>件のエラーが発生しました
-        <ul>
-          <% @user.errors.full_messages.each do |message| %>
-            <li><%= message %></li>
-          <% end %>
-        </ul>
-        <% end %>
+        <%= render 'layouts/error_messages', model: @user %>
         
         <!--編集フォーム-->
         <%= form_with model: @user,url:info_path(@user), local:true, method: :patch do |f| %>
