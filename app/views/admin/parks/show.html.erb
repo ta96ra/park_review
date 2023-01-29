@@ -10,7 +10,7 @@
           <% if @park.status %>
             <span>有効</span>
           <% else %>
-            <span>無効</span>
+            <span class="false">無効</span>
           <% end %>
           <div id="average-raty"></div>
           <p>評価：<strong><%= @park.average_evaluation %></strong>( <%= @park.reviews.count %>件)</p>

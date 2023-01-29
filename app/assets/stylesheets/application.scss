@@ -1353,6 +1353,9 @@ main{
               border-radius: 5px;
               // outline: 2px solid green;
             }
+            .false{
+              background: pink;  
+            }
             #average-raty{
               display: flex;
               justify-content: center;
@@ -1435,11 +1438,32 @@ main{
               p{
                 font-size: 1.125rem;
                 margin-right: 40px;
+                @include sp{
+                  margin-right: 0;  
+                }
               }
               .radios{
                 display: flex;
                 .radio{
-                  margin-right: 20px;  
+                  margin-left: 10px;
+                  input{
+                    position: absolute;
+                    width: 1px;
+                    height: 1px;
+                    opacity: 0;
+                    &:checked + label{
+                      background: pink;
+                    }
+                  }
+                  input + label{
+                    display: block;
+                    margin-right: 10px;
+                    padding: 5px;
+                    text-align: center;
+                    border: 1px solid $gray;
+                    border-radius: 5px;
+                    cursor: pointer;
+                  }
                 }
               }
             }
