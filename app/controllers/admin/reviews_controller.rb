@@ -7,7 +7,7 @@ class Admin::ReviewsController < ApplicationController
   def destroy
     @park = Park.find(params[:park_id])
     Review.find(params[:id]).destroy
-    @park.update(average_evaluation: @park.reviews.average(:evaluation).round(1))
+    @park.update(average_evaluation: @park.reviews.average(:evaluation).blank? ? 0 : @park.reviews.average(:evaluation).round(1))
     redirect_to request.referer
   end
 
