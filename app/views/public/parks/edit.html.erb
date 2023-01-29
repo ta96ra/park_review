@@ -58,10 +58,10 @@
                 <%= f.collection_check_boxes(:tag_ids, Tag.all, :id, :tag) do |tag| %>
                 <!--tag:ids : タグIDのリストを渡し、複数のタグをtweetに紐づける-->
                   <div class='form-check'>
-                      <%= tag.label do %>
-                        <%= tag.check_box %>
-                        <%= tag.text %>
-                      <% end %>
+                    <%= tag.label do %>
+                      <%= tag.check_box %>
+                      <%= tag.text %>
+                    <% end %>
                   </div>
                 <% end %>
               </div>

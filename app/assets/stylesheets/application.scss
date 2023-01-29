@@ -1117,39 +1117,44 @@ main{
             .tag-area{
               margin-bottom: 40px;
               // outline: 4px solid blue;
+              ul{
+                max-height: 600px;
+                overflow: scroll;
+                // outline: 2px solid red;
+                .destroy{
+                  position: relative;
+                  display: inline-block;
+                  width: 15px;
+                  height: 15px;
+                  border-radius: 50%;
+                  background: pink;
+                  box-shadow: 1px 1px $gray;
+                  &:active{
+                    transform: translate(1px,1px);
+                    box-shadow: none;
+                  }
+                  span{
+                    position: absolute;
+                    top: 6.5px;
+                    left: 2.5px;
+                    display: block;
+                    width: 10px;
+                    height: 2px;
+                    background: $white;
+                  }
+                  span:first-of-type{
+                    transform: rotate(-45deg);
+                  }
+                  span:last-of-type{
+                    transform: rotate(45deg);
+                  }
+                }
+              }
               input{
                 font-size: 1.125rem;  
               }
-              .destroy{
-                position: relative;
-                display: inline-block;
-                width: 15px;
-                height: 15px;
-                border-radius: 50%;
-                background: pink;
-                box-shadow: 1px 1px $gray;
-                &:active{
-                  transform: translate(1px,1px);
-                  box-shadow: none;
-                }
-                span{
-                  position: absolute;
-                  top: 6.5px;
-                  left: 2.5px;
-                  display: block;
-                  width: 10px;
-                  height: 2px;
-                  background: $white;
-                }
-                span:first-of-type{
-                  transform: rotate(-45deg);
-                }
-                span:last-of-type{
-                  transform: rotate(45deg);
-                }
-              }
               .submit-button{
-                margin-top: 10px;  
+                margin-top: 10px;
               }
               .sub-content{
                 form{
@@ -1218,6 +1223,12 @@ main{
               margin-bottom: 10px;  
             }
             .parks{
+              max-height: 1000px;
+              overflow: scroll;
+              // outline: 2px solid red;
+              @include sp{
+                max-height: none;
+              }
               li{
                 margin-bottom: 10px;
                 border: 1px solid $gray;
@@ -1261,6 +1272,9 @@ main{
                         padding: 3px;
                         background: $skyblue;
                         border-radius: 5px;
+                      }
+                      .false{
+                        background: pink;  
                       }
                     }
                     .avg-rate{
@@ -1491,29 +1505,6 @@ main{
                 flex-wrap: wrap;
                 margin-bottom: 20px;
                 // outline: 2px solid red;
-              //   .form-check{
-              //     margin-right: 5px;
-              //     margin-bottom: 5px;
-              //     outline: 2px solid blue;
-              //     label{
-              //       display: block;
-              //       // width: 200px;
-              //       height: 20px;
-              //       padding: 5px;
-              //       line-height: 20px;
-              //       text-align: center;
-              //       cursor: pointer;
-              //       // outline: 4px solid orange;
-              //       input[type='checkbox']{
-              //         opacity: 0.2;
-              //         outline: 2px solid green;
-              //         &:checkd + label{
-              //           background: red;
-              //           color: red;
-              //         }
-              //       }
-              //     }
-              //   }
               }
             }
           }
@@ -1670,8 +1661,10 @@ main{
               margin-bottom: 10px;
               padding: 5px;
               border-radius: 10px 0 10px 0;
+              transition: .3s;
               &:hover{
-                background: $lightgray;
+                background: rgb(230,230,230);
+                transition: .3s;
               }
               a{
                 display: flex;
@@ -1710,6 +1703,12 @@ main{
                   display: flex;
                   p{
                     align-self: center;
+                    padding: 2px;
+                    background: $lightgreen;
+                    border-radius: 5px;
+                  }
+                  .false{
+                    background: pink;  
                   }
                 }
               }
@@ -1792,9 +1791,29 @@ main{
                   .radios{
                     display: flex;
                     justify-content: center;
-                    margin-bottom: 10px;
                     .radio{
-                      margin-right: 20px;
+                      width: 100%;
+                      max-width: 100px;
+                      margin-bottom: 10px;
+                      .radio-button{
+                        position: absolute;
+                        width: 1px;
+                        height: 1px;
+                        opacity: 0;
+                        &:checked + label{
+                          background: pink;
+                        }
+                      }
+                      .radio-button + label{
+                        display: block;
+                        margin-right: 10px;
+                        padding: 5px;
+                        color: $black;
+                        text-align: center;
+                        border: 1px solid $gray;
+                        border-radius: 10px;
+                        cursor: pointer;
+                      }
                     }
                   }
                   .radio-submit{

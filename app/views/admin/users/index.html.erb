@@ -3,7 +3,6 @@
         <h1>会員一覧</h1>
         <section id="admin-index">
             <div class="admin-index">
-                
                 <!--会員一覧-->
                 <ul>
                     <% @users.each do |user|%>
@@ -23,9 +22,9 @@
                         </div>
                         <div class="user-right">
                             <% if user.is_deleted %>
-                                <p>退会</p>
+                                <p class="false">退会</p>
                             <% else %>
-                                <P>有効</P>
+                                <p class="true">有効</p>
                             <% end %>
                         </div>
                         <% end %>
