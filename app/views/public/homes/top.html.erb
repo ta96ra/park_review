@@ -236,7 +236,7 @@ let parkCurrentIndex = 0;
    // ---------------------
    // 公園の５段階評価平均
    // ----------------------
-  <% @sorts.each do |park| %>
+  <% @sorts.first(3).each do |park| %>
   $('#average-raty<%= park.id %>').empty();
   {
     let opt = {  
@@ -253,6 +253,4 @@ let parkCurrentIndex = 0;
     raty(elem,opt);
   }
   <% end %>
-  
-  
 </script>
