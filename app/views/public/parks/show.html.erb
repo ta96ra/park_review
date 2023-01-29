@@ -20,61 +20,8 @@
           <%= link_to '公園を探す', parks_path,class:'link-button'  %>
         </div>
         
-        <!--ActionTextによる公園詳細-->
-        <div class="field">
-          <%= @park.detail %>
-        </div>
+        <%= render 'admin/parks/show', park: @park %>
         
-        <div class="basic-information">
-          <h2>基本情報</h2>
-          <!--住所-->
-          <p>所在地：<%= @park.address %></p>
-          <!--タグの表示-->
-          <div class="tag-area">
-            <% @park.tags.each do |tag| %>
-              <span class="tag"><%= tag.tag %></span>
-            <% end %>
-          </div>
-        </div>
-        
-        <!--Google Map API-->
-        <div class="map">
-          <div id="map"></div>
-        </div>
-        
-        <div type="text/javascript">
-          <script>        
-            function initMap() {
-    
-              var test = {lat: <%= @park.latitude %>, lng: <%= @park.longitude %>};
-              var map = new google.maps.Map(document.getElementById('map'), {
-                zoom: 15,
-                center: test
-              });
-              var transitLayer = new google.maps.TransitLayer();
-              transitLayer.setMap(map);
-          
-              var contentString = '住所：<%= @park.address %>';
-              var infowindow = new google.maps.InfoWindow({
-                content: contentString
-              });
-          
-              var marker = new google.maps.Marker({
-                position:test,
-                map: map,
-                title: contentString
-              });
-          
-              marker.addListener('click', function() {
-                infowindow.open(map, marker);
-              });
-            }
-          </script>
-          
-        <!--APIキーあり-->
-          <!--$('#map').empty();-->
-          <script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['SECRET_KEY'] %>&callback=initMap" async defer></script>
-        </div>
       </div>
       <!--レビュー一覧-->
       <div class="reviews">

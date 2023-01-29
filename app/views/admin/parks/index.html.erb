@@ -41,7 +41,7 @@
               <ul class="parks">
                 <% @parks.each do |park| %>
                 <li>
-                  <%= link_to admin_park_path(park.id) do %>
+                  <%= link_to admin_park_path(park.id),data: {"turbolinks"=>false} do %>
                     <div class="left">
                       <% if park.park_image.attached? %>
                         <%= image_tag park.park_image %>
