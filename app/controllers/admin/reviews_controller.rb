@@ -1,5 +1,10 @@
 class Admin::ReviewsController < ApplicationController
-   def destroy
+  
+  def index
+    @reviews = Review.all.order(id: "DESC")
+  end
+  
+  def destroy
     @park = Park.find(params[:park_id])
     Review.find(params[:id]).destroy
     @park.update(average_evaluation: @park.reviews.average(:evaluation).round(1))

@@ -13,7 +13,7 @@ class Admin::ParksController < ApplicationController
       end
       @parks.uniq! #uniq = 重複を取り除く
     end 
-    # タグの複数検索(2つのみ)
+    # タグの複数検索(2つのみX)
     # if params[:tag_ids]
     #   @parks = []
     #   params[:tag_ids].each do |key, value|
@@ -41,13 +41,6 @@ class Admin::ParksController < ApplicationController
     if @park.update(park_params)
       flash[:notice] = "公園情報を更新しました"
       redirect_to admin_park_path(@park.id)
-      
-      # 公園の表示設定のフラッシュメッセージ（不要かも）
-      # if params[:park][:status] == "false"
-      #   flash[:notice] = "公園非表示に設定いたしました"
-      # else
-      #   flash[:notice] = "公園表示を有効にしました"
-      # end
     else
       @review = Review.new
       render "admin/parks/edit"

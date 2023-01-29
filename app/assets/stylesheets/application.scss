@@ -809,16 +809,25 @@ main{
                   position: relative;
                   box-shadow: 5px 5px 10px $gray;
                   transition: .3s;
+                  overflow: hidden;
                   // outline: 2px solid red;
                   &:hover{
                     opacity: .7;
                     transition: .3s;
                   }
                   img{
+                    display: block;
                     height: 214px;
                     object-fit: cover;
                     object-position: center;
+                    over-flow: hidden;
+                    transform: none;
+                    transition: .3s;
                     // outline: 4px solid blue;
+                    &:hover{
+                      transform: scale(1.1);
+                      transition: .3s;
+                    }
                     @include tab{
                       height: 20vw;
                     }
@@ -1655,32 +1664,60 @@ main{
       // 会員一覧
       #admin-index{
         .admin-index{
-          table{
-            width: 100%;
-            background: $white;
-            border-collapse: collapse;
-            border-color: black; 
-            th{
-              padding: 10px;
-              border: 1px solid $gray;
-              background: pink;
-            }
-            tr{
-              margin-bottom: 20px;
-              border: 1px solid $gray;
-              border-radius: 10px;
-              
-              td{
-                text-align: center;
-                border: 1px solid $gray;
-                img{
-                  width: 50px;  
-                }         
+          ul{
+            li{
+              background: $white;
+              margin-bottom: 10px;
+              padding: 5px;
+              border-radius: 10px 0 10px 0;
+              &:hover{
+                background: $lightgray;
               }
-            }           
+              a{
+                display: flex;
+                justify-content: space-between;
+                .user-left{
+                  display: flex;
+                  p{
+                    align-self: center;
+                    @include sp{
+                      display: none;
+                    }
+                  }
+                  img{
+                    width: 50px;
+                    @include sp{
+                      width: 30px;  
+                    }
+                  }
+                  
+                }
+                .user-center{
+                  display: flex;
+                  align-self: center;
+                  @include sp{
+                    flex-direction: column;  
+                  }
+                  p{
+                    margin-right: 10px;
+                    word-wrap: break-word;
+                    @include sp{
+                      margin-right: 0;  
+                    }
+                  }
+                }
+                .user-right{
+                  display: flex;
+                  p{
+                    align-self: center;
+                  }
+                }
+              }
+            }  
           }
         }
       }
+      // 会員詳細
       #admin-show{
         .admin-show{
           h2{
@@ -1808,6 +1845,96 @@ main{
                 }  
               }
             }  
+          }
+        }
+      }
+      //レビュー一覧
+      #review-index{
+        // outline: 2px solid red;
+        .review-index{
+          // outline: 2px solid blue;
+          ul{
+            li{
+              display: flex;
+              background: $white;
+              margin-bottom: 10px;
+              padding: 5px;
+              border-radius: 10px 0 10px 0;
+              .review-left{
+                display: flex;
+                justify-content: space-around;
+                width: 20%;
+                // outline: 2px solid brown;
+                @include tab{
+                  width: 30%;  
+                }
+                p{
+                  align-self: center;
+                  @include sp{
+                    display: none;  
+                  }
+                }
+                .user{
+                  align-self: center;
+                  width: 100%;
+                  .user-image{
+                    display: flex;
+                    justify-content: center;
+                    // outline: 2px solid blue;
+                    img{
+                      width: 50px;
+                      height: 50px;
+                      // outline: 2px solid red;
+                    }
+                  }
+                  a{
+                    display: block;
+                    word-wrap: break-word;
+                    text-align: center;
+                    // outline: 2px solid red;
+                  }
+                }
+              }
+              .review-right{
+                width: 80%;
+                // outline: 2px solid green;
+                @include tab{
+                  width: 70%;  
+                }
+                .review-top{
+                  display: flex;
+                  flex-wrap: wrap;
+                  @include sp{
+                  // flex-direction: column;  
+                  }
+                  a{
+                    display: block;
+                    margin-right: 20px;
+                  }
+                  .raty{
+                    display: flex;
+                    align-self: center;
+                    // outline: 2px solid green;
+                    @include sp{
+                      align-self: flex-start;
+                    }
+                    img{
+                      width: 16px;
+                      height: 16px;
+                    }
+                  } 
+                }
+                .bottom{
+                  display: flex;
+                  justify-content: flex-end;
+                  // outline: 2px solid blue;
+                  p{
+                    align-self: center;
+                    margin-right: 20px;
+                  }
+                }
+              }
+            }
           }
         }
       }

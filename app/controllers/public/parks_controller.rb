@@ -13,7 +13,7 @@ class Public::ParksController < ApplicationController
       end
       @parks.uniq!  #uniq = 重複を取り除く
     end 
-    # タグの複数検索(2つのみ)
+    # タグの複数検索(2つのみX)
     # if params[:tag_ids]
     #   @parks = []
     #   params[:tag_ids].each do |key, value|

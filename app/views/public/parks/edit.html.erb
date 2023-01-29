@@ -75,13 +75,13 @@
       <!--レビュー一覧-->
       <div class="reviews">
         <div class="review-title">
-          <h3>レビュー一覧(<%= @park.reviews.count %>)</h3>  
+          <h3>レビュー一覧(<%= @park.reviews.count %>)</h3> 
         </div>
         
-        <!--バリデーションのエラーメッセージ-->
-         <%= render 'layouts/error_messages', model: @review %>         
-        
         <div class="review-content">
+          <!--バリデーションのエラーメッセージ-->
+          <%= render 'layouts/error_messages', model: @review %>
+          
           <% @park.reviews.each do |review| %>
             <div class="user-space">
               <div class="user-status">

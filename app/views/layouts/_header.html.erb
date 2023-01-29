@@ -57,6 +57,12 @@
           <% end %>
         </li>
         <li>
+          <%= link_to admin_reviews_path do %>
+            <div class="circle-btn"></div>
+            <p>レビュー</p>
+          <% end %>
+        </li>
+        <li>
           <%= link_to destroy_admin_session_path, method: :delete do %>
             <div class="circle-btn"></div>
             <p>ログアウト</p>
@@ -122,7 +128,10 @@
           <%= link_to "会員一覧", admin_users_path %>
         </li>
         <li>
-          <%= link_to "公園を探す", admin_parks_path %>
+          <%= link_to "公園一覧", admin_parks_path %>
+        </li>
+        <li>
+          <%= link_to "レビュー一覧", admin_reviews_path %>
         </li>
         <li>
           <%= link_to "ログアウト", destroy_admin_session_path, method: :delete %>

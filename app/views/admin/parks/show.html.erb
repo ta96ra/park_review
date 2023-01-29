@@ -4,11 +4,6 @@
     <h1><%= @park.park %></h1>
     <section class="user-park">
       <div class="user-park-show">
-      
-         <!--公園情報更新のフラッシュメッセージ-->
-        <!--<%#= flash[:notice] %>-->
-        <!--公園ステータスのフラッシュメッセージ-->
-        <!--<%#= flash[:park_notice] %>-->
         
             <!--5段階評価平均-->
         <div class="average-rate">
@@ -90,6 +85,10 @@
       <div class="reviews">
         <div class="review-title">
           <h2>レビュー一覧(<%= @park.reviews.count %>)</h2>
+          <%= link_to edit_admin_park_path(anchor: 'reviews'),class:'link-button' do %>
+            <i class="bi bi-trash3"></i>
+            <span>レビューを削除する</span>
+          <% end %>
         </div>
         <div class="review-content">
           <% @park.reviews.each do |review| %>
@@ -100,7 +99,11 @@
               <% else %>
                 <%= image_tag 'no_image.jpg' %>
               <% end %>
-              <p><%= review.user.nickname %></p>
+              <p>
+                <%= link_to admin_user_path(review.user) do %>
+                  <%= review.user.nickname %>
+                <% end %>
+              </p>
             </div>
             <div class="user-review">
               <div class="voice">

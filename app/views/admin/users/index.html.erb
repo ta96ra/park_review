@@ -5,40 +5,33 @@
             <div class="admin-index">
                 
                 <!--会員一覧-->
-                <table>
-                    <thead>
-                        <tr>
-                            <th>会員ID</th>
-                            <th>写真</th>
-                            <th>ニックネーム</th>
-                            <th>Email</th>
-                            <th>ステータス</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <% @users.each do |user|%>
-                        <tr>
-                            <td><%= user.id %></td>
-                            <td>
-                                <% if user.user_image.attached? %>
-                                    <%= image_tag user.user_image %>
-                                <% else %>
-                                    <%= image_tag 'no_image.jpg' %>
-                                <% end %>
-                            </td>
-                            <td><%= link_to user.nickname,admin_user_path(user)  %></td>
-                            <td><%= user.email %></td>
-                            <td>
-                                <% if user.is_deleted %>
-                                    <p>退会</p>
-                                <% else %>
-                                    <P>有効</P>
-                                <% end %>
-                            </td>
-                        </tr>
-                        <% end %>                 
-                    </tbody>    
-                </table>
+                <ul>
+                    <% @users.each do |user|%>
+                    <li>
+                        <%= link_to admin_user_path(user) do %>
+                        <div class="user-left">
+                            <p><%= user.id %></p>
+                            <% if user.user_image.attached? %>
+                                <%= image_tag user.user_image %>
+                            <% else %>
+                                <%= image_tag 'no_image.jpg' %>
+                            <% end %>
+                        </div>
+                        <div class="user-center">
+                            <p><%= user.nickname %><p>
+                            <p><%= user.email %><p>
+                        </div>
+                        <div class="user-right">
+                            <% if user.is_deleted %>
+                                <p>退会</p>
+                            <% else %>
+                                <P>有効</P>
+                            <% end %>
+                        </div>
+                        <% end %>
+                    </li>
+                    <% end %> 
+                </ul>
             </div>
         </section>
     </div>

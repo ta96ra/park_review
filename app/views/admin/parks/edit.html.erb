@@ -86,7 +86,7 @@
               <% end %>
             </div>
           </div>
-          <div class="update">
+          <div class="update" id="reviews">
             <%= f.submit '更新する',class:'submit-button' %>
           </div>
         <% end %>
@@ -98,6 +98,7 @@
           <h3>レビュー一覧(<%= @park.reviews.count %>)</h3>  
         </div>
         
+       
         <div class="review-content">
           <% @park.reviews.each do |review| %>
             <div class="user-space">
@@ -107,7 +108,11 @@
                 <% else %>
                   <%= image_tag 'no_image.jpg' %>
                 <% end %>
-                <p><%= review.user.nickname %></p>
+                <p>
+                  <%= link_to admin_user_path(review.user) do %>
+                    <%= review.user.nickname %>
+                  <% end %>
+                </p>
               </div>
               <div class="user-review">
                 <div class="voice">
@@ -135,7 +140,6 @@
             </div>
             <%= f.submit '送信する', disabled: true,class:'submit-button'%>
           <% end %>
-          
         </div>
       </div>
     </section>

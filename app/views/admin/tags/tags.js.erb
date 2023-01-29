@@ -1,0 +1,4 @@
+<!--id="tag_areaにをrenderで指定した部分テンプレートに更新-->
+$("#tag-area").html("<%= j(render 'admin/tags/tag', park: @park) %>");
+<!--フォームを送信したあとにフォームの値を空にします-->
+$(".tag-text").val('');

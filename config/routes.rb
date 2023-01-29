@@ -60,6 +60,9 @@ Rails.application.routes.draw do
       resources :reviews,only:[:create, :destroy] 
     end
     
+    # レビュー一覧
+    resources :reviews,only:[:index]
+    
     #タグの追加、削除機
     resources :tags,only: [:create,:destroy]
     

@@ -1,0 +1,62 @@
+<div class="contents">
+  <div class="wrapper">
+    <h1>レビュー一覧</h1>
+    <section id="review-index">
+      <div class="review-index">
+        <ul>
+          <% @reviews.each do |review| %>
+          <li>
+            <div class="review-left">
+              <p><%= review.id %></p>
+              <div class="user">
+                <div class="user-image">
+                  <% if review.user.user_image.attached? %>
+                    <%= image_tag review.user.user_image %>
+                  <% else %>
+                    <%= image_tag 'no_image.jpg' %>
+                  <% end %>
+                </div>
+                <%= link_to review.user.nickname, admin_user_path(review.user) %>
+              </div>
+            </div>
+            <div class="review-right">
+              <div class="review-top">
+                <%= link_to admin_park_path(review.park.id) do %>
+                  <h3><%= review.park.park %></h3>
+                <% end %>
+                <!--５段階評価表示-->
+                <div class="raty" id="post_raty<%= review.id %>"></div>
+              </div>
+              <p class="text"><%= review.review %></p>
+              <div class="bottom">
+                <p><%= review.created_at.strftime('%Y/%m/%d') %></p>
+                <%= link_to "削除", admin_park_review_path(review.park, review), method: :delete,class:'link-button' %>
+              </div>
+            </div>
+          </li>
+          <% end %>
+        </ul>
+      </div>
+    </section>
+  </div>
+</div>
+
+<script>
+  // コメントの５段階評価表示
+  <% @reviews.each do |review| %>
+  $('#post_raty<%= review.id %>').empty();
+  {
+    let elem = document.querySelector('#post_raty<%= review.id %>');
+    let opt = {  
+    //星画像の指定などのオプションをここに記述,
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      readOnly: true,
+      score: <%= review.evaluation || 0 %>
+    };
+    raty(elem,opt);
+  }
+  // scriptファイルをどのidの部分に配置するかを指定
+  <% end %>
+</script>

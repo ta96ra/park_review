@@ -2,15 +2,15 @@
   <div class="wrapper">
     <h1>公園一覧</h1>
     <section id="user-park-index">
+    
       <!--新規登録のフラッシュメッセージ-->
-        <!--<%= flash[:park_notice] %>-->
+        <!--<%#= flash[:park_notice] %>-->
         
         <!--バリデーションのエラーメッセージ-->
-        <!--<%#= render 'layouts/error_messages', model: @park %>-->
-
+  
+      <!--<%#= render 'layouts/error_messages', model: @park %>-->
       <div class="user-park-index">
         <div class="parks-sidebar">
-          
           <!--キーワード検索-->
           <div class="search-form">
             <h2>キーワード検索</h2>
@@ -22,32 +22,35 @@
             </div>
           </div>
           
-          <!--複数タグ検索-->
-          <div class="tag-area">
-          <h2>絞り込み検索</h2>
-            <div class="sub-content">
-              <%= form_with model: @park,url: admin_parks_path, method: :get do %>
-                <ul>
-                  <% Tag.all.each do |tag| %>
-                    <li>
-                      <%= check_box :tag_ids, tag.tag %><%= tag.tag %>
-                      <%= link_to admin_tag_path(tag.id),method: :delete, class:'destroy' do %>
-                        <span></span>
-                        <span></span>
-                      <% end %>
-                    </li>
-                  <% end %>
-                </ul>
-                <%= submit_tag '絞り込み', class:'submit-button' %>
-              <% end %>
+          <!--タグ検索-->
+        <div id="tag-area">
+          <%= render 'admin/tags/tag',park: @park %>
+        </div>  
+        <!--  <div class="tag-area">-->
+        <!--  <h2>絞り込み検索</h2>-->
+        <!--    <div class="sub-content">-->
+        <!--      <%#= form_with model: @park,url: admin_parks_path, method: :get do %>-->
+        <!--        <ul>-->
+        <!--          <%# Tag.all.each do |tag| %>-->
+        <!--            <li>-->
+        <!--              <%#= check_box :tag_ids, tag.tag %><%#= tag.tag %>-->
+        <!--              <%#= link_to admin_tag_path(tag.id),method: :delete, class:'destroy' do %>-->
+        <!--                <span></span>-->
+        <!--                <span></span>-->
+        <!--              <%# end %>-->
+        <!--            </li>-->
+        <!--          <%# end %>-->
+        <!--        </ul>-->
+        <!--        <%#= submit_tag '絞り込み', class:'submit-button' %>-->
+        <!--      <%# end %>-->
               <!--タグの追加-->
-              <%= form_with url:  admin_tags_path do |f| %>
-                <%= f.text_field :tag %>
-                <%= f.submit "タグを追加",class:'submit-button' %>
-              <% end %>
-            </div>
-          </div>
-        </div>
+        <!--      <%#= form_with url:  admin_tags_path do |f| %>-->
+        <!--        <%#= f.text_field :tag %>-->
+        <!--        <%#= f.submit "タグを追加",class:'submit-button' %>-->
+        <!--      <%# end %>-->
+        <!--    </div>-->
+        <!--  </div>-->
+        <!--</div>-->
         
         <!--公園一覧-->
         <div class="parks-list">      
