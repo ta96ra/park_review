@@ -61,7 +61,7 @@ class Public::ParksController < ApplicationController
   
   #キーワード検索
   def search
-    @parks = Park.search(params[:keyword])
+    @parks = Park.where(status:true).search(params[:keyword])
     @keyword = params[:keyword]
     @park = Park.new
     render "index" 
