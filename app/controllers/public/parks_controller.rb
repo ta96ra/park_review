@@ -32,7 +32,7 @@ class Public::ParksController < ApplicationController
       flash[:notice] = "公園を新規登録しました"
       redirect_to parks_path
     else
-      @parks = Park.all
+      @parks = Park.where(status:true).all
       render :index
     end     
   end  
