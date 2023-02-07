@@ -1,0 +1,32 @@
+<script>
+  // コメント投稿フォームの５段階評価
+  {
+    let opt = {  
+    //星画像の指定などのオプションをここに記述,
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    scoreName: 'review[evaluation]'
+    };
+    let elem = document.querySelector('#post_raty');
+    raty(elem,opt);
+  }
+  
+  // コメントの５段階評価表示
+  <% @park.reviews.each do |review| %>
+  {
+    let elem = document.querySelector('#post_raty<%= review.id %>');
+    let opt = {  
+    //星画像の指定などのオプションをここに記述,
+      starOn: "<%= asset_path('star-on.png') %>",
+      starOff: "<%= asset_path('star-off.png') %>",
+      starHalf: "<%= asset_path('star-half.png') %>",
+      readOnly: true,
+      score: <%= review.evaluation || 0 %>
+    };
+    raty(elem,opt);
+  }
+  // scriptファイルをどのidの部分に配置するかを指定
+  <% end %>
+
+</script>

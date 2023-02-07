@@ -39,7 +39,7 @@ class Public::ParksController < ApplicationController
 
   def show
     @park = Park.find(params[:id])
-    @reviews = Review.all
+    # @reviews = Review.all
   end
 
   def edit
@@ -71,9 +71,9 @@ class Public::ParksController < ApplicationController
   #並べ替え
   def sort
     if params[:new]
-      @parks = Park.where(status:true).all.order(id: "DESC")
+      @parks = Park.where(status:true).all.order(created_at: "DESC")
     elsif params[:old]
-      @parks = Park.where(status:true).all.order(id: "ASC")
+      @parks = Park.where(status:true).all.order(created_at: "ASC")
     elsif params[:raty]
       @parks = Park.where(status:true).all.order(average_evaluation: "DESC")
     end  
@@ -96,10 +96,6 @@ class Public::ParksController < ApplicationController
     params.require(:park).permit(:user_id, :prefecture_id, :park, :address, :longitude, :latitude, :detail, :status, :average_evaluation, :park_image, tag_ids: [])  
   end
   
-  ##複数画像に対応
-  # def park_params
-  #   params.require(:park).permit(:user_id, :prefecture_id, :park, :address, :longitude, :latitude, :detail, :status, :average_evaluation, :park_images[], tag_ids: [])  
-  # end
   
   def ensure_guest_user
     @user = User.find(params[:id])

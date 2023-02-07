@@ -22,7 +22,6 @@
       <div class="park-container">
         <ul id="park-contents">
           <% @parks.last(7).reverse.each_with_index do |park,i| %>
-          <!--<li data-index="<%#= i %>">-->
           <li>
             <%= link_to park_path(park.id), data: { 'turbolinks': false } do %>
               <div class="park-image">
@@ -238,19 +237,9 @@ let parkCurrentIndex = 0;
    // ----------------------
   <% @sorts.first(3).each do |park| %>
   $('#average-raty<%= park.id %>').empty();
-  {
-    let opt = {  
-      //星画像の指定などのオプションをここに記述,
-      starOn: "<%= asset_path('star-on.png') %>",
-      starOff: "<%= asset_path('star-off.png') %>",
-      starHalf: "<%= asset_path('star-half.png') %>",
-      half: true,
-      readOnly: true,
-      scoreName: 'park[average_evaluation]',
-      score: <%= park.average_evaluation || 0 %>,
-    };
-    let elem = document.querySelector('#average-raty<%= park.id %>');
-    raty(elem,opt);
-  }
+  
+    // ratyの詳細設定
+    <%= render 'admin/parks/average_raties',park: park %>
+  
   <% end %>
 </script>

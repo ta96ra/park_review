@@ -28,7 +28,7 @@ class Admin::ParksController < ApplicationController
   def show
     @park = Park.find(params[:id])
     # @parks = Park.all
-    @reviews = Review.all
+    # @reviews = Review.all
   end
 
   def edit
@@ -59,9 +59,9 @@ class Admin::ParksController < ApplicationController
   #並べ替え
   def sort
     if params[:new]
-      @parks = Park.all.order(id: "DESC")
+      @parks = Park.all.order(created_at: "DESC")
     elsif params[:old]
-      @parks = Park.all.order(id: "ASC")
+      @parks = Park.all.order(created_at: "ASC")
     elsif params[:raty]
       @parks = Park.all.order(average_evaluation: "DESC")
     end
@@ -81,6 +81,5 @@ class Admin::ParksController < ApplicationController
   #ストロングパラメーター
   def park_params
     params.require(:park).permit(:user_id, :prefecture_id, :park, :address, :longitude, :latitude, :detail, :status, :average_evaluation, :park_image, tag_ids: [])
-    # params.require(:tag).permit(:tag)
   end
 end

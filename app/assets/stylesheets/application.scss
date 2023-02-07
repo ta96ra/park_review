@@ -1561,6 +1561,7 @@ main{
           }
           .review-content{
             margin-bottom: 40px;
+            // outline: 2px solid red;
             .user-space{
               display: flex;
               margin-bottom: 20px;
@@ -1626,6 +1627,10 @@ main{
                 }
               }
             }
+          }
+          .admin-review-submit{
+            display: none;
+            // outline: 4px solid green;  
           }
           .review-submit{
             display: flex;

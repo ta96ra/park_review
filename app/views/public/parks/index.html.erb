@@ -57,7 +57,7 @@
               <ul class="sort">
                 <li><%= link_to '新着順',sort_path(new: 'true') %></li>
                 <li><%= link_to '古い順',sort_path(old: 'true') %></li>
-                <li><%= link_to 'レート順',sort_path(raty: 'true') %></li>
+                <li><%= link_to '評価の高い順',sort_path(raty: 'true') %></li>
               </ul>
               <p>(全<%= @parks.count %>件)</p>
               <ul class="parks">
@@ -106,20 +106,10 @@
   // 公園の５段階評価平均
   <% @parks.each do |park| %>
   $('#average-raty<%= park.id %>').empty();
-  {
-    let opt = {  
-      //星画像の指定などのオプションをここに記述,
-      starOn: "<%= asset_path('star-on.png') %>",
-      starOff: "<%= asset_path('star-off.png') %>",
-      starHalf: "<%= asset_path('star-half.png') %>",
-      half: true,
-      readOnly: true,
-      scoreName: 'park[average_evaluation]',
-      score: <%= park.average_evaluation || 0 %>,
-    };
-    let elem = document.querySelector('#average-raty<%= park.id %>');
-    raty(elem,opt);
-  }
+  
+    // ratyの詳細設定
+    <%= render 'admin/parks/average_raties',park: park %>
+ 
   <% end %>
 </script>
 

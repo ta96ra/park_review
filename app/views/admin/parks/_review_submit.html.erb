@@ -1,0 +1,12 @@
+<div class="review-submit">
+  <%= form_with model: [park,review] do |f| %>
+    <div class="form-content">
+      <%= f.text_area :review, rows: '5', placeholder: "レビューをここに" %>
+      <div class="review-raty">
+        <p>評価を選択</p>
+        <div id="post_raty"></div>
+      </div>
+    </div>
+    <%= f.submit '送信する',class:'submit-button'%>
+  <% end %>
+</div>

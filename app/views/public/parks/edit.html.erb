@@ -16,12 +16,7 @@
         
         
         <!--ActionTextによる公園詳細の編集-->
-        <h2>詳細情報</h2>
-        <div class="field">
-          <div class="trix-content">
-            <%= f.rich_text_area :detail %>  
-          </div> 
-        </div>
+        <%= render 'admin/parks/edit_detail',f: f %>
         
         <div class="basic-information">
           <h2>基本情報</h2>
@@ -104,74 +99,15 @@
                   </p>
                 </div>
               </div>
-            
             </div>
           <% end %>
         </div>
-        <div class="review-submit">
-          <%= form_with model: [@park, @review] do |f| %>
-            <div class="form-content">
-              <%= f.text_area :review, rows: '5', placeholder: "レビューをここに" %>
-              <div class="review-raty">
-                <p>評価を選択</p>
-                <div id="post_raty"></div>
-              </div>
-            </div>
-            <%= f.submit '送信する',class:'submit-button' %>
-          <% end %>
-        </div>
+        <!--レビュー送信フォーム-->
+        <%= render 'admin/parks/review_submit',{park: @park,review: @review} %>
       </div>
     </section>
   </div>
 </div>
 
-<script>
-  // コメント投稿フォームの５段階評価
-  {
-    let opt = {  
-    //星画像の指定などのオプションをここに記述,
-    starOn: "<%= asset_path('star-on.png') %>",
-    starOff: "<%= asset_path('star-off.png') %>",
-    starHalf: "<%= asset_path('star-half.png') %>",
-    scoreName: 'review[evaluation]'
-    };
-    let elem = document.querySelector('#post_raty');
-    raty(elem,opt);
-  }
-  
-  // コメントの５段階評価表示
-  <% @park.reviews.each do |review| %>
-  <%# p review%>
-  {
-    let elem = document.querySelector('#post_raty<%= review.id %>');
-    let opt = {  
-    //星画像の指定などのオプションをここに記述,
-      starOn: "<%= asset_path('star-on.png') %>",
-      starOff: "<%= asset_path('star-off.png') %>",
-      starHalf: "<%= asset_path('star-half.png') %>",
-      readOnly: true,
-      score: <%= review.evaluation || 0 %>
-    };
-    raty(elem,opt);
-  }
-  // scriptファイルをどのidの部分に配置するかを指定
-  <% end %>
-  
-  
-  // 公園の５段階評価平均
-  // {
-  //   let opt = {  
-  //     //星画像の指定などのオプションをここに記述,
-  //     starOn: "<%#= asset_path('star-on.png') %>",
-  //     starOff: "<#%= asset_path('star-off.png') %>",
-  //     starHalf: "<%#= asset_path('star-half.png') %>",
-  //     half: true,
-  //     readOnly: true,
-  //     scoreName: 'park[average_evaluation]',
-  //     score: <%#= @park.average_evaluation || 0 %>,
-  //   };
-  //   let elem = document.querySelector('#average-raty');
-  //   raty(elem,opt);
-  // }
-
-</script>
+<!--Raty.jsの記述-->
+<%= render 'admin/parks/edit_raty',park: @park %>

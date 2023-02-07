@@ -1,0 +1,14 @@
+{
+  let opt = {  
+    //星画像の指定などのオプションをここに記述,
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    half: true,
+    readOnly: true,
+    scoreName: 'park[average_evaluation]',
+    score: <%= park.average_evaluation || 0 %>,
+  };
+  let elem = document.querySelector('#average-raty<%= park.id %>');
+  raty(elem,opt);
+}
