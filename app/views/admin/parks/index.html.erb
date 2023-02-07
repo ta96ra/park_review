@@ -35,7 +35,7 @@
               <ul class="sort">
                 <li><%= link_to '新着順',admin_sort_path(new: 'true') %></li>
                 <li><%= link_to '古い順',admin_sort_path(old: 'true') %></li>
-                <li><%= link_to '評価の順',admin_sort_path(raty: 'true') %></li>
+                <li><%= link_to '評価の高い順',admin_sort_path(raty: 'true') %></li>
               </ul>
               <p>(全<%= @parks.count %>件)</p>
               <ul class="parks">
